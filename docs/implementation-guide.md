@@ -84,6 +84,30 @@ The active reference implementation lives in `src/fusion/` and is exported via
 | `src/fusion/otoi_orchestrator.py` | `OTOIOrchestrator`, `AgentInfo`, `HandoffContext`, `CollaborationContext` | `dispatch()` requires the target agent to be registered, active, and have an instance registered, otherwise raises `ValueError`. Provenance entries are appended on dispatch/complete when enabled. |
 | `src/fusion/privacy_guardian.py` | `PrivacyGuardian`, `PrivacyPolicy`, `DataCategory`, `ProcessingLocation` | `can_process()` enforces local-only processing for `personal`, `cognitive`, and `behavioral` data categories. `can_share()` always blocks `personal` and `cognitive` external sharing. |
 
+### Python Public Interface Quick Reference
+
+Use these import boundaries to avoid drift between docs and runtime behavior:
+
+| Import path | Interfaces guaranteed by `__all__` export | Notes |
+| --- | --- | --- |
+| `from src.fusion import ...` | `TOIParser`, `TOIPreferences`, `OTOIOrchestrator`, `CollaborationContext`, `PrivacyGuardian`, `PrivacyPolicy` | Stable top-level surface for most integrations. |
+| `from src.fusion.otoi_orchestrator import ...` | `AgentInfo`, `AgentCapability`, `HandoffContext`, `OrchestratorConfig`, related enums/protocols | Required when you need orchestrator internals not re-exported by `src/fusion/__init__.py`. |
+| `from src.fusion.privacy_guardian import ...` | `DataCategory`, `ProcessingLocation`, `PrivacyLevel`, `DataItem`, `PrivacyViolation` | Use for policy checks, category tagging, and privacy diagnostics. |
+
+### Local Python Setup (Minimal Reproducible Environment)
+
+From repository root:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install jsonschema
+```
+
+If you prefer not to use a virtual environment, the examples still work as long
+as `jsonschema` is installed in your active interpreter environment.
+
 ### Minimal End-to-End Python Flow
 
 ```python
@@ -141,6 +165,19 @@ async def run() -> None:
 asyncio.run(run())
 ```
 
+### Source-Verified Runtime Constraints (Not Obvious from Signatures)
+
+- `TOIParser.parse_file()` currently supports JSON only (`json.load`), not YAML.
+- `OTOIOrchestrator.register_agent()` stores agent metadata/instance but does not
+  call `initialize()` automatically.
+- `OTOIOrchestrator.create_collaboration()` does not validate that `agent_ids`
+  are currently registered; validate agent IDs before creating the context.
+- `OTOIOrchestrator.log_interaction()` is a no-op when `collaboration_id` is
+  unknown (no exception is raised).
+- `OTOIOrchestrator.select_agents()` currently ignores `user_input` semantics and
+  selects by active status, optional capability filter, delegation comfort, and
+  coordination mode.
+
 ## Tooling Runbook (`nlt-otoi/tools`)
 
 ### `toi-validator.py`
@@ -185,6 +222,9 @@ Behavioral constraints:
 | `Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | Validator default schema target missing in this tree | Re-run with `--schema` and an existing schema file |
 | `ValueError: No instance registered for agent '<id>'` | Agent metadata was registered without an `agent_instance` | Pass `agent_instance=...` in `register_agent()` |
 | `ValueError: Agent '<id>' is not active` | Agent exists but `is_active` is false | Reactivate or register a different active agent |
+| Collaboration logs missing expected decisions | `log_interaction()` received an unknown `collaboration_id` and no-op'd | Reuse the exact ID returned by `create_collaboration()` and assert it exists before logging |
+| Agent never initializes resources after registration | `register_agent()` does not invoke lifecycle hooks | Explicitly call `await agent.initialize()` in application bootstrap before dispatch |
+| `JSONDecodeError` while parsing `.yaml` TOI file | `TOIParser.parse_file()` expects JSON text | Convert to JSON first or load YAML yourself and call `TOIParser.parse()` |
 | `can_share(...)` always false for personal/cognitive data | `PrivacyGuardian` hard-blocks those categories | Share only non-sensitive categories with explicit policy alignment |
 
 ### Validation
