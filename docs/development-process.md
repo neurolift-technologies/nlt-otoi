@@ -92,13 +92,13 @@ and `index.html`, so drift can occur if one file is updated without the other.
 Validate JSON syntax:
 
 ```bash
-python -m json.tool agent-solidarity-kit.json > /dev/null
+python3 -m json.tool agent-solidarity-kit.json > /dev/null
 ```
 
 Check that key metadata appears in the landing page:
 
 ```bash
-python - <<'PY'
+python3 - <<'PY'
 import json
 from pathlib import Path
 
