@@ -95,7 +95,8 @@ Validate JSON syntax:
 python3 -m json.tool agent-solidarity-kit.json > /dev/null
 ```
 
-Check that key metadata appears in the landing page:
+Check that key metadata, architecture labels, and principle pills appear in the
+landing page:
 
 ```bash
 python3 - <<'PY'
@@ -109,12 +110,35 @@ checks = [
     ("kit version", kit["version"]),
     ("default model name", kit["model"]["name"]),
     ("default model parameters", kit["model"]["parameters"]),
+    ("default model license", kit["model"]["license"]),
+    ("OTOI governance version", kit["governance"]["otoi_version"]),
 ]
 
-missing = [name for name, value in checks if value not in html]
+architecture_checks = [
+    (f"architecture component: {component['name']}", component["name"])
+    for component in kit["architecture"]["components"]
+] + [
+    (f"architecture layer: {component['layer']}", component["layer"].title())
+    for component in kit["architecture"]["components"]
+]
+
+principle_labels = [
+    ("principle pill: Privacy First", "Privacy First"),
+    ("principle pill: Agency Preservation", "Agency Preservation"),
+    ("principle pill: Transparency", "Transparency"),
+    ("principle pill: Neurodivergent-Centered", "Neurodivergent-Centered"),
+    ("principle pill: Escalation Culture", "Escalation Culture"),
+    ("principle pill: Minimal Footprint", "Minimal Footprint"),
+]
+
+missing = [
+    name
+    for name, value in (checks + architecture_checks + principle_labels)
+    if value not in html
+]
 if missing:
     raise SystemExit(f"Missing landing-page references: {', '.join(missing)}")
-print("Landing page contains expected kit metadata references.")
+print("Landing page contains expected kit references.")
 PY
 ```
 
@@ -123,6 +147,7 @@ PY
 | Pitfall | Symptom | Resolution |
 | --- | --- | --- |
 | `agent-solidarity-kit.json` updated without `index.html` updates | Landing page advertises stale version/model/principles | Reconcile manual JSON preview and model badge text with current kit values |
+| Only model/version checked during parity validation | Architecture or principle content drifts even though quick check passes | Use the full parity script in this runbook, not ad-hoc spot checks |
 | Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
 | Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
 
