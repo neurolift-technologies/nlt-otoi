@@ -52,12 +52,33 @@ The OTOI (Orchestrated Terms of Interaction) framework is a revolutionary approa
 ├── neuroLift/     # NeuroLift integration patterns
 └── team-collaboration/
 
+/index.html        # GitHub Pages landing page
+/agent-solidarity-kit.json # Agent governance + integration contract
+
 /docs/            # Comprehensive documentation
 ├── framework-overview.md
 ├── development-process.md
 ├── implementation-guide.md
-└── best-practices.md
+├── best-practices.md
+├── active-threads.md
+└── agent-log/
+    ├── README.md
+    ├── registrations/
+    └── handoffs/
 ```
+
+## 🧭 GitHub Pages and Solidarity Kit Maintenance
+
+The repository includes a public landing page (`index.html`) and a governance
+contract (`agent-solidarity-kit.json`). Keep them synchronized:
+
+1. Treat `agent-solidarity-kit.json` as the source of truth.
+2. Mirror user-facing fields in `index.html` (version, model details, and
+   architecture labels) when they change.
+3. Use `docs/development-process.md` for the operational runbook and validation
+   commands.
+4. Track work lifecycle in `docs/active-threads.md` and session records in
+   `docs/agent-log/`.
 
 ## 🎯 Core Components
 
