@@ -55,6 +55,77 @@ not loaded by GitHub Actions and should not be used for CI troubleshooting.
 When changing automation behavior, always edit the root workflow files first.
 Treat nested workflow copies as archival references, not active automation.
 
+## GitHub Pages + Solidarity Kit Documentation Runbook
+
+PR #17 introduced two repository-level interfaces that require manual alignment:
+
+- `index.html` (GitHub Pages landing page content)
+- `agent-solidarity-kit.json` (governance and agent integration contract)
+
+Supporting operational docs were added under:
+- `docs/active-threads.md`
+- `docs/agent-log/README.md`
+- `docs/agent-log/registrations/`
+- `docs/agent-log/handoffs/`
+
+### Why this runbook exists
+
+The landing page includes a hand-curated preview of Solidarity Kit fields
+(version, governance flags, architecture components, model details, and
+principles). There is no generation step between `agent-solidarity-kit.json`
+and `index.html`, so drift can occur if one file is updated without the other.
+
+### Maintenance workflow
+
+1. Update `agent-solidarity-kit.json` first (source of truth).
+2. Mirror user-visible changes in `index.html` where they are presented:
+   - architecture pillar names/layers
+   - model metadata shown in the badge and caption
+   - JSON preview block under the "Agent Solidarity Kit" section
+3. Update thread tracking in `docs/active-threads.md` if the change was part of
+   an active workstream.
+4. If a session handoff is required, add/update records in
+   `docs/agent-log/{registrations,handoffs}/`.
+
+### Local validation checks
+
+Validate JSON syntax:
+
+```bash
+python3 -m json.tool agent-solidarity-kit.json > /dev/null
+```
+
+Check that key metadata appears in the landing page:
+
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+kit = json.loads(Path("agent-solidarity-kit.json").read_text(encoding="utf-8"))
+html = Path("index.html").read_text(encoding="utf-8")
+
+checks = [
+    ("kit version", kit["version"]),
+    ("default model name", kit["model"]["name"]),
+    ("default model parameters", kit["model"]["parameters"]),
+]
+
+missing = [name for name, value in checks if value not in html]
+if missing:
+    raise SystemExit(f"Missing landing-page references: {', '.join(missing)}")
+print("Landing page contains expected kit metadata references.")
+PY
+```
+
+### Common pitfalls
+
+| Pitfall | Symptom | Resolution |
+| --- | --- | --- |
+| `agent-solidarity-kit.json` updated without `index.html` updates | Landing page advertises stale version/model/principles | Reconcile manual JSON preview and model badge text with current kit values |
+| Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
+| Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
+
 ## Trigger Matrix
 
 ### Accessibility Check

@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| GitHub Pages & Solidarity Kit | copilot | 🟢 In Progress | `copilot/create-index-html-file` | Create index.html for GitHub Pages, Agent Solidarity Kit config, governance scaffolding |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |
 | Multi-agent architecture | codex | ✅ | #4 | NeuroLift agent architecture and prototypes |
 | TOI-OTOI governance | copilot | ✅ | #8 | Core library: toi_parser, otoi_orchestrator, privacy_guardian |
