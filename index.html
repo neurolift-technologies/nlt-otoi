@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NeuroLift OTOI Framework — User-defined Terms of Interaction for AI systems. Neurodivergent-friendly, privacy-first, open standard.">
+  <meta name="theme-color" content="#0f172a">
+  <title>NeuroLift OTOI Framework</title>
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #0f172a;
+      --color-surface: #1e293b;
+      --color-surface-alt: #334155;
+      --color-primary: #38bdf8;
+      --color-primary-dim: #0284c7;
+      --color-accent: #a78bfa;
+      --color-accent-dim: #7c3aed;
+      --color-success: #34d399;
+      --color-warning: #fbbf24;
+      --color-text: #f1f5f9;
+      --color-text-muted: #94a3b8;
+      --color-border: #475569;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
+      --shadow: 0 4px 24px rgba(0,0,0,.35);
+      --transition-speed: 0.25s;
+    }
+
+    /* High-contrast mode */
+    @media (prefers-contrast: high) {
+      :root {
+        --color-bg: #000;
+        --color-surface: #111;
+        --color-text: #fff;
+        --color-text-muted: #ccc;
+        --color-border: #fff;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--color-primary); text-decoration: none; }
+    a:hover, a:focus-visible { text-decoration: underline; outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 2px; }
+    a:focus:not(:focus-visible) { outline: none; }
+
+    /* ===== Skip Link ===== */
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--color-primary); color: var(--color-bg);
+      padding: .5rem 1rem; border-radius: var(--radius-sm);
+      font-weight: 600; z-index: 1000;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ===== Layout ===== */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 5rem 0; }
+
+    /* ===== Header / Nav ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,23,42,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; flex-wrap: wrap; gap: .75rem; }
+    .logo { font-size: 1.25rem; font-weight: 700; color: var(--color-text); display: flex; align-items: center; gap: .5rem; }
+    .logo-icon { font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; list-style: none; }
+    .nav-links a { color: var(--color-text-muted); font-size: .95rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--color-primary); }
+
+    /* ===== Hero ===== */
+    .hero {
+      text-align: center;
+      padding: 6rem 0 4rem;
+      background: linear-gradient(180deg, rgba(56,189,248,.06) 0%, transparent 60%);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 .highlight { color: var(--color-primary); }
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      font-size: 1.15rem;
+      color: var(--color-text-muted);
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600; font-size: 1rem;
+      cursor: pointer; border: none;
+      transition: background var(--transition-speed), transform var(--transition-speed);
+    }
+    .btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+    .btn-primary { background: var(--color-primary); color: var(--color-bg); }
+    .btn-primary:hover { background: var(--color-primary-dim); text-decoration: none; transform: translateY(-1px); }
+    .btn-outline { background: transparent; border: 2px solid var(--color-border); color: var(--color-text); }
+    .btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); text-decoration: none; }
+
+    /* ===== Principle Cards ===== */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    .card:hover { border-color: var(--color-primary); box-shadow: var(--shadow); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.15rem; margin-bottom: .5rem; }
+    .card p { color: var(--color-text-muted); font-size: .95rem; }
+
+    /* ===== Section Headings ===== */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .section-heading h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 700;
+    }
+    .section-heading p {
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin: .75rem auto 0;
+    }
+
+    /* ===== Agent Section ===== */
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .agent-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .agent-card::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .agent-card.toi-agent::before { background: var(--color-primary); }
+    .agent-card.otoi-agent::before { background: var(--color-accent); }
+    .agent-badge {
+      display: inline-block;
+      padding: .25rem .75rem;
+      border-radius: 100px;
+      font-size: .8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .agent-badge.toi { background: rgba(56,189,248,.15); color: var(--color-primary); }
+    .agent-badge.otoi { background: rgba(167,139,250,.15); color: var(--color-accent); }
+    .agent-card h3 { font-size: 1.25rem; margin-bottom: .75rem; }
+    .agent-card p { color: var(--color-text-muted); font-size: .95rem; margin-bottom: 1rem; }
+    .agent-list { list-style: none; padding: 0; }
+    .agent-list li {
+      padding: .4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--color-text-muted);
+      font-size: .9rem;
+    }
+    .agent-list li::before {
+      content: "✓";
+      position: absolute; left: 0;
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    /* ===== Solidarity Kit ===== */
+    .solidarity-section {
+      background: linear-gradient(180deg, transparent, rgba(167,139,250,.04) 30%, rgba(56,189,248,.04) 70%, transparent);
+    }
+    .solidarity-banner {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .solidarity-banner h3 { font-size: 1.35rem; margin-bottom: .75rem; }
+    .model-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: .5rem 1rem;
+      font-family: var(--font-mono);
+      font-size: .9rem;
+      margin: 1rem 0;
+    }
+    .model-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-success); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.25rem; }
+    .pill {
+      display: inline-block;
+      padding: .3rem .75rem;
+      border-radius: 100px;
+      font-size: .8rem;
+      font-weight: 600;
+      background: rgba(52,211,153,.1);
+      color: var(--color-success);
+      border: 1px solid rgba(52,211,153,.25);
+    }
+
+    /* ===== Schema Preview ===== */
+    .code-block {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      margin-top: 2rem;
+      max-height: 420px;
+    }
+    .code-block .key { color: var(--color-primary); }
+    .code-block .str { color: var(--color-success); }
+    .code-block .bool { color: var(--color-accent); }
+
+    /* ===== Quick Start ===== */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      counter-reset: step;
+    }
+    .step {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      counter-increment: step;
+      position: relative;
+    }
+    .step::before {
+      content: counter(step);
+      display: flex; align-items: center; justify-content: center;
+      width: 2.5rem; height: 2.5rem;
+      background: rgba(56,189,248,.15);
+      color: var(--color-primary);
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .step h3 { font-size: 1.05rem; margin-bottom: .5rem; }
+    .step p { color: var(--color-text-muted); font-size: .9rem; }
+
+    /* ===== Resources ===== */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .resource-link {
+      display: flex; align-items: center; gap: .75rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      color: var(--color-text);
+      transition: border-color var(--transition-speed);
+    }
+    .resource-link:hover { border-color: var(--color-primary); text-decoration: none; }
+    .resource-link .r-icon { font-size: 1.5rem; }
+    .resource-link .r-label { font-weight: 600; font-size: .95rem; }
+    .resource-link .r-desc { font-size: .8rem; color: var(--color-text-muted); }
+
+    /* ===== Inline-extracted helpers ===== */
+    .guardrails-heading { margin-top: 1.25rem; font-size: .95rem; }
+    .model-description { color: var(--color-text-muted); max-width: 580px; margin: 0 auto; }
+    .model-detail { color: var(--color-text-muted); }
+    .model-caption { color: var(--color-text-muted); font-size: .85rem; margin-bottom: .75rem; }
+
+    /* ===== Architecture Diagram ===== */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 800px) { .arch-grid { grid-template-columns: 1fr; } }
+    .arch-pillar {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .arch-pillar::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .arch-pillar.protective::before { background: #f87171; }
+    .arch-pillar.constitutional::before { background: var(--color-primary); }
+    .arch-pillar.continuity::before { background: var(--color-accent); }
+    .arch-pillar-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+    .arch-pillar h3 { font-size: 1.15rem; margin-bottom: .25rem; }
+    .arch-pillar .arch-layer {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .75rem;
+    }
+    .arch-pillar.protective .arch-layer { background: rgba(248,113,113,.15); color: #f87171; }
+    .arch-pillar.constitutional .arch-layer { background: rgba(56,189,248,.15); color: var(--color-primary); }
+    .arch-pillar.continuity .arch-layer { background: rgba(167,139,250,.15); color: var(--color-accent); }
+    .arch-pillar p { color: var(--color-text-muted); font-size: .9rem; margin-bottom: .75rem; }
+    .arch-pillar .arch-repo {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--color-text-muted);
+      padding: .2rem .5rem;
+      background: var(--color-surface-alt);
+      border-radius: var(--radius-sm);
+    }
+    .arch-unified {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .arch-unified h4 { font-size: 1rem; margin-bottom: .5rem; color: var(--color-text); }
+    .arch-unified-items {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .arch-unified-items span {
+      font-size: .85rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: .9rem;
+    }
+    footer p { margin-bottom: .5rem; }
+    footer a { color: var(--color-primary); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 640px) {
+      section { padding: 3rem 0; }
+      .hero { padding: 4rem 0 2.5rem; }
+      .agents-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a href="#" class="logo" aria-label="NeuroLift OTOI Framework home">
+          <span class="logo-icon" aria-hidden="true">🧠</span>
+          NeuroLift OTOI
+        </a>
+        <ul class="nav-links">
+          <li><a href="#principles">Principles</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#agents">Agents</a></li>
+          <li><a href="#solidarity-kit">Solidarity Kit</a></li>
+          <li><a href="#quick-start">Quick Start</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer" aria-label="View source on GitHub">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <h1 id="hero-heading">
+          <span class="highlight">Orchestrated Terms of Interaction</span><br>
+          User-Controlled AI Collaboration
+        </h1>
+        <p>
+          Define exactly how AI interacts with you. Part of the
+          <a href="https://github.com/NeuroLift-Technologies/solidarity-framework" rel="noopener noreferrer">NeuroLift Agent Solidarity Kit</a>
+          — neurodivergent-friendly, privacy-first, open standard.
+        </p>
+        <div class="hero-actions">
+          <a href="#quick-start" class="btn btn-primary">Get Started</a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer" class="btn btn-outline">View on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Core Principles ===== -->
+    <section id="principles" aria-labelledby="principles-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="principles-heading">Core Principles</h2>
+          <p>Every design decision starts from these non-negotiable commitments.</p>
+        </div>
+        <div class="principles-grid">
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🎯</div>
+            <h3>User Control</h3>
+            <p>You author your own Terms of Interaction. AI systems adapt to you — never the other way around.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🧠</div>
+            <h3>Neurodivergent-Friendly</h3>
+            <p>Built for diverse cognitive needs from the ground up — executive function support, sensory adaptation, and energy management.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🔒</div>
+            <h3>Privacy-First</h3>
+            <p>Local processing by default. Your data stays on your device. No cloud dependency for personal information.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🌐</div>
+            <h3>Open Standard</h3>
+            <p>JSON Schema-based, community-driven. No vendor lock-in — works with any AI system.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">🤝</div>
+            <h3>Consent-Based</h3>
+            <p>Default-deny architecture. Only explicitly permitted actions are allowed. Opt-out is always visible.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon" aria-hidden="true">📋</div>
+            <h3>Transparent &amp; Auditable</h3>
+            <p>Every agent decision is logged. Full provenance tracking across handoffs. You can review and override at any time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Solidarity Framework Architecture ===== -->
+    <section id="architecture" aria-labelledby="arch-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="arch-heading">Agent Solidarity Kit Architecture</h2>
+          <p>The layer between the model and the agent — three pillars unified under a single core.</p>
+        </div>
+        <div class="arch-grid">
+
+          <div class="arch-pillar protective">
+            <div class="arch-pillar-icon" aria-hidden="true">🚨</div>
+            <h3>RRT Advocate</h3>
+            <span class="arch-layer">Protective</span>
+            <p>Rapid Response Team for crisis intervention, emergency response, tiered alerts, and agency preservation.</p>
+            <a href="https://github.com/NeuroLift-Technologies/rrt-advocate" rel="noopener noreferrer" class="arch-repo">rrt-advocate</a>
+          </div>
+
+          <div class="arch-pillar constitutional">
+            <div class="arch-pillar-icon" aria-hidden="true">📋</div>
+            <h3>NLT-OTOI</h3>
+            <span class="arch-layer">Constitutional</span>
+            <p>TOI governance, OTOI orchestration, privacy guardian, user preferences, and multi-agent coordination.</p>
+            <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer" class="arch-repo">nlt-otoi</a>
+          </div>
+
+          <div class="arch-pillar continuity">
+            <div class="arch-pillar-icon" aria-hidden="true">🌙</div>
+            <h3>Sleepwalker Protocol</h3>
+            <span class="arch-layer">Continuity</span>
+            <p>Emotional continuity governance — state detection, session continuity, and long-term safety across sessions.</p>
+            <a href="https://github.com/NeuroLift-Technologies/sleepwalker" rel="noopener noreferrer" class="arch-repo">sleepwalker</a>
+          </div>
+
+        </div>
+
+        <div class="arch-unified">
+          <h4>Unified Core</h4>
+          <div class="arch-unified-items">
+            <span>🤖 Supervisor AI</span>
+            <span>📡 Component Comms</span>
+            <span>💾 State Manager</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Agents ===== -->
+    <section id="agents" aria-labelledby="agents-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="agents-heading">OTOI Adoption Agents</h2>
+          <p>Two specialized agents to help you adopt and enforce the TOI-OTOI framework.</p>
+        </div>
+        <div class="agents-grid">
+
+          <!-- TOI Adoption Agent -->
+          <div class="agent-card toi-agent">
+            <span class="agent-badge toi">TOI Agent</span>
+            <h3>TOI Adoption Agent</h3>
+            <p>Helps individuals and teams define, refine, and apply their personal Terms of Interaction.</p>
+            <ul class="agent-list">
+              <li>Elicit goals, constraints, and sensitivities</li>
+              <li>Draft TOI v1 with examples and red-flag scenarios</li>
+              <li>Create pre-flight, mid-flight, and post-flight checks</li>
+              <li>Publish TOI artifacts to your workspace</li>
+              <li>Schedule review cadence and maintain change-log</li>
+            </ul>
+            <h4 class="guardrails-heading">Guardrails</h4>
+            <ul class="agent-list">
+              <li>Default-deny: only explicitly permitted actions allowed</li>
+              <li>Plain-language summaries with every formal section</li>
+              <li>Opt-out path always visible</li>
+            </ul>
+          </div>
+
+          <!-- OTOI Integration Agent -->
+          <div class="agent-card otoi-agent">
+            <span class="agent-badge otoi">OTOI Agent</span>
+            <h3>OTOI Integration Agent</h3>
+            <p>Operationalizes TOI across multiple agents and tools — enforcement, handoffs, and audit trails.</p>
+            <ul class="agent-list">
+              <li>Translate TOI into machine-enforceable policies</li>
+              <li>Define agent-to-agent handoff contracts</li>
+              <li>Validate actions pre-execution</li>
+              <li>Surface deviations with remediation steps</li>
+              <li>Produce weekly compliance summaries</li>
+            </ul>
+            <h4 class="guardrails-heading">Guardrails</h4>
+            <ul class="agent-list">
+              <li>Fail-closed on missing consent or ambiguous authority</li>
+              <li>Log every cross-agent handoff with rationale</li>
+              <li>Separation of duties for sensitive operations</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Agent Solidarity Kit ===== -->
+    <section id="solidarity-kit" class="solidarity-section" aria-labelledby="solidarity-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="solidarity-heading">Agent Solidarity Kit</h2>
+          <p>The required governance and integration layer for all NLT agents — RRT Advocate, NLT-OTOI, and Sleepwalker Protocol unified under a single core.</p>
+        </div>
+
+        <div class="solidarity-banner">
+          <h3>Powered by Open-Source AI</h3>
+          <p class="model-description">
+            The OTOI agents are built on a free, open-source small language model
+            that runs locally on consumer hardware — no cloud required.
+          </p>
+          <div class="model-badge" aria-label="Model: Phi-3.5-mini-instruct by Microsoft, 3.8 billion parameters, MIT license">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Phi-3.5-mini-instruct</span>
+            <span class="model-detail">·</span>
+            <span class="model-detail">3.8B params</span>
+            <span class="model-detail">·</span>
+            <span class="model-detail">MIT License</span>
+          </div>
+          <p class="model-caption">
+            Available on
+            <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct" rel="noopener noreferrer">GitHub Models</a>
+            · By Microsoft Research
+          </p>
+          <div class="pill-row" aria-label="Solidarity Framework principles">
+            <span class="pill">🔒 Privacy First</span>
+            <span class="pill">🛡️ Agency Preservation</span>
+            <span class="pill">📝 Transparency</span>
+            <span class="pill">🧠 Neurodivergent-Centered</span>
+            <span class="pill">🤝 Escalation Culture</span>
+            <span class="pill">🎯 Minimal Footprint</span>
+          </div>
+        </div>
+
+        <!-- Schema Preview -->
+        <div class="code-block" role="figure" aria-label="Agent Solidarity Kit JSON configuration preview">
+<pre><code>{
+  <span class="key">"title"</span>: <span class="str">"NeuroLift Technologies Agent Solidarity Kit"</span>,
+  <span class="key">"version"</span>: <span class="str">"2.0.0"</span>,
+  <span class="key">"governance"</span>: {
+    <span class="key">"otoi_version"</span>: <span class="str">"ORG-DEV-OTOI-1.0.0"</span>,
+    <span class="key">"solidarity_framework"</span>: <span class="bool">true</span>,
+    <span class="key">"haief_compliant"</span>: <span class="bool">true</span>,
+    <span class="key">"authority"</span>: <span class="str">"Joshua W. Dorsey, Sr."</span>
+  },
+  <span class="key">"architecture"</span>: {
+    <span class="key">"components"</span>: [
+      { <span class="key">"name"</span>: <span class="str">"RRT Advocate"</span>,        <span class="key">"layer"</span>: <span class="str">"protective"</span> },
+      { <span class="key">"name"</span>: <span class="str">"NLT-OTOI Framework"</span>,  <span class="key">"layer"</span>: <span class="str">"constitutional"</span> },
+      { <span class="key">"name"</span>: <span class="str">"Sleepwalker Protocol"</span>, <span class="key">"layer"</span>: <span class="str">"continuity"</span> }
+    ]
+  },
+  <span class="key">"model"</span>: {
+    <span class="key">"name"</span>: <span class="str">"Phi-3.5-mini-instruct"</span>,
+    <span class="key">"parameters"</span>: <span class="str">"3.8B"</span>,
+    <span class="key">"license"</span>: <span class="str">"MIT"</span>,
+    <span class="key">"model_override_allowed"</span>: <span class="bool">true</span>
+  },
+  <span class="key">"solidarity_principles"</span>: {
+    <span class="key">"transparency"</span>: <span class="str">"All agent actions are logged and auditable"</span>,
+    <span class="key">"minimal_footprint"</span>: <span class="str">"Agents only modify what is necessary"</span>,
+    <span class="key">"escalation_culture"</span>: <span class="str">"When in doubt, escalate to human authority"</span>,
+    <span class="key">"human_flourishing"</span>: <span class="str">"Technology serves people, not the other way around"</span>,
+    <span class="key">"privacy_first"</span>: <span class="str">"Local-only processing wherever possible"</span>,
+    <span class="key">"agency_preservation"</span>: <span class="str">"User autonomy is never overridden"</span>
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Quick Start ===== -->
+    <section id="quick-start" aria-labelledby="quickstart-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="quickstart-heading">Quick Start</h2>
+          <p>Get up and running in three simple steps.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>Define Your TOI</h3>
+            <p>
+              Use the
+              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md" rel="noopener noreferrer">Personal TOI Template</a>
+              to describe your communication style, cognitive preferences, and privacy requirements.
+            </p>
+          </div>
+          <div class="step">
+            <h3>Validate &amp; Share</h3>
+            <p>
+              Validate your TOI document against the
+              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json" rel="noopener noreferrer">JSON schema</a>
+              and share it with AI systems or teammates.
+            </p>
+          </div>
+          <div class="step">
+            <h3>Orchestrate Agents</h3>
+            <p>
+              Use the Agent Solidarity Kit to deploy TOI-compliant agents that respect your preferences, coordinate handoffs, and maintain a transparent audit trail.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Resources ===== -->
+    <section id="resources" aria-labelledby="resources-heading">
+      <div class="container">
+        <div class="section-heading">
+          <h2 id="resources-heading">Resources</h2>
+          <p>Explore documentation, schemas, examples, and tools.</p>
+        </div>
+        <div class="resources-grid">
+          <a href="https://github.com/NeuroLift-Technologies/solidarity-framework" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🏗️</span>
+            <span>
+              <span class="r-label">Solidarity Framework</span><br>
+              <span class="r-desc">Unified agent development framework</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/rrt-advocate" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🚨</span>
+            <span>
+              <span class="r-label">RRT Advocate</span><br>
+              <span class="r-desc">Crisis intervention &amp; safety protocols</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/sleepwalker" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🌙</span>
+            <span>
+              <span class="r-label">Sleepwalker Protocol</span><br>
+              <span class="r-desc">Emotional continuity across sessions</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/framework-overview.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">📖</span>
+            <span>
+              <span class="r-label">Framework Overview</span><br>
+              <span class="r-desc">Philosophy, architecture, and roadmap</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/implementation-guide.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🛠️</span>
+            <span>
+              <span class="r-label">Implementation Guide</span><br>
+              <span class="r-desc">Technical guide for developers</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">📐</span>
+            <span>
+              <span class="r-label">Personal TOI Schema</span><br>
+              <span class="r-desc">JSON Schema for individual preferences</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/collaborative-charter.schema.json" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">👥</span>
+            <span>
+              <span class="r-label">Collaborative Charter</span><br>
+              <span class="r-desc">Group interaction protocols schema</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">📝</span>
+            <span>
+              <span class="r-label">TOI Templates</span><br>
+              <span class="r-desc">Ready-to-use templates for your TOI</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/examples/neurodivergent-examples/" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🌈</span>
+            <span>
+              <span class="r-label">Neurodivergent Examples</span><br>
+              <span class="r-desc">Real-world TOI configurations</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/toi-otoi-agents.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🤖</span>
+            <span>
+              <span class="r-label">Agent Specifications</span><br>
+              <span class="r-desc">TOI &amp; OTOI agent prompts and specs</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/agent-solidarity-kit.json" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🛡️</span>
+            <span>
+              <span class="r-label">Agent Solidarity Kit</span><br>
+              <span class="r-desc">Standardized agent configuration</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/best-practices.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">✅</span>
+            <span>
+              <span class="r-label">Best Practices</span><br>
+              <span class="r-desc">Guidelines for users and developers</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/src/fusion/" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">⚡</span>
+            <span>
+              <span class="r-label">Python Implementation</span><br>
+              <span class="r-desc">TOI parser, orchestrator, privacy guardian</span>
+            </span>
+          </a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/CONTRIBUTING.md" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">💜</span>
+            <span>
+              <span class="r-label">Contributing</span><br>
+              <span class="r-desc">How to get involved</span>
+            </span>
+          </a>
+          <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct" rel="noopener noreferrer" class="resource-link">
+            <span class="r-icon" aria-hidden="true">🧪</span>
+            <span>
+              <span class="r-label">Phi-3.5-mini on GitHub Models</span><br>
+              <span class="r-desc">Free, open-source SLM for OTOI agents</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <p>
+        <em>"Tech That Gets You · Nothing About Us Without Us · ElevAIte Your Mind"</em>
+      </p>
+      <p>
+        Made with ❤️ for the neurodivergent community and everyone who values respectful AI collaboration.
+      </p>
+      <p>
+        <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer">NLT-OTOI Framework</a>
+        · <a href="https://github.com/NeuroLift-Technologies/solidarity-framework" rel="noopener noreferrer">Solidarity Framework</a>
+        · <a href="https://github.com/NeuroLift-Technologies" rel="noopener noreferrer">NeuroLift Technologies</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
