@@ -1,12 +1,10 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/agent-solidarity-kit.json",
   "title": "NeuroLift Technologies Agent Solidarity Kit",
   "description": "Standardized configuration for OTOI-compliant agents. Defines shared governance, handoff protocols, and privacy requirements that all agents in the solidarity network must honor.",
   "version": "1.0.0",
   "metadata": {
-    "created": "2026-04-21T00:00:00Z",
-    "updated": "2026-04-21T00:00:00Z",
+    "created": "2025-04-21T00:00:00Z",
+    "updated": "2025-04-21T00:00:00Z",
     "author": "NeuroLift Technologies",
     "license": "MIT"
   },
@@ -16,7 +14,8 @@
     "source": "https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct",
     "parameters": "3.8B",
     "license": "MIT",
-    "rationale": "Small, open-source, locally deployable model suitable for privacy-first OTOI agents. Runs on consumer hardware supporting local-only processing."
+    "model_override_allowed": true,
+    "rationale": "Default reference model. Small, open-source, locally deployable model suitable for privacy-first OTOI agents. Runs on consumer hardware supporting local-only processing. Users may substitute any compatible open-source model."
   },
   "agents": [
     {

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NeuroLift OTOI Framework — User-defined Terms of Interaction for AI systems. Neurodivergent-friendly, privacy-first, open standard.">
+  <meta name="theme-color" content="#0f172a">
   <title>NeuroLift OTOI Framework</title>
   <style>
     /* ===== Reset & Base ===== */
@@ -314,6 +315,12 @@
     .resource-link .r-label { font-weight: 600; font-size: .95rem; }
     .resource-link .r-desc { font-size: .8rem; color: var(--color-text-muted); }
 
+    /* ===== Inline-extracted helpers ===== */
+    .guardrails-heading { margin-top: 1.25rem; font-size: .95rem; }
+    .model-description { color: var(--color-text-muted); max-width: 580px; margin: 0 auto; }
+    .model-detail { color: var(--color-text-muted); }
+    .model-caption { color: var(--color-text-muted); font-size: .85rem; margin-bottom: .75rem; }
+
     /* ===== Footer ===== */
     footer {
       border-top: 1px solid var(--color-border);
@@ -352,7 +359,7 @@
           <li><a href="#solidarity-kit">Solidarity Kit</a></li>
           <li><a href="#quick-start">Quick Start</a></li>
           <li><a href="#resources">Resources</a></li>
-          <li><a href="https://github.com/NeuroLift-Technologies/nlt-otoi" aria-label="View source on GitHub">GitHub</a></li>
+          <li><a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer" aria-label="View source on GitHub">GitHub</a></li>
         </ul>
       </nav>
     </div>
@@ -373,7 +380,7 @@
         </p>
         <div class="hero-actions">
           <a href="#quick-start" class="btn btn-primary">Get Started</a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" class="btn btn-outline">View on GitHub</a>
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer" class="btn btn-outline">View on GitHub</a>
         </div>
       </div>
     </section>
@@ -441,7 +448,7 @@
               <li>Publish TOI artifacts to your workspace</li>
               <li>Schedule review cadence and maintain change-log</li>
             </ul>
-            <h4 style="margin-top:1.25rem; font-size:.95rem;">Guardrails</h4>
+            <h4 class="guardrails-heading">Guardrails</h4>
             <ul class="agent-list">
               <li>Default-deny: only explicitly permitted actions allowed</li>
               <li>Plain-language summaries with every formal section</li>
@@ -461,7 +468,7 @@
               <li>Surface deviations with remediation steps</li>
               <li>Produce weekly compliance summaries</li>
             </ul>
-            <h4 style="margin-top:1.25rem; font-size:.95rem;">Guardrails</h4>
+            <h4 class="guardrails-heading">Guardrails</h4>
             <ul class="agent-list">
               <li>Fail-closed on missing consent or ambiguous authority</li>
               <li>Log every cross-agent handoff with rationale</li>
@@ -483,21 +490,21 @@
 
         <div class="solidarity-banner">
           <h3>Powered by Open-Source AI</h3>
-          <p style="color:var(--color-text-muted); max-width:580px; margin:0 auto;">
+          <p class="model-description">
             The OTOI agents are built on a free, open-source small language model
             that runs locally on consumer hardware — no cloud required.
           </p>
           <div class="model-badge" aria-label="Model: Phi-3.5-mini-instruct by Microsoft, 3.8 billion parameters, MIT license">
             <span class="dot" aria-hidden="true"></span>
             <span>Phi-3.5-mini-instruct</span>
-            <span style="color:var(--color-text-muted)">·</span>
-            <span style="color:var(--color-text-muted)">3.8B params</span>
-            <span style="color:var(--color-text-muted)">·</span>
-            <span style="color:var(--color-text-muted)">MIT License</span>
+            <span class="model-detail">·</span>
+            <span class="model-detail">3.8B params</span>
+            <span class="model-detail">·</span>
+            <span class="model-detail">MIT License</span>
           </div>
-          <p style="color:var(--color-text-muted); font-size:.85rem; margin-bottom:.75rem;">
+          <p class="model-caption">
             Available on
-            <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct">GitHub Models</a>
+            <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct" rel="noopener noreferrer">GitHub Models</a>
             · By Microsoft Research
           </p>
           <div class="pill-row" aria-label="Solidarity Kit principles">
@@ -552,7 +559,7 @@
             <h3>Define Your TOI</h3>
             <p>
               Use the
-              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md">Personal TOI Template</a>
+              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md" rel="noopener noreferrer">Personal TOI Template</a>
               to describe your communication style, cognitive preferences, and privacy requirements.
             </p>
           </div>
@@ -560,7 +567,7 @@
             <h3>Validate &amp; Share</h3>
             <p>
               Validate your TOI document against the
-              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json">JSON schema</a>
+              <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json" rel="noopener noreferrer">JSON schema</a>
               and share it with AI systems or teammates.
             </p>
           </div>
@@ -582,84 +589,84 @@
           <p>Explore documentation, schemas, examples, and tools.</p>
         </div>
         <div class="resources-grid">
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/framework-overview.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/framework-overview.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">📖</span>
             <span>
               <span class="r-label">Framework Overview</span><br>
               <span class="r-desc">Philosophy, architecture, and roadmap</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/implementation-guide.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/implementation-guide.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">🛠️</span>
             <span>
               <span class="r-label">Implementation Guide</span><br>
               <span class="r-desc">Technical guide for developers</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/personal-toi.schema.json" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">📐</span>
             <span>
               <span class="r-label">Personal TOI Schema</span><br>
               <span class="r-desc">JSON Schema for individual preferences</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/collaborative-charter.schema.json" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/schemas/collaborative-charter.schema.json" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">👥</span>
             <span>
               <span class="r-label">Collaborative Charter</span><br>
               <span class="r-desc">Group interaction protocols schema</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/templates/personal-toi-template.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">📝</span>
             <span>
               <span class="r-label">TOI Templates</span><br>
               <span class="r-desc">Ready-to-use templates for your TOI</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/examples/neurodivergent-examples/" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/examples/neurodivergent-examples/" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">🌈</span>
             <span>
               <span class="r-label">Neurodivergent Examples</span><br>
               <span class="r-desc">Real-world TOI configurations</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/toi-otoi-agents.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/toi-otoi-agents.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">🤖</span>
             <span>
               <span class="r-label">Agent Specifications</span><br>
               <span class="r-desc">TOI &amp; OTOI agent prompts and specs</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/agent-solidarity-kit.json" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/agent-solidarity-kit.json" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">🛡️</span>
             <span>
               <span class="r-label">Agent Solidarity Kit</span><br>
               <span class="r-desc">Standardized agent configuration</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/best-practices.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/docs/best-practices.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">✅</span>
             <span>
               <span class="r-label">Best Practices</span><br>
               <span class="r-desc">Guidelines for users and developers</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/src/fusion/" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/src/fusion/" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">⚡</span>
             <span>
               <span class="r-label">Python Implementation</span><br>
               <span class="r-desc">TOI parser, orchestrator, privacy guardian</span>
             </span>
           </a>
-          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/CONTRIBUTING.md" class="resource-link">
+          <a href="https://github.com/NeuroLift-Technologies/nlt-otoi/blob/main/CONTRIBUTING.md" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">💜</span>
             <span>
               <span class="r-label">Contributing</span><br>
               <span class="r-desc">How to get involved</span>
             </span>
           </a>
-          <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct" class="resource-link">
+          <a href="https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct" rel="noopener noreferrer" class="resource-link">
             <span class="r-icon" aria-hidden="true">🧪</span>
             <span>
               <span class="r-label">Phi-3.5-mini on GitHub Models</span><br>
@@ -679,8 +686,8 @@
         Made with ❤️ for the neurodivergent community and everyone who values respectful AI collaboration.
       </p>
       <p>
-        <a href="https://github.com/NeuroLift-Technologies/nlt-otoi">NeuroLift OTOI Framework</a>
-        · MIT License · <a href="https://github.com/NeuroLift-Technologies">NeuroLift Technologies</a>
+        <a href="https://github.com/NeuroLift-Technologies/nlt-otoi" rel="noopener noreferrer">NeuroLift OTOI Framework</a>
+        · MIT License · <a href="https://github.com/NeuroLift-Technologies" rel="noopener noreferrer">NeuroLift Technologies</a>
       </p>
     </div>
   </footer>
