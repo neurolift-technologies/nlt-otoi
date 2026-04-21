@@ -1,0 +1,196 @@
+{
+  "title": "NeuroLift Technologies Agent Solidarity Kit",
+  "description": "The required governance and integration layer for all NLT agents. Sits between the AI model and the agent, providing crisis intervention (RRT Advocate), interaction governance (NLT-OTOI), and emotional continuity (Sleepwalker Protocol).",
+  "version": "2.0.0",
+  "metadata": {
+    "created": "2025-04-21T00:00:00Z",
+    "updated": "2025-07-16T00:00:00Z",
+    "author": "NeuroLift Technologies",
+    "framework_license": "Apache-2.0",
+    "nlt_otoi_repo_license": "MIT"
+  },
+  "governance": {
+    "otoi_version": "ORG-DEV-OTOI-1.0.0",
+    "solidarity_framework": true,
+    "solidarity_framework_ref": "https://github.com/NeuroLift-Technologies/solidarity-framework",
+    "haief_compliant": true,
+    "authority": "Joshua W. Dorsey, Sr.",
+    "authority_contact": "info@neuroliftsolutions.com"
+  },
+  "architecture": {
+    "description": "The Layer Between the Model and the Agent — three pillars unified under a single core.",
+    "components": [
+      {
+        "name": "RRT Advocate",
+        "id": "rrt-advocate",
+        "purpose": "Rapid Response Team for crisis intervention and immediate safety protocols",
+        "repository": "https://github.com/NeuroLift-Technologies/rrt-advocate",
+        "layer": "protective",
+        "capabilities": [
+          "crisis-detection",
+          "emergency-response",
+          "tiered-alerts",
+          "agency-preservation"
+        ]
+      },
+      {
+        "name": "NLT-OTOI Framework",
+        "id": "nlt-otoi",
+        "purpose": "Terms of Interaction and Orchestrated Terms of Interaction for governance and user preferences",
+        "repository": "https://github.com/NeuroLift-Technologies/nlt-otoi",
+        "layer": "constitutional",
+        "capabilities": [
+          "toi-governance",
+          "otoi-orchestration",
+          "privacy-guardian",
+          "user-preference-management",
+          "multi-agent-coordination"
+        ]
+      },
+      {
+        "name": "Sleepwalker Protocol",
+        "id": "sleepwalker",
+        "purpose": "Emotional continuity governance for long-term safety across sessions",
+        "repository": "https://github.com/NeuroLift-Technologies/sleepwalker",
+        "layer": "continuity",
+        "capabilities": [
+          "emotional-state-detection",
+          "session-continuity",
+          "long-term-safety-tracking",
+          "context-preservation"
+        ]
+      }
+    ],
+    "unified_core": {
+      "supervisor_ai": "Coordinates all three pillars for coherent agent behavior",
+      "component_comms": "Inter-component messaging bus",
+      "state_manager": "Unified state across RRT, OTOI, and Sleepwalker"
+    }
+  },
+  "escalation": {
+    "default_contact": "Joshua W. Dorsey, Sr.",
+    "default_email": "info@neuroliftsolutions.com",
+    "triggers": [
+      "Task scope unclear or conflicts with existing work",
+      "Architectural or deployment decision required",
+      "Unresolvable blocker encountered",
+      "Ethical concern arises",
+      "LLM provider selection or external service integration",
+      "Production deployment consideration",
+      "Governance document amendment proposed"
+    ]
+  },
+  "model": {
+    "name": "Phi-3.5-mini-instruct",
+    "provider": "Microsoft",
+    "source": "https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct",
+    "parameters": "3.8B",
+    "license": "MIT",
+    "model_override_allowed": true,
+    "rationale": "Default reference model. Small, open-source, locally deployable model suitable for privacy-first OTOI agents. Runs on consumer hardware supporting local-only processing. Users may substitute any compatible open-source model."
+  },
+  "agent_registration": {
+    "required": true,
+    "storage_path": "docs/agent-log/registrations/",
+    "session_start_protocol": [
+      "Read CLAUDE.md for repository context",
+      "Read AGENTS.md for coordination protocol",
+      "Read docs/active-threads.md for current work",
+      "Confirm task scope with human before proceeding",
+      "Complete agent registration record"
+    ]
+  },
+  "agents": [
+    {
+      "agent_id": "toi-adoption-agent",
+      "name": "TOI Adoption Agent",
+      "role": "Help individuals and teams define, refine, and apply Terms of Interaction",
+      "capabilities": [
+        "toi-drafting",
+        "preference-elicitation",
+        "accessibility-assessment",
+        "compliance-checking"
+      ],
+      "system_prompt_ref": "toi-otoi-agents.md#agent-1-toi-adoption-agent",
+      "guardrails": {
+        "default_deny": true,
+        "plain_language_required": true,
+        "opt_out_visible": true
+      },
+      "escalation_triggers": [
+        "User requests data sharing beyond session scope",
+        "Conflict between user TOI and organizational charter",
+        "Red-flag scenario detected during TOI drafting"
+      ],
+      "prohibited_actions": [
+        "Implied consent — anything not explicitly permitted is disallowed",
+        "Storing credentials or secrets",
+        "External service integration without escalation",
+        "Modifying governance documents without approval"
+      ],
+      "registration_required": true
+    },
+    {
+      "agent_id": "otoi-integration-agent",
+      "name": "OTOI Integration Agent",
+      "role": "Operationalize TOI across multiple agents and tools with enforcement and audit trails",
+      "capabilities": [
+        "policy-compilation",
+        "handoff-validation",
+        "compliance-reporting",
+        "deviation-detection"
+      ],
+      "system_prompt_ref": "toi-otoi-agents.md#agent-2-otoi-integration-agent",
+      "guardrails": {
+        "fail_closed": true,
+        "log_all_handoffs": true,
+        "separation_of_duties": true
+      },
+      "escalation_triggers": [
+        "Missing consent or ambiguous authority on a handoff",
+        "Deviation detected with no automated remediation path",
+        "Policy conflict between participating agents",
+        "Compliance validation failure on a critical workflow"
+      ],
+      "prohibited_actions": [
+        "Proceeding on unclear consent — must fail closed",
+        "Unilateral architectural decisions",
+        "Bypassing separation of duties for sensitive operations",
+        "Storing credentials or secrets"
+      ],
+      "registration_required": true
+    }
+  ],
+  "solidarity_principles": {
+    "transparency": "All agent actions are logged and auditable",
+    "minimal_footprint": "Agents only modify what is necessary; no scope creep",
+    "escalation_culture": "When in doubt, escalate to human authority",
+    "human_flourishing": "Technology serves people, not the other way around",
+    "privacy_first": "Local-only processing wherever possible; no cloud transmission without explicit consent",
+    "agency_preservation": "User autonomy is never overridden",
+    "user_sovereignty": "User TOI preferences override all agent defaults",
+    "neurodivergent_centered": "Designed for diverse cognitive needs from the ground up",
+    "consent_based": "Default-deny; only explicitly permitted actions are allowed",
+    "interoperability": "Open standard; no vendor lock-in"
+  },
+  "handoff_protocol": {
+    "require_provenance": true,
+    "require_intent_preservation": true,
+    "require_toi_propagation": true,
+    "audit_trail": true,
+    "format": "HandoffContext",
+    "storage_path": "docs/agent-log/handoffs/"
+  },
+  "privacy_requirements": {
+    "processing_location": "local",
+    "encryption_at_rest": "AES-256",
+    "default_retention": "session-only",
+    "default_sharing": "never",
+    "telemetry": "opt-in-only"
+  },
+  "commit_format": {
+    "pattern": "[AGENT_NAME] type(scope): description",
+    "valid_types": ["feat", "fix", "docs", "refactor", "chore", "test", "ci", "schema"],
+    "example": "[OTOI-AGENT] feat(toi): add energy management section to personal TOI schema"
+  }
+}
