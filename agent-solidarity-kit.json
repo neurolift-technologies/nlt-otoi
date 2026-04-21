@@ -1,20 +1,70 @@
 {
   "title": "NeuroLift Technologies Agent Solidarity Kit",
-  "description": "Standardized configuration for OTOI-compliant agents. Defines shared governance, handoff protocols, and privacy requirements that all agents in the solidarity network must honor.",
-  "version": "1.0.0",
+  "description": "The required governance and integration layer for all NLT agents. Sits between the AI model and the agent, providing crisis intervention (RRT Advocate), interaction governance (NLT-OTOI), and emotional continuity (Sleepwalker Protocol).",
+  "version": "2.0.0",
   "metadata": {
     "created": "2025-04-21T00:00:00Z",
     "updated": "2025-04-21T00:00:00Z",
     "author": "NeuroLift Technologies",
-    "license": "MIT"
+    "license": "Apache-2.0"
   },
   "governance": {
     "otoi_version": "ORG-DEV-OTOI-1.0.0",
     "solidarity_framework": true,
-    "solidarity_framework_ref": "https://github.com/NeuroLift-Technologies/solidarity-framework.git",
+    "solidarity_framework_ref": "https://github.com/NeuroLift-Technologies/solidarity-framework",
     "haief_compliant": true,
     "authority": "Joshua W. Dorsey, Sr.",
     "authority_contact": "info@neuroliftsolutions.com"
+  },
+  "architecture": {
+    "description": "The Layer Between the Model and the Agent — three pillars unified under a single core.",
+    "components": [
+      {
+        "name": "RRT Advocate",
+        "id": "rrt-advocate",
+        "purpose": "Rapid Response Team for crisis intervention and immediate safety protocols",
+        "repository": "https://github.com/NeuroLift-Technologies/rrt-advocate",
+        "layer": "protective",
+        "capabilities": [
+          "crisis-detection",
+          "emergency-response",
+          "tiered-alerts",
+          "agency-preservation"
+        ]
+      },
+      {
+        "name": "NLT-OTOI Framework",
+        "id": "nlt-otoi",
+        "purpose": "Terms of Interaction and Orchestrated Terms of Interaction for governance and user preferences",
+        "repository": "https://github.com/NeuroLift-Technologies/nlt-otoi",
+        "layer": "constitutional",
+        "capabilities": [
+          "toi-governance",
+          "otoi-orchestration",
+          "privacy-guardian",
+          "user-preference-management",
+          "multi-agent-coordination"
+        ]
+      },
+      {
+        "name": "Sleepwalker Protocol",
+        "id": "sleepwalker",
+        "purpose": "Emotional continuity governance for long-term safety across sessions",
+        "repository": "https://github.com/NeuroLift-Technologies/sleepwalker",
+        "layer": "continuity",
+        "capabilities": [
+          "emotional-state-detection",
+          "session-continuity",
+          "long-term-safety-tracking",
+          "context-preservation"
+        ]
+      }
+    ],
+    "unified_core": {
+      "supervisor_ai": "Coordinates all three pillars for coherent agent behavior",
+      "component_comms": "Inter-component messaging bus",
+      "state_manager": "Unified state across RRT, OTOI, and Sleepwalker"
+    }
   },
   "escalation": {
     "default_contact": "Joshua W. Dorsey, Sr.",
@@ -43,6 +93,7 @@
     "storage_path": "docs/agent-log/registrations/",
     "session_start_protocol": [
       "Read CLAUDE.md for repository context",
+      "Read AGENTS.md for coordination protocol",
       "Read docs/active-threads.md for current work",
       "Confirm task scope with human before proceeding",
       "Complete agent registration record"
@@ -110,15 +161,16 @@
     }
   ],
   "solidarity_principles": {
+    "transparency": "All agent actions are logged and auditable",
+    "minimal_footprint": "Agents only modify what is necessary; no scope creep",
+    "escalation_culture": "When in doubt, escalate to human authority",
+    "human_flourishing": "Technology serves people, not the other way around",
+    "privacy_first": "Local-only processing wherever possible; no cloud transmission without explicit consent",
+    "agency_preservation": "User autonomy is never overridden",
     "user_sovereignty": "User TOI preferences override all agent defaults",
-    "privacy_first": "All processing local by default; no cloud transmission without explicit consent",
     "neurodivergent_centered": "Designed for diverse cognitive needs from the ground up",
-    "transparency": "All agent decisions logged and auditable by the user",
     "consent_based": "Default-deny; only explicitly permitted actions are allowed",
-    "interoperability": "Open standard; no vendor lock-in",
-    "escalation_culture": "Agents escalate architectural, deployment, ethical, and ambiguous decisions to authority",
-    "minimal_footprint": "Agents do only what is explicitly asked; no scope creep",
-    "human_flourishing": "Governance exists to enable good work, not obstruct it"
+    "interoperability": "Open standard; no vendor lock-in"
   },
   "handoff_protocol": {
     "require_provenance": true,
