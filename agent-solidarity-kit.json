@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/agent-solidarity-kit.json",
+  "title": "NeuroLift Technologies Agent Solidarity Kit",
+  "description": "Standardized configuration for OTOI-compliant agents. Defines shared governance, handoff protocols, and privacy requirements that all agents in the solidarity network must honor.",
+  "version": "1.0.0",
+  "metadata": {
+    "created": "2026-04-21T00:00:00Z",
+    "updated": "2026-04-21T00:00:00Z",
+    "author": "NeuroLift Technologies",
+    "license": "MIT"
+  },
+  "model": {
+    "name": "Phi-3.5-mini-instruct",
+    "provider": "Microsoft",
+    "source": "https://github.com/marketplace/models/azureml/Phi-3-5-mini-instruct",
+    "parameters": "3.8B",
+    "license": "MIT",
+    "rationale": "Small, open-source, locally deployable model suitable for privacy-first OTOI agents. Runs on consumer hardware supporting local-only processing."
+  },
+  "agents": [
+    {
+      "agent_id": "toi-adoption-agent",
+      "name": "TOI Adoption Agent",
+      "role": "Help individuals and teams define, refine, and apply Terms of Interaction",
+      "capabilities": [
+        "toi-drafting",
+        "preference-elicitation",
+        "accessibility-assessment",
+        "compliance-checking"
+      ],
+      "system_prompt_ref": "toi-otoi-agents.md#agent-1-toi-adoption-agent",
+      "guardrails": {
+        "default_deny": true,
+        "plain_language_required": true,
+        "opt_out_visible": true
+      }
+    },
+    {
+      "agent_id": "otoi-integration-agent",
+      "name": "OTOI Integration Agent",
+      "role": "Operationalize TOI across multiple agents and tools with enforcement and audit trails",
+      "capabilities": [
+        "policy-compilation",
+        "handoff-validation",
+        "compliance-reporting",
+        "deviation-detection"
+      ],
+      "system_prompt_ref": "toi-otoi-agents.md#agent-2-otoi-integration-agent",
+      "guardrails": {
+        "fail_closed": true,
+        "log_all_handoffs": true,
+        "separation_of_duties": true
+      }
+    }
+  ],
+  "solidarity_principles": {
+    "user_sovereignty": "User TOI preferences override all agent defaults",
+    "privacy_first": "All processing local by default; no cloud transmission without explicit consent",
+    "neurodivergent_centered": "Designed for diverse cognitive needs from the ground up",
+    "transparency": "All agent decisions logged and auditable by the user",
+    "consent_based": "Default-deny; only explicitly permitted actions are allowed",
+    "interoperability": "Open standard; no vendor lock-in"
+  },
+  "handoff_protocol": {
+    "require_provenance": true,
+    "require_intent_preservation": true,
+    "require_toi_propagation": true,
+    "audit_trail": true,
+    "format": "HandoffContext"
+  },
+  "privacy_requirements": {
+    "processing_location": "local",
+    "encryption_at_rest": "AES-256",
+    "default_retention": "session-only",
+    "default_sharing": "never",
+    "telemetry": "opt-in-only"
+  }
+}
