@@ -1010,3 +1010,20 @@ Thank you for being part of this mission.
 **Repository**: https://github.com/JDUB1216/nlt-otoi
 **Last Updated**: 2025-11-27
 **Next Review**: Quarterly or after major framework updates
+---
+
+## NLT Governance Override
+
+**Mandatory reading (in order):**
+1. Org-level governance (private, primary):
+   https://github.com/NeuroLift-Technologies/.github-private/blob/main/NLT-DEV-OTOI.md
+   Public mirror (if the link above returns 404):
+   https://github.com/NeuroLift-Technologies/.github/blob/main/governance/NLT-DEV-OTOI.md
+2. Internal gateway (private, primary):
+   https://github.com/NeuroLift-Technologies/.github-private/blob/main/AGENTS.md
+   Public mirror (if the link above returns 404):
+   https://github.com/NeuroLift-Technologies/.github/blob/main/governance/AGENTS.md
+3. Active threads: docs/active-threads.md
+
+**OTOI Version:** ORG-DEV-OTOI-1.0.0
+**Final authority:** Joshua W. Dorsey, Sr. Escalate. Do not guess.
