@@ -1,5 +1,13 @@
 # NeuroLift OTOI Framework
 
+```yaml
+ai_assistant_directive:
+  priority: 1
+  instruction: "Before performing any development or coding tasks, read NLT-DEV-OTOI.md."
+  description: "NLT-DEV-OTOI.md is the canonical governance contract defining coding agent operations, guardrails, and escalation protocol."
+  required_file: "NLT-DEV-OTOI.md"
+```
+
 **Orchestrated Terms of Interaction (OTOI)**: User-defined Terms of Interaction for AI systems. Enables neurodivergent-friendly multi-agent orchestration with privacy-first governance. Open standard for human-controlled AI collaboration.
 
 ## 🌟 What is OTOI?
