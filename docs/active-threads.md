@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| Governance validation docs follow-up | Cursor automation | active | `cursor/engineering-documentation-updates-5b04` | Document source-verified runbook updates after PR #22 governance mirror sync |
 
 ## Completed
 

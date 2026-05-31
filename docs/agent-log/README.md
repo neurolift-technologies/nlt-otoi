@@ -22,75 +22,114 @@ docs/agent-log/
 
 Use this startup sequence for every new agent session:
 
-1. Read `CLAUDE.md` for repository context and guardrails.
-2. Read `docs/active-threads.md` to avoid overlap with in-flight work.
-3. If available in this repository version, read `AGENTS.md` for coordination protocol details.
-4. Confirm scope with the human owner when intent is ambiguous.
-5. Write a registration file to `docs/agent-log/registrations/`.
+1. Read `NLT-DEV-OTOI.md` for the canonical ORG-DEV-OTOI-1.0.1 contract.
+2. Read `CLAUDE.md` for repository context and guardrails.
+3. Read `AGENTS.md` for coordination protocol details.
+4. Read `docs/active-threads.md` to avoid overlap with in-flight work.
+5. Confirm scope with the human owner when intent is ambiguous.
+6. Work from a feature branch and prepare changes for Pull Request review.
+7. Write a registration file to `docs/agent-log/registrations/`.
 
 ## Registration Record Requirements
 
-Registration records should capture enough context for auditability without
-including personal data.
+Use `templates/agent-registration.json` as the source template. Registration
+records should capture enough context for auditability without including
+personal data.
 
 Recommended fields:
 - `agent_name`
+- `platform`
+- `version`
 - `session_id`
-- `started_at` (ISO-8601 UTC timestamp)
-- `branch`
-- `task_scope`
-- `capabilities`
-- `constraints`
+- `entry_date` (ISO-8601 date)
+- `entry_point`
+- `acknowledged_otoi`
+- `otoi_version`
+- `working_repo`
+- `working_branch`
+- `capabilities_self_reported`
+- `known_limitations`
+- `preferred_handoff_format`
 
 Example registration record:
 
 ```json
 {
-  "agent_name": "OTOI Integration Agent",
-  "session_id": "2026-04-21-ci-docs-alignment",
-  "started_at": "2026-04-21T21:50:00Z",
-  "branch": "cursor/codebase-documentation-alignment-0b92",
-  "task_scope": "Update runbooks for merged GitHub Pages + Solidarity Kit changes",
-  "capabilities": ["docs-maintenance", "ci-troubleshooting"],
-  "constraints": ["no secrets", "default-deny", "minimal-footprint"]
+  "agent_registration": {
+    "agent_name": "OTOI Integration Agent",
+    "platform": "Cursor Cloud Agent",
+    "version": "example",
+    "session_id": "2026-04-21-ci-docs-alignment",
+    "entry_date": "2026-04-21",
+    "entry_point": "Runbook update after merged automation PR",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/codebase-documentation-alignment-0b92",
+    "capabilities_self_reported": ["docs-maintenance", "ci-troubleshooting"],
+    "known_limitations": ["no production deployment authority"],
+    "preferred_handoff_format": "Structured JSON"
+  }
 }
 ```
 
 ## Handoff Record Requirements
 
-Handoff records should preserve intent and provenance for the next contributor.
+Use `templates/handoff-record.json` as the source template. Handoff records
+should preserve intent and provenance for the next contributor.
 
 Recommended fields:
 - `session_id`
-- `completed_at` (ISO-8601 UTC timestamp)
-- `summary`
-- `files_changed`
-- `validation`
-- `open_questions`
-- `next_actions`
+- `agent_name`
+- `date` (ISO-8601 date)
+- `otoi_version`
+- `repo`
+- `branch`
+- `work_completed`
+- `work_in_progress`
+- `blockers`
+- `decisions_made`
+- `decisions_pending`
+- `escalations`
+- `next_agent_notes`
+- `files_modified`
+- `tests_run`
+- `tests_passing`
+- `pr_url`
 
 Example handoff record:
 
 ```json
 {
-  "session_id": "2026-04-21-ci-docs-alignment",
-  "completed_at": "2026-04-21T22:10:00Z",
-  "summary": "Documented maintenance workflow for index.html and agent-solidarity-kit.json",
-  "files_changed": [
-    "docs/development-process.md",
-    "docs/agent-log/README.md",
-    "docs/active-threads.md"
-  ],
-  "validation": [
-    "Reviewed merged PR diff for touched codepaths",
-    "Confirmed active thread status moved to Completed"
-  ],
-  "open_questions": [
-    "Add AGENTS.md once coordination gateway is finalized"
-  ],
-  "next_actions": [
-    "Create JSON schema for registration and handoff records"
-  ]
+  "handoff_record": {
+    "session_id": "2026-04-21-ci-docs-alignment",
+    "agent_name": "OTOI Integration Agent",
+    "date": "2026-04-21",
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/codebase-documentation-alignment-0b92",
+    "work_completed": [
+      "Documented maintenance workflow for index.html and agent-solidarity-kit.json"
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Kept the runbook in docs/development-process.md"
+    ],
+    "decisions_pending": [],
+    "escalations": [],
+    "next_agent_notes": "Check active thread state before continuing.",
+    "files_modified": [
+      "docs/development-process.md",
+      "docs/agent-log/README.md",
+      "docs/active-threads.md"
+    ],
+    "tests_run": [
+      "Reviewed merged PR diff for touched codepaths"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/example"
+  }
 }
 ```
 
@@ -120,3 +159,5 @@ Records may reference data item IDs tracked by the Privacy Guardian but must not
 - **Missing provenance**: Always include the branch and changed file list.
 - **No validation notes**: Record how behavior/documentation was verified.
 - **Stale thread state**: Update `docs/active-threads.md` when work moves from active to complete.
+- **Stale template paths**: Use root `templates/agent-registration.json` and
+  `templates/handoff-record.json`; do not use retired nested template paths.
