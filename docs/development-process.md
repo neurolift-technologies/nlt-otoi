@@ -19,16 +19,18 @@ Minimum local tools for CI parity:
 - Python 3.11
 - `jsonschema` (schema validation workflow dependency)
 - `bandit` (security scan workflow dependency)
+- Bash (governance validation script runtime)
 
 ## Workflow Architecture
 
-The repository uses four GitHub Actions workflows:
+The repository uses five root GitHub Actions workflows:
 
 | Workflow | File | Purpose |
 | --- | --- | --- |
 | Accessibility Check | `.github/workflows/accessibility-check.yml` | Enforces accessibility-focused docs and template checks |
 | Schema Validation | `.github/workflows/schema-validation.yml` | Validates schema and template JSON structure |
 | Security Scan | `.github/workflows/security-scan.yml` | Runs Bandit and lightweight security heuristics |
+| Governance Validation | `.github/workflows/validate-governance.yml` | Validates required NLT governance files and content markers |
 | Create Branch Cleanup Issues | `.github/workflows/create-branch-cleanup-issues.yml` | Creates maintenance issues for stale merged branches |
 
 ### CI Coverage Map (What Codepaths Each Workflow Exercises)
@@ -41,6 +43,7 @@ can quickly identify which checks are relevant for a change.
 | Accessibility Check | `docs/**`, `templates/**`, `schemas/**`, `nlt-otoi/docs/**`, `nlt-otoi/templates/**`, `nlt-otoi/schemas/**` | Also runs template validation via `nlt-otoi/tools/validators/toi-validator.py` and scans `nlt-otoi/tools/` for accessibility terms as a warning signal |
 | Schema Validation | `schemas/**`, `nlt-otoi/schemas/**`, `nlt-otoi/templates/**`, `nlt-otoi/tools/validators/**` | Workflow currently enforces JSON parse validity, not full cross-document semantic validation |
 | Security Scan | `src/**`, `nlt-otoi/tools/**`, `schemas/**`, `nlt-otoi/schemas/**` | Triggered on every push/PR to `main`/`develop` (no path filter), plus weekly schedule |
+| Governance Validation | `NLT-DEV-OTOI.md`, `AGENTS.md`, `nltotoi.json`, `.nltotoi/**`, root governance templates, `ISSUE_TEMPLATE/**`, `PULL_REQUEST_TEMPLATE/**`, `SOPs/**`, `.github/workflows/validate-governance.yml` | Triggered on every push and pull request because the workflow has no branch or path filter |
 | Create Branch Cleanup Issues | `.github/workflows/create-branch-cleanup-issues.yml` | Manual maintenance workflow; does not run on push or PR |
 
 ### Source of Truth for CI Definitions
@@ -175,6 +178,16 @@ PY
 - Also runs on a weekly schedule: Monday at 02:00 UTC
 - Has no `paths` filter, so all file changes on supported branches trigger it
 
+### Governance Validation
+- Triggers on every `push` and `pull_request`
+- Has no branch or path filter
+- Runs:
+  ```bash
+  bash .nltotoi/scripts/validate-governance.sh
+  ```
+- Uses the default non-strict mode; warnings are allowed unless the script is
+  invoked manually with `--strict`
+
 ### Create Branch Cleanup Issues
 - Manual trigger only (`workflow_dispatch`)
 - Input:
@@ -255,6 +268,40 @@ print('No HIGH Bandit findings.')
 PY
 ```
 
+### Governance Validation (local parity)
+
+```bash
+bash .nltotoi/scripts/validate-governance.sh
+```
+
+Use strict mode only when you want warnings to fail locally:
+
+```bash
+bash .nltotoi/scripts/validate-governance.sh --strict
+```
+
+Current source-verified checks:
+- Required governance files must exist, including:
+  - `NLT-DEV-OTOI.md`
+  - `AGENTS.md`
+  - `nltotoi.json`
+  - `.nltotoi/README.md`
+  - `.nltotoi/index/governance-files.md`
+  - `.nltotoi/contracts/README.md`
+  - `.nltotoi/scripts/validate-governance.sh`
+  - `.nltotoi/proposals/validation-roadmap.md`
+  - root governance templates under `templates/`
+  - root governance issue/PR templates
+  - `SOPs/*.md`
+  - `.github/workflows/validate-governance.yml`
+- Required content markers must appear in governance files:
+  - `ORG-DEV-OTOI-1.0.1`
+  - `Joshua W. Dorsey`
+  - `Solidarity Framework`
+  - `HAIEF`
+  - `NLT-DEV-OTOI.md`
+  - `NeuroLift-Technologies/.github-private`
+
 ## Common Failure Signatures and Fast Fixes
 
 Use this table to quickly map common CI outcomes to likely causes:
@@ -268,6 +315,8 @@ Use this table to quickly map common CI outcomes to likely causes:
 | `❌ Invalid JSON in ...` (schema workflow) | A schema/template file failed JSON parsing | Run `python -m json.tool <file>` and fix syntax |
 | `❌ N high-severity security issues found` | Bandit reported one or more HIGH findings | Re-run Bandit locally and remediate flagged code paths |
 | `⚠️  Potential hardcoded passwords found — please review` | Grep-based secret heuristic matched literal password assignment pattern | Remove hardcoded credentials or migrate them to environment/secret stores |
+| `GOVERNANCE VALIDATION FAILED` | A required governance file is missing or a required content marker changed | Re-run `bash .nltotoi/scripts/validate-governance.sh` and inspect the failing `MISSING` or `CONTENT MISSING` line |
+| Governance validation passes locally but strict mode fails | The workflow uses default non-strict mode, while local `--strict` treats warnings as failures | Fix the warning if it reflects real drift, or compare against default mode before blocking a PR |
 
 Note: warning-level findings do not always fail a workflow. Check each workflow's
 explicit `exit` behavior in the root `.github/workflows/` definitions.
@@ -388,6 +437,35 @@ Troubleshooting:
   there even when the workflow still passes).
 - For hardcoded credential warnings, move secrets to environment variables or
   secret stores and avoid literal password assignments in committed files.
+
+### Governance Validation Runbook
+
+What it does:
+1. Checks out the repository.
+2. Runs `.nltotoi/scripts/validate-governance.sh` from the repository root.
+3. Verifies that required governance files exist.
+4. Verifies that required authority and contract markers are present.
+
+Behavioral constraints from source:
+- The workflow runs on every `push` and `pull_request`, regardless of target
+  branch or changed paths.
+- The script intentionally avoids `set -e` so it can collect all pass/fail/warn
+  results before exiting.
+- Default mode exits successfully when only warnings are present.
+- `--strict` is available for local checks but is not used by the workflow.
+- Unknown script flags exit immediately with an error.
+
+Troubleshooting:
+- Reproduce the exact workflow command:
+  ```bash
+  bash .nltotoi/scripts/validate-governance.sh
+  ```
+- If a required file is reported missing, compare against the `required_files`
+  array in `.nltotoi/scripts/validate-governance.sh`.
+- If a content marker is reported missing, inspect the corresponding
+  `check_content` entry in the script before changing governance text.
+- Do not edit `NLT-DEV-OTOI.md` itself unless the formal amendment process has
+  explicit approval.
 
 ### Branch Cleanup Issue Automation Runbook
 

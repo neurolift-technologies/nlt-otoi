@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| Governance CI runbook docs | Cursor Automation | In progress | `cursor/engineering-documentation-updates-6ebc` | Source-verify and document the active governance validation workflow after PR #20 closed |
 
 ## Completed
 
@@ -18,6 +18,7 @@ Current work threads and their status for the nlt-otoi repository.
 |--------|-------|--------|-----|-------------|
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
+| NLT governance infrastructure | cursor | ✅ | #22 | Added `NLT-DEV-OTOI.md`, `AGENTS.md`, governance templates, SOPs, and validation workflow scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |
 | Multi-agent architecture | codex | ✅ | #4 | NeuroLift agent architecture and prototypes |
 | TOI-OTOI governance | copilot | ✅ | #8 | Core library: toi_parser, otoi_orchestrator, privacy_guardian |
@@ -30,7 +31,4 @@ Current work threads and their status for the nlt-otoi repository.
 
 _Items noted for future work but not yet started._
 
-- [ ] Create `AGENTS.md` coordination gateway (pending solidarity-framework repo availability)
-- [ ] Add `SOP-NLT-001` onboarding document
-- [ ] Create JSON schemas for agent registration and handoff records
 - [ ] Reconcile commit format between CLAUDE.md and OTOI standard
