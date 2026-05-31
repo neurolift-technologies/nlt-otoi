@@ -40,6 +40,6 @@
       "python3 docs invariant check for governance workflow command, OTOI version, and root template paths"
     ],
     "tests_passing": true,
-    "pr_url": "Pending creation by automation"
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/23"
   }
 }
