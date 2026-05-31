@@ -16,7 +16,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
-| CI governance docs follow-up | cursor | pending | pending | Documented active Governance Validation workflow in development runbooks after PR #19 |
+| CI governance docs follow-up | cursor | pending | #25 | Documented active Governance Validation workflow in development runbooks after PR #19 |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |

@@ -40,6 +40,6 @@
       "python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-toi/adhd-optimized-toi.json (failed before dependency install due missing jsonschema; failed after installing jsonschema due pre-existing missing default schema path)"
     ],
     "tests_passing": false,
-    "pr_url": "Pending"
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/25"
   }
 }
