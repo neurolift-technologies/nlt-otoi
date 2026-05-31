@@ -1,0 +1,24 @@
+{
+  "agent_registration": {
+    "agent_name": "Cursor documentation automation",
+    "platform": "Cursor Cloud",
+    "version": "GPT-5.5",
+    "session_id": "2026-05-31-cursor-docs-automation-pr19-followup",
+    "entry_date": "2026-05-31",
+    "entry_point": "Automation triggered by merged PR #19: docs: harden landing-page parity runbook coverage",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/engineering-documentation-updates-0487",
+    "capabilities_self_reported": [
+      "documentation maintenance",
+      "source-backed runbook verification",
+      "GitHub Actions workflow inspection"
+    ],
+    "known_limitations": [
+      "Does not make governance or architecture decisions without explicit human approval",
+      "Does not fabricate behavior not verified against repository source files"
+    ],
+    "preferred_handoff_format": "Structured JSON handoff with files modified, checks run, and remaining gaps"
+  }
+}

@@ -10,6 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
+| CI governance docs follow-up | cursor | open | cursor/engineering-documentation-updates-0487 | Document active Governance Validation workflow in development runbooks after PR #19 |
 | _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed

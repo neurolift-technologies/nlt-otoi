@@ -125,7 +125,8 @@ We are committed to providing a welcoming and inclusive environment:
 ### CI and Automation Expectations
 
 This repository uses GitHub Actions to enforce baseline quality checks for
-accessibility, schema validity, and security scanning.
+accessibility, schema validity, security scanning, and governance file
+presence/content markers.
 
 - Workflow runbooks and troubleshooting:
   [`docs/development-process.md`](docs/development-process.md)
@@ -137,6 +138,8 @@ Before opening a PR, verify these minimum expectations:
 2. Any changed schema/template JSON files parse correctly.
 3. Security-sensitive changes include testing notes and rationale in the PR
    description.
+4. Governance file changes preserve required OTOI markers and manifest
+   references.
 
 ### Local Pre-PR Checks (CI Parity)
 
@@ -200,6 +203,15 @@ if high:
     sys.exit(1)
 print('No HIGH Bandit findings.')
 PY
+```
+
+#### Governance validation parity
+
+Use for all PRs. The workflow runs on every push and pull request because
+`.github/workflows/validate-governance.yml` has no branch or path filters.
+
+```bash
+bash .nltotoi/scripts/validate-governance.sh
 ```
 
 ## 🎯 Priority Areas
