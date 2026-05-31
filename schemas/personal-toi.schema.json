@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JDUB1216/nlt-otoi/schemas/personal-toi.schema.json",
+  "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/personal-toi.schema.json",
   "title": "Personal Terms of Interaction (TOI)",
   "description": "Schema for defining individual user preferences for AI interaction",
   "type": "object",

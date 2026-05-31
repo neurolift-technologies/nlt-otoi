@@ -1,6 +1,6 @@
 # CLAUDE.md - AI Assistant Guide for nlt-otoi Repository
 
-**Repository**: JDUB1216/nlt-otoi
+**Repository**: NeuroLift-Technologies/nlt-otoi
 **Purpose**: NeuroLift OTOI Framework - Open standard for user-controlled AI interaction
 **Last Updated**: 2025-11-27
 **Intended Audience**: Claude, Claude Code, and other AI assistants working with this codebase
@@ -184,7 +184,7 @@ No external dependencies in core schemas - intentionally minimal for broad adopt
 ### Validation Standards
 
 - **JSON Schema Version**: `https://json-schema.org/draft/2020-12/schema`
-- **Schema ID Format**: `https://github.com/JDUB1216/nlt-otoi/schemas/{schema-name}.schema.json`
+- **Schema ID Format**: `https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/{schema-name}.schema.json`
 - **Versioning**: Semantic versioning (MAJOR.MINOR.PATCH) in schema version fields
 
 ---
@@ -610,7 +610,7 @@ Closes #XX
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JDUB1216/nlt-otoi/schemas/personal-toi.schema.json",
+  "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/personal-toi.schema.json",
   "title": "Personal Terms of Interaction (TOI)",
   "description": "Schema for defining individual user preferences for AI interaction",
   "type": "object",
@@ -1007,6 +1007,23 @@ Thank you for being part of this mission.
 
 **Prepared by**: Claude Code (AI Assistant)
 **For**: NeuroLift OTOI Framework Repository
-**Repository**: https://github.com/JDUB1216/nlt-otoi
+**Repository**: https://github.com/NeuroLift-Technologies/nlt-otoi
 **Last Updated**: 2025-11-27
 **Next Review**: Quarterly or after major framework updates
+---
+
+## NLT Governance Override
+
+**Mandatory reading (in order):**
+1. Org-level governance (private, primary):
+   https://github.com/NeuroLift-Technologies/.github-private/blob/main/NLT-DEV-OTOI.md
+   Public mirror (if the link above returns 404):
+   https://github.com/NeuroLift-Technologies/.github/blob/main/governance/NLT-DEV-OTOI.md
+2. Internal gateway (private, primary):
+   https://github.com/NeuroLift-Technologies/.github-private/blob/main/AGENTS.md
+   Public mirror (if the link above returns 404):
+   https://github.com/NeuroLift-Technologies/.github/blob/main/governance/AGENTS.md
+3. Active threads: docs/active-threads.md
+
+**OTOI Version:** ORG-DEV-OTOI-1.0.1
+**Final authority:** Joshua W. Dorsey, Sr. Escalate. Do not guess.

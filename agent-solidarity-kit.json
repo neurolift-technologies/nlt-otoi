@@ -10,7 +10,7 @@
     "nlt_otoi_repo_license": "MIT"
   },
   "governance": {
-    "otoi_version": "ORG-DEV-OTOI-1.0.0",
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
     "solidarity_framework": true,
     "solidarity_framework_ref": "https://github.com/NeuroLift-Technologies/solidarity-framework",
     "haief_compliant": true,

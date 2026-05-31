@@ -208,6 +208,13 @@ grep -r "clear\|simple\|easy\|understand" docs/ nlt-otoi/docs/
 python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-toi/adhd-optimized-toi.json
 ```
 
+Important constraint:
+- The validator's default schema lookup currently targets
+  `nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`.
+- That path is not present in the current repository tree, so this command can
+  fail with "Schema file not found" even when the workflow wiring itself is
+  unchanged.
+
 ### Schema Validation (local parity)
 
 ```bash
@@ -257,6 +264,7 @@ Use this table to quickly map common CI outcomes to likely causes:
 | Workflow did not appear for a PR | PR base branch is not `main`/`develop`, or changed files did not match `paths` filters | Confirm PR base branch, then run `git diff --name-only <base_sha>...<head_sha>` |
 | `❌ Missing accessibility content in documentation` | Accessibility keywords are absent from scanned docs directories | Add explicit accessibility terms in `docs/` or `nlt-otoi/docs/` |
 | `❌ Documentation may not use clear language` | Clear-language keywords are missing from scanned docs | Add wording that includes `clear`, `simple`, `easy`, or `understand` |
+| `❌ Error: Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | `toi-validator.py` default schema path points to a file not present in this repository snapshot | Provide `--schema` with an existing matching schema, or align validator default path/file layout |
 | `❌ Invalid JSON in ...` (schema workflow) | A schema/template file failed JSON parsing | Run `python -m json.tool <file>` and fix syntax |
 | `❌ N high-severity security issues found` | Bandit reported one or more HIGH findings | Re-run Bandit locally and remediate flagged code paths |
 | `⚠️  Potential hardcoded passwords found — please review` | Grep-based secret heuristic matched literal password assignment pattern | Remove hardcoded credentials or migrate them to environment/secret stores |
@@ -306,6 +314,11 @@ Troubleshooting:
   ```bash
   python3 nlt-otoi/tools/validators/toi-validator.py <template.json>
   ```
+- If template validation fails with "Schema file not found", the validator is
+  using its default schema path
+  (`nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`), which is not present in
+  the current tree. This is a path/layout mismatch, not necessarily malformed
+  JSON in the template file.
 
 ### Schema Validation Runbook
 

@@ -1,8 +1,8 @@
 # OTOI Framework: Orchestrated Terms of Interaction
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Neurodivergent Friendly](https://img.shields.io/badge/Neurodivergent-Friendly-brightgreen.svg)](https://github.com/neurolift/nlt-otoi)
-[![Accessibility](https://img.shields.io/badge/Accessibility-AAA-brightgreen.svg)](https://github.com/neurolift/nlt-otoi)
+[![Neurodivergent Friendly](https://img.shields.io/badge/Neurodivergent-Friendly-brightgreen.svg)](https://github.com/NeuroLift-Technologies/nlt-otoi)
+[![Accessibility](https://img.shields.io/badge/Accessibility-AAA-brightgreen.svg)](https://github.com/NeuroLift-Technologies/nlt-otoi)
 
 > **Empowering users to define their own AI interaction terms**  
 > A revolutionary open standard for neurodivergent-friendly, user-centric AI collaboration
@@ -25,7 +25,7 @@ The **Orchestrated Terms of Interaction (OTOI)** framework is a two-layer govern
 
 ```bash
 # Clone the repository
-git clone https://github.com/neurolift/nlt-otoi.git
+git clone https://github.com/NeuroLift-Technologies/nlt-otoi.git
 cd nlt-otoi
 
 # Use the ADHD-optimized template
@@ -136,7 +136,7 @@ We welcome contributions from everyone, especially neurodivergent developers and
 
 ```bash
 # Clone and setup
-git clone https://github.com/neurolift/nlt-otoi.git
+git clone https://github.com/NeuroLift-Technologies/nlt-otoi.git
 cd nlt-otoi
 
 # Install dependencies
@@ -169,8 +169,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **Issues**: [GitHub Issues](https://github.com/neurolift/nlt-otoi/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/neurolift/nlt-otoi/discussions)
+- **Issues**: [GitHub Issues](https://github.com/NeuroLift-Technologies/nlt-otoi/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/NeuroLift-Technologies/nlt-otoi/discussions)
 - **Email**: [contact@neurolift.tech](mailto:contact@neurolift.tech)
 - **Website**: [https://neurolift.tech](https://neurolift.tech)
 

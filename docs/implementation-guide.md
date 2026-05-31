@@ -73,6 +73,120 @@ class OTOIAdapter {
 
 ## Schema Implementation
 
+## Python Reference Implementation (Source-Verified)
+
+The active reference implementation lives in `src/fusion/` and is exported via
+`src/fusion/__init__.py`.
+
+| Module | Primary public interfaces | Verified behavior constraints |
+| --- | --- | --- |
+| `src/fusion/toi_parser.py` | `TOIParser`, `TOIPreferences` | `parse_file()` reads JSON files (via `json.load`), then validates against schema. Schema resolution order is: explicit `schema_path`, then `schemas/personal-toi.schema.json`, then an in-code fallback schema. |
+| `src/fusion/otoi_orchestrator.py` | `OTOIOrchestrator`, `AgentInfo`, `HandoffContext`, `CollaborationContext` | `dispatch()` requires the target agent to be registered, active, and have an instance registered, otherwise raises `ValueError`. Provenance entries are appended on dispatch/complete when enabled. |
+| `src/fusion/privacy_guardian.py` | `PrivacyGuardian`, `PrivacyPolicy`, `DataCategory`, `ProcessingLocation` | `can_process()` enforces local-only processing for `personal`, `cognitive`, and `behavioral` data categories. `can_share()` always blocks `personal` and `cognitive` external sharing. |
+
+### Minimal End-to-End Python Flow
+
+```python
+import asyncio
+from dataclasses import dataclass
+from typing import Any, Dict
+
+from src.fusion import OTOIOrchestrator, TOIParser
+from src.fusion.otoi_orchestrator import AgentCapability, AgentInfo
+
+
+@dataclass
+class EchoAgent:
+    agent_id: str = "echo"
+
+    async def initialize(self) -> None:
+        return None
+
+    async def shutdown(self) -> None:
+        return None
+
+    def get_status(self) -> Dict[str, Any]:
+        return {"healthy": True}
+
+    async def process(self, user_input: str, context) -> Dict[str, Any]:
+        return {"reply": user_input, "intent": context.user_intent}
+
+
+async def run() -> None:
+    parser = TOIParser()
+    toi = parser.parse_file("examples/neurodivergent-examples/adhd-student-example.json")
+
+    orchestrator = OTOIOrchestrator()
+    agent = EchoAgent()
+    orchestrator.register_agent(
+        AgentInfo(
+            agent_id=agent.agent_id,
+            name="Echo",
+            capabilities=[AgentCapability.GENERAL],
+        ),
+        agent_instance=agent,
+    )
+
+    handoff = orchestrator.create_handoff(
+        source_agent=None,
+        target_agent=agent.agent_id,
+        user_intent="Reflect user text",
+        toi=toi,
+    )
+
+    result = await orchestrator.dispatch(agent.agent_id, "hello", handoff)
+    print(result)
+
+
+asyncio.run(run())
+```
+
+## Tooling Runbook (`nlt-otoi/tools`)
+
+### `toi-validator.py`
+
+Validate a TOI JSON file:
+
+```bash
+python3 nlt-otoi/tools/validators/toi-validator.py --schema schemas/personal-toi.schema.json \
+  examples/neurodivergent-examples/adhd-student-example.json
+```
+
+Operational constraints verified from source and local execution:
+- `jsonschema` must be installed in the runtime environment.
+- The validator's default schema path points to
+  `nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`.
+- That default schema file is not present in the current repository tree, so
+  validator runs without `--schema` fail immediately with "Schema file not
+  found".
+
+### `toi-generator.py`
+
+Generate platform-specific instructions from the legacy nested template shape:
+
+```bash
+python3 nlt-otoi/tools/generators/toi-generator.py \
+  nlt-otoi/templates/personal-toi/adhd-optimized-toi.json \
+  --platform cursor \
+  --output-dir /tmp/otoi-instructions
+```
+
+Behavioral constraints:
+- The generator expects keys like `user_profile`, `interaction_preferences`,
+  `accessibility_needs`, and `ai_agent_preferences`.
+- Output files are written to `generated-instructions/` unless `--output-dir`
+  is provided.
+
+## Troubleshooting and Common Pitfalls (Python + Tools)
+
+| Symptom | Likely cause | First action |
+| --- | --- | --- |
+| `ModuleNotFoundError: No module named 'jsonschema'` | Validator dependency missing locally | `python3 -m pip install jsonschema` |
+| `Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | Validator default schema target missing in this tree | Re-run with `--schema` and an existing schema file |
+| `ValueError: No instance registered for agent '<id>'` | Agent metadata was registered without an `agent_instance` | Pass `agent_instance=...` in `register_agent()` |
+| `ValueError: Agent '<id>' is not active` | Agent exists but `is_active` is false | Reactivate or register a different active agent |
+| `can_share(...)` always false for personal/cognitive data | `PrivacyGuardian` hard-blocks those categories | Share only non-sensitive categories with explicit policy alignment |
+
 ### Validation
 
 Always validate TOI documents against the schema:

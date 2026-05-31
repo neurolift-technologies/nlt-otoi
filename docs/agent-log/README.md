@@ -1,6 +1,6 @@
 # Agent Log
 
-This directory contains structured records of agent activity in the nlt-otoi repository, per the NeuroLift Technologies Agent Solidarity Kit and ORG-DEV-OTOI-1.0.0.
+This directory contains structured records of agent activity in the nlt-otoi repository, per the NeuroLift Technologies Agent Solidarity Kit and ORG-DEV-OTOI-1.0.1.
 
 ## Directory Structure
 
@@ -104,7 +104,7 @@ Example handoff record:
 All records in this directory are governed by:
 - [Agent Solidarity Kit](/agent-solidarity-kit.json)
 - [TOI-OTOI Agent Specifications](/toi-otoi-agents.md)
-- ORG-DEV-OTOI-1.0.0 (Solidarity Framework)
+- ORG-DEV-OTOI-1.0.1 (Solidarity Framework)
 
 ## Privacy
 
