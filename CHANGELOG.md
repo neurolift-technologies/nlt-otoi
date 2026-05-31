@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- N/A
+
+### Changed
+- N/A
+
+### Fixed
+- N/A
+
+---
+
+## [1.0.0] — 2026-05-30
+
+First tagged release. Establishes the governance baseline, publishes the public
+mirror of `ORG-DEV-OTOI-1.0.1`, normalizes the canonical repository owner to
+`NeuroLift-Technologies`, and consolidates the CI and documentation surface.
+
+### Added
 - `.github/PULL_REQUEST_TEMPLATE.md` — standard PR template for all contributors
 - `.github/workflows/accessibility-check.yml` — automated accessibility compliance checks
 - `.github/workflows/schema-validation.yml` — automated JSON schema validation
@@ -109,7 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CONTRIBUTING.md`
 - `LICENSE` (MIT)
 
-[Unreleased]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.8.0...v1.0.0
 [0.8.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.5.0...v0.6.0

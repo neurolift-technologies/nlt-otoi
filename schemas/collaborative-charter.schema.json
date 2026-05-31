@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JDUB1216/nlt-otoi/schemas/collaborative-charter.schema.json",
+  "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/collaborative-charter.schema.json",
   "title": "Collaborative Charter",
   "description": "Schema for defining team or group interaction protocols with AI systems",
   "type": "object",

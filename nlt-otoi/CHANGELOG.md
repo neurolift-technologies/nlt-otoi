@@ -129,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Versioning
 
-This project uses [Semantic Versioning](https://semver.org/). For the versions available, see the [tags on this repository](https://github.com/neurolift/nlt-otoi/tags).
+This project uses [Semantic Versioning](https://semver.org/). For the versions available, see the [tags on this repository](https://github.com/NeuroLift-Technologies/nlt-otoi/tags).
 
 ## Release Notes
 

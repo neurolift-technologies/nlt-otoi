@@ -7,7 +7,7 @@ This file provides comprehensive guidance for Gemini AI on the repository struct
 historical context, and integration with the current NeuroLift Technologies ecosystem.
 This repository contains the foundational work that evolved into the current TOI-OTOI framework.
 
-Repository: https://github.com/JDUB1216/nlt-otoi
+Repository: https://github.com/NeuroLift-Technologies/nlt-otoi
 Notion Project: https://www.notion.so/273555e42dea813a9a00ffc6c51ccaa2
 """
 
@@ -24,7 +24,7 @@ from datetime import datetime
 REPOSITORY_INFO = {
     "name": "nlt-otoi",
     "description": "NeuroLift OTOI Framework: User-defined Terms of Interaction for AI systems. Enables neurodivergent-friendly multi-agent orchestration with privacy-first governance. Open standard for human-controlled AI collaboration.",
-    "github_url": "https://github.com/JDUB1216/nlt-otoi",
+    "github_url": "https://github.com/NeuroLift-Technologies/nlt-otoi",
     "notion_project": "https://www.notion.so/273555e42dea813a9a00ffc6c51ccaa2",
     "created_date": "~2025-09-10",
     "current_date": "2025-09-19",
