@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| Governance validation docs follow-up | Cursor automation | active | `cursor/engineering-documentation-updates-5b04` | Document source-verified runbook updates after PR #22 governance mirror sync |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| Governance validation docs follow-up | Cursor automation | pending | TBD | Documented governance validation runbook and agent-log template paths after PR #22 |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |
 | Multi-agent architecture | codex | ✅ | #4 | NeuroLift agent architecture and prototypes |

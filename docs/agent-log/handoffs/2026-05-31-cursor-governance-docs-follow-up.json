@@ -1,0 +1,45 @@
+{
+  "handoff_record": {
+    "session_id": "2026-05-31-cursor-governance-docs-follow-up",
+    "agent_name": "CursorAutomation",
+    "date": "2026-05-31",
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-5b04",
+    "work_completed": [
+      "Reviewed merged PR #22 diff for governance mirror, template, changelog, and validation changes",
+      "Added source-verified Governance Validation coverage, trigger, parity, failure, and runbook guidance to docs/development-process.md",
+      "Aligned docs/agent-log/README.md with root agent registration and handoff templates",
+      "Recorded session registration and closed the active thread entry"
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Updated existing documentation rather than adding a new governance page",
+      "Documented root .github/workflows/validate-governance.yml as the active workflow wrapper and .nltotoi/scripts/validate-governance.sh as the executable validator",
+      "Documented root templates/ as the canonical agent template location"
+    ],
+    "decisions_pending": [
+      "Replace the active-threads PR placeholder after the pull request number is assigned, if the repository requires exact PR references in completed thread rows"
+    ],
+    "escalations": [],
+    "next_agent_notes": "Governance validation passed locally. If follow-up edits touch governance version markers, rerun bash .nltotoi/scripts/validate-governance.sh and JSON parsing for changed templates/manifests.",
+    "files_modified": [
+      "docs/development-process.md",
+      "docs/agent-log/README.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-05-31-cursor-governance-docs-follow-up.json",
+      "docs/agent-log/handoffs/2026-05-31-cursor-governance-docs-follow-up.json"
+    ],
+    "tests_run": [
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "python3 -m json.tool docs/agent-log/registrations/2026-05-31-cursor-governance-docs-follow-up.json > /dev/null",
+      "python3 -m json.tool templates/agent-registration.json > /dev/null",
+      "python3 -m json.tool templates/handoff-record.json > /dev/null",
+      "git diff --check HEAD~1..HEAD",
+      "python3 docs invariant check for governance workflow command, OTOI version, and root template paths"
+    ],
+    "tests_passing": true,
+    "pr_url": "Pending creation by automation"
+  }
+}
