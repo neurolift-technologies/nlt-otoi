@@ -1,0 +1,45 @@
+{
+  "handoff_record": {
+    "session_id": "2026-05-31-cursor-docs-automation-pr19-followup",
+    "agent_name": "Cursor documentation automation",
+    "date": "2026-05-31",
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-0487",
+    "work_completed": [
+      "Verified merged PR #19 changed the GitHub Pages and Solidarity Kit runbook area",
+      "Documented the active Governance Validation workflow in docs/development-process.md",
+      "Aligned CONTRIBUTING.md with governance validation as a baseline CI expectation",
+      "Registered this automation session and closed the active thread entry"
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Updated existing workflow/runbook documentation instead of creating a redundant page",
+      "Kept this pass documentation-only and did not alter the validator default schema path"
+    ],
+    "decisions_pending": [
+      "Whether to fix the pre-existing TOI validator default schema path mismatch documented in docs/development-process.md"
+    ],
+    "escalations": [],
+    "next_agent_notes": "Governance validation and landing-page parity checks passed. The accessibility workflow's template validator still fails locally after installing jsonschema because nlt-otoi/tools/validators/toi-validator.py defaults to nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json, which is absent; this is an existing documented workflow constraint.",
+    "files_modified": [
+      "CONTRIBUTING.md",
+      "docs/development-process.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-05-31-cursor-docs-automation-pr19-followup.json",
+      "docs/agent-log/handoffs/2026-05-31-cursor-docs-automation-pr19-followup-handoff.json"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "python3 -m json.tool docs/agent-log/registrations/2026-05-31-cursor-docs-automation-pr19-followup.json > /dev/null",
+      "Static Python check that docs/development-process.md mentions all root .github/workflows/*.yml files",
+      "python3 -m json.tool agent-solidarity-kit.json > /dev/null",
+      "Static Python landing-page parity check for agent-solidarity-kit.json metadata, architecture labels, and principle pills",
+      "python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-toi/adhd-optimized-toi.json (failed before dependency install due missing jsonschema; failed after installing jsonschema due pre-existing missing default schema path)"
+    ],
+    "tests_passing": false,
+    "pr_url": "Pending"
+  }
+}
