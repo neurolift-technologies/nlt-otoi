@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| Governance CI runbook docs | Cursor Automation | In progress | `cursor/engineering-documentation-updates-6ebc` | Source-verify and document the active governance validation workflow after PR #20 closed |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| Governance CI runbook docs | Cursor Automation | Pending review | #24 | Documented governance validation workflow triggers, local parity command, troubleshooting, and active-thread cleanup |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | NLT governance infrastructure | cursor | ✅ | #22 | Added `NLT-DEV-OTOI.md`, `AGENTS.md`, governance templates, SOPs, and validation workflow scaffolding |

@@ -1,0 +1,40 @@
+{
+  "handoff_record": {
+    "session_id": "2026-05-31-cursor-docs-governance-ci-runbook",
+    "agent_name": "Cursor Automation",
+    "date": "2026-05-31",
+    "otoi_version": "ORG-DEV-OTOI-1.0.1",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-6ebc",
+    "work_completed": [
+      "Reviewed PR #20 and confirmed it documented the Python `src/fusion/*` interface boundaries.",
+      "Identified a remaining docs gap: `docs/development-process.md` omitted the active root Governance Validation workflow.",
+      "Updated the CI runbook with source-verified triggers, local parity commands, checked file/content markers, and troubleshooting guidance for `.github/workflows/validate-governance.yml` and `.nltotoi/scripts/validate-governance.sh`.",
+      "Updated `docs/active-threads.md` to remove stale governance scaffolding parking-lot items and add PR #24 as pending review."
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Updated existing runbook documentation instead of creating a new page to keep CI troubleshooting discoverable.",
+      "Did not edit `NLT-DEV-OTOI.md` because governance contract changes require formal amendment approval."
+    ],
+    "decisions_pending": [
+      "Reviewer approval and merge of PR #24."
+    ],
+    "escalations": [],
+    "next_agent_notes": "If follow-up work touches governance validation behavior, verify claims against `.github/workflows/validate-governance.yml` and `.nltotoi/scripts/validate-governance.sh` before updating docs.",
+    "files_modified": [
+      "docs/development-process.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-05-31-cursor-docs-governance-ci-runbook.json",
+      "docs/agent-log/handoffs/2026-05-31-cursor-docs-governance-ci-runbook-handoff.json"
+    ],
+    "tests_run": [
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "python3 -m json.tool docs/agent-log/registrations/2026-05-31-cursor-docs-governance-ci-runbook.json > /dev/null",
+      "git diff --check HEAD~1..HEAD"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/24"
+  }
+}
