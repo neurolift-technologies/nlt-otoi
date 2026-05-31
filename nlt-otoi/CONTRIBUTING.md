@@ -80,7 +80,7 @@ We're building user-centric AI interaction standards that put people in control 
 ### **Quick Start**
 ```bash
 # Clone the repository
-git clone https://github.com/neurolift/nlt-otoi.git
+git clone https://github.com/NeuroLift-Technologies/nlt-otoi.git
 cd nlt-otoi
 
 # Install dependencies

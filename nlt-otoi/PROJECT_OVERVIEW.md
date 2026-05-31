@@ -51,7 +51,7 @@ nlt-otoi/
 
 ### 1. Clone and Setup
 ```bash
-git clone https://github.com/neurolift/nlt-otoi.git
+git clone https://github.com/NeuroLift-Technologies/nlt-otoi.git
 cd nlt-otoi
 pip install -r requirements.txt
 ```
@@ -224,7 +224,7 @@ Copy the generated instructions to your AI platforms:
 ### Development Setup
 ```bash
 # Clone and setup
-git clone https://github.com/neurolift/nlt-otoi.git
+git clone https://github.com/NeuroLift-Technologies/nlt-otoi.git
 cd nlt-otoi
 
 # Install dependencies
@@ -246,7 +246,7 @@ python tools/validators/schema-validators.py
 - **Support**: [support@neurolift.tech](mailto:support@neurolift.tech)
 
 ### Community Resources
-- **GitHub Discussions**: [Join the conversation](https://github.com/neurolift/nlt-otoi/discussions)
+- **GitHub Discussions**: [Join the conversation](https://github.com/NeuroLift-Technologies/nlt-otoi/discussions)
 - **Discord Community**: [Real-time chat](https://discord.gg/neurolift) (coming soon)
 - **User Groups**: Local and online user groups
 - **Mentorship Program**: Connect with experienced users
