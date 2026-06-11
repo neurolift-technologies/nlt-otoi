@@ -1,0 +1,25 @@
+{
+  "agent_registration": {
+    "agent_name": "GPT-5.5 Cursor Automation",
+    "platform": "Cursor Cloud Automation",
+    "version": "GPT-5.5",
+    "session_id": "2026-06-11-gpt55-docs-pr27",
+    "entry_date": "2026-06-11T21:51:00Z",
+    "entry_point": "Automation trigger for merged PR #27: canonical .toi standard and @neurolift/otoi package",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/engineering-documentation-updates-91d3",
+    "capabilities_self_reported": [
+      "source-verified documentation maintenance",
+      "TypeScript package interface review",
+      "repository runbook alignment",
+      "git workflow automation"
+    ],
+    "known_limitations": [
+      "No human available in automation context for ambiguous governance decisions",
+      "Documentation-only scope; no package behavior changes intended"
+    ],
+    "preferred_handoff_format": "Structured JSON handoff plus concise PR summary"
+  }
+}

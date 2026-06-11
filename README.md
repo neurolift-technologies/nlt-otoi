@@ -23,11 +23,37 @@ The OTOI (Orchestrated Terms of Interaction) framework is a revolutionary approa
 3. Share your TOI with AI systems or collaborators
 4. Enjoy personalized, respectful AI interactions
 
+> **Note:** The root templates are legacy-friendly worksheets. New machine-readable
+> integrations should migrate the answers into the canonical `.toi` format.
+
 ### For Technical Users
 
-1. Use the [JSON schemas](/schemas/) to validate your TOI documents
-2. Implement the OTOI protocol in your applications
-3. Contribute to the standard through our [development process](/docs/development-process.md)
+1. Use [`@neurolift/toi`](https://www.npmjs.com/package/@neurolift/toi) as the
+   canonical `.toi` validator and resolver for interaction preference documents.
+2. Use [`@neurolift/otoi`](/packages/otoi/README.md) for the `.otoi`
+   orchestration layer: charter parsing, policy honoring, conflict handling, and
+   per-agent propagation.
+3. Use the [canonical TOI migration guide](/docs/canonical-toi-migration.md) when
+   upgrading older documents that use `version` / `metadata` /
+   `communication` / `cognitive` / `privacy`.
+4. Contribute to the standard through our
+   [development process](/docs/development-process.md).
+
+## Canonical `.toi` and `.otoi` standard
+
+PR #27 adopted the canonical **`.toi`** standard as the source of truth for
+individual Terms of Interaction:
+
+- **`.toi` (`@neurolift/toi`)**: the portable, signable interaction preference
+  document format. It owns the document shape, tiers, resolution semantics, and
+  validation rules.
+- **`.otoi` (`@neurolift/otoi`)**: the in-repo TypeScript package that consumes a
+  stack of `.toi` documents, resolves them into one effective policy, detects
+  same-tier conflicts, and propagates the result to declared agents.
+- **Legacy root schemas**: `schemas/personal-toi.schema.json` and
+  `schemas/collaborative-charter.schema.json` remain for pre-existing documents
+  only and are marked deprecated. See
+  [`docs/canonical-toi-migration.md`](/docs/canonical-toi-migration.md).
 
 ## 📁 Repository Structure
 
@@ -38,9 +64,15 @@ The OTOI (Orchestrated Terms of Interaction) framework is a revolutionary approa
 │   ├── otoi_orchestrator.py # Multi-agent coordination
 │   └── privacy_guardian.py  # Privacy-first enforcement
 
-/schemas/          # JSON schemas for validation
-├── personal-toi.schema.json
-└── collaborative-charter.schema.json
+/packages/otoi/    # TypeScript .otoi reference package
+├── README.md      # Install, quick start, and API guide
+├── SPEC.md        # Normative .otoi charter specification
+├── src/           # Zod schema, honoring, conflict, propagation logic
+└── test/          # Vitest coverage for charter honoring behavior
+
+/schemas/          # Deprecated legacy JSON schemas
+├── personal-toi.schema.json          # Legacy personal shape
+└── collaborative-charter.schema.json # Legacy collaborative shape
 
 /templates/        # User-friendly templates
 ├── personal-toi-template.md
@@ -56,6 +88,7 @@ The OTOI (Orchestrated Terms of Interaction) framework is a revolutionary approa
 /agent-solidarity-kit.json # Agent governance + integration contract
 
 /docs/            # Comprehensive documentation
+├── canonical-toi-migration.md
 ├── framework-overview.md
 ├── development-process.md
 ├── implementation-guide.md
@@ -84,7 +117,9 @@ contract (`agent-solidarity-kit.json`). Keep them synchronized:
 
 ### Personal TOI (Terms of Interaction)
 
-Your personal TOI defines how AI systems should interact with you individually. It includes:
+Your personal TOI defines how AI systems should interact with you individually.
+For new technical integrations, represent this as a canonical `.toi` document
+validated by `@neurolift/toi`. It includes:
 
 - Communication preferences (direct vs. indirect, formal vs. casual)
 - Cognitive accessibility needs (processing time, information structure)
@@ -94,13 +129,15 @@ Your personal TOI defines how AI systems should interact with you individually. 
 
 ### Collaborative Charter
 
-For team or multi-user scenarios, the Collaborative Charter establishes:
+For team or multi-user scenarios, legacy Collaborative Charters are replaced by
+`.toi` documents at `community` or `project` tier plus an `.otoi` charter. The
+`.otoi` charter establishes:
 
-- Shared interaction protocols
-- Conflict resolution processes
-- Decision-making frameworks
-- Privacy boundaries in group settings
-- Integration with individual TOIs
+- The agent mesh bound to the policy
+- The `.toi` sources in force
+- Same-tier conflict disposition
+- Unsupported-preference handling
+- Per-agent policy propagation
 
 ## 🌈 Neurodivergent-Friendly Features
 
@@ -142,7 +179,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Related Projects
 
-- [OTOI Reference Implementation](#) (Coming Soon)
+- [@neurolift/otoi](/packages/otoi/README.md) — TypeScript `.otoi` reference implementation
+- [Canonical TOI Migration Guide](/docs/canonical-toi-migration.md)
 - [OTOI Browser Extension](#) (Coming Soon)
 - [OTOI for Teams](#) (Coming Soon)
 

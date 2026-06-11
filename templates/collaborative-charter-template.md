@@ -1,5 +1,12 @@
 # Collaborative Charter Template
 
+> **Legacy worksheet:** This Markdown charter remains useful for team discovery
+> and accessibility conversations. New machine-readable team protocols should be
+> expressed as `community` or `project` tier `.toi` documents and bound by an
+> `.otoi` charter. See
+> [`docs/canonical-toi-migration.md`](/docs/canonical-toi-migration.md) and
+> [`packages/otoi/SPEC.md`](/packages/otoi/SPEC.md).
+
 This template helps teams create a Collaborative Charter for group AI interactions. It defines how multiple people work together with AI systems while respecting individual preferences.
 
 ## What is a Collaborative Charter?

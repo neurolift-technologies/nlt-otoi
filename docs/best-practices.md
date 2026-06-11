@@ -71,6 +71,15 @@ Better: "Delete conversation data after each session, never share with third par
 
 ## For Organizations Implementing OTOI
 
+### Canonical Team Protocols
+
+For new machine-readable team protocols, avoid creating new documents in the
+deprecated Collaborative Charter shape. Express shared preferences as canonical
+`.toi` documents at the `community` or `project` tier, then bind those sources
+with an `.otoi` charter from [`packages/otoi/SPEC.md`](../packages/otoi/SPEC.md).
+This keeps individual user agency clear: `.toi` owns preferences and `.otoi`
+owns multi-agent honoring, conflict handling, and propagation.
+
 ### Getting Started
 
 **Pilot Program Approach**

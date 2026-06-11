@@ -20,6 +20,10 @@ Minimum local tools for CI parity:
 - `jsonschema` (schema validation workflow dependency)
 - `bandit` (security scan workflow dependency)
 
+Additional tools for the TypeScript `.otoi` package:
+- Node.js 18 or newer (`packages/otoi/package.json` declares `engines.node >=18`)
+- npm for installing `@neurolift/otoi` package dependencies and running scripts
+
 ## Workflow Architecture
 
 The repository uses four GitHub Actions workflows:
@@ -42,6 +46,10 @@ can quickly identify which checks are relevant for a change.
 | Schema Validation | `schemas/**`, `nlt-otoi/schemas/**`, `nlt-otoi/templates/**`, `nlt-otoi/tools/validators/**` | Workflow currently enforces JSON parse validity, not full cross-document semantic validation |
 | Security Scan | `src/**`, `nlt-otoi/tools/**`, `schemas/**`, `nlt-otoi/schemas/**` | Triggered on every push/PR to `main`/`develop` (no path filter), plus weekly schedule |
 | Create Branch Cleanup Issues | `.github/workflows/create-branch-cleanup-issues.yml` | Manual maintenance workflow; does not run on push or PR |
+
+`packages/otoi/**` is not currently covered by a root GitHub Actions workflow.
+When a PR touches the TypeScript package, run the local package checks in the
+`.otoi Package Runbook` below and include the results in the PR description.
 
 ### Source of Truth for CI Definitions
 
@@ -151,6 +159,40 @@ PY
 | Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
 | Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
 
+## `.otoi` Package Runbook
+
+PR #27 added `packages/otoi`, the TypeScript reference package for `.otoi`
+charters. It consumes `@neurolift/toi`; it does not redefine the canonical
+`.toi` document model.
+
+### Maintenance workflow
+
+Use this workflow for changes under `packages/otoi/**` or docs that describe its
+public API:
+
+1. Read [`packages/otoi/SPEC.md`](../packages/otoi/SPEC.md) for the charter
+   format and enforcement model.
+2. Check [`packages/otoi/src/index.ts`](../packages/otoi/src/index.ts) for the
+   public export surface.
+3. Confirm behavior against [`packages/otoi/test/honor.test.ts`](../packages/otoi/test/honor.test.ts).
+4. Run local package checks:
+
+   ```bash
+   cd packages/otoi
+   npm install
+   npm run typecheck
+   npm test
+   ```
+
+### Common pitfalls
+
+| Pitfall | Symptom | Resolution |
+| --- | --- | --- |
+| Treating `.otoi` as a replacement `.toi` schema | Docs duplicate fields owned by `@neurolift/toi` | Point `.toi` validation/resolution to `@neurolift/toi`; keep `.otoi` scoped to orchestration |
+| Forgetting the external package dependency | `npm install` cannot resolve `@neurolift/toi` in a private or unpublished registry setup | Publish/configure/link `@neurolift/toi` first and document the setup used for validation |
+| Assuming CI exercised package tests | PR passes repo workflows but package regressions remain untested | Run `npm run typecheck` and `npm test` locally until a package workflow is added |
+| Describing cross-tier differences as conflicts | Incorrect escalation behavior in docs or implementations | Cross-tier differences are resolved by tier precedence; only same-tier leaf disagreements are conflicts |
+
 ## Trigger Matrix
 
 ### Accessibility Check
@@ -174,6 +216,11 @@ PY
 - Pull requests targeting any other base branch do not run this workflow
 - Also runs on a weekly schedule: Monday at 02:00 UTC
 - Has no `paths` filter, so all file changes on supported branches trigger it
+
+### TypeScript `.otoi` package
+- No root workflow currently targets `packages/otoi/**`.
+- Run the package commands manually before opening a PR that changes package
+  source, tests, README, or SPEC files.
 
 ### Create Branch Cleanup Issues
 - Manual trigger only (`workflow_dispatch`)
@@ -255,6 +302,18 @@ print('No HIGH Bandit findings.')
 PY
 ```
 
+### TypeScript `.otoi` Package (manual parity)
+
+```bash
+cd packages/otoi
+npm install
+npm run typecheck
+npm test
+```
+
+If `@neurolift/toi` is unavailable from the configured npm registry, install or
+link it locally and record that prerequisite in the PR testing notes.
+
 ## Common Failure Signatures and Fast Fixes
 
 Use this table to quickly map common CI outcomes to likely causes:
@@ -276,6 +335,8 @@ explicit `exit` behavior in the root `.github/workflows/` definitions.
 
 - Accessibility and clear-language checks are keyword-based `grep` checks and
   are case-sensitive.
+- Existing root workflows do not install Node dependencies or run
+  `packages/otoi` tests.
 - Security secret scanning only checks `*.py` and `*.json` for password-style
   assignments and currently warns instead of failing.
 - Bandit path scan errors are written into the JSON report `errors` field and

@@ -8,13 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- N/A
+- `packages/otoi/` — TypeScript `@neurolift/otoi` package for `.otoi` charter
+  parsing, policy honoring, same-tier conflict detection, and per-agent policy
+  propagation.
+- `docs/canonical-toi-migration.md` — migration guide from the legacy root TOI
+  schemas to the canonical `.toi` standard.
 
 ### Changed
-- N/A
+- Technical onboarding now points new integrations to canonical `.toi`
+  (`@neurolift/toi`) plus `.otoi` (`@neurolift/otoi`) instead of treating the
+  legacy root schemas as the active standard.
 
 ### Fixed
 - N/A
+
+### Deprecated
+- `schemas/personal-toi.schema.json` and
+  `schemas/collaborative-charter.schema.json` are retained for pre-existing
+  documents only. New machine-readable documents should use canonical `.toi`.
 
 ---
 

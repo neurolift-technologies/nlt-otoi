@@ -1,5 +1,10 @@
 # Personal TOI Template
 
+> **Legacy worksheet:** This Markdown template is still useful for collecting
+> preferences in clear, accessible language. For new machine-readable
+> integrations, migrate completed answers into the canonical `.toi` format
+> described in [`docs/canonical-toi-migration.md`](/docs/canonical-toi-migration.md).
+
 This template helps you create your Personal Terms of Interaction (TOI) - a document that tells AI systems exactly how you prefer to interact. Fill out what feels relevant to you, and skip anything that doesn't apply.
 
 ## Getting Started

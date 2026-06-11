@@ -1,5 +1,12 @@
 # OTOI Examples
 
+> **Legacy examples:** The JSON examples in this directory currently use older
+> TOI and Collaborative Charter shapes. They remain useful for understanding
+> accessibility needs and interaction intent, but new machine-readable examples
+> should use canonical `.toi` documents plus `.otoi` charters. Use
+> [`docs/canonical-toi-migration.md`](/docs/canonical-toi-migration.md) when
+> translating these examples.
+
 This directory contains real-world examples of OTOI documents to help you understand how to create your own Terms of Interaction.
 
 ## Organization

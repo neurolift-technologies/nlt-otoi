@@ -22,7 +22,7 @@ Thank you for your interest in contributing to the OTOI (Orchestrated Terms of I
 ### For Technical Contributors
 
 - **Code Review**: Help review pull requests for correctness and accessibility
-- **Schema Development**: Improve our JSON schemas and validation
+- **Canonical Standard Development**: Improve `.toi` / `.otoi` validation and orchestration
 - **Tool Development**: Create tools that use the OTOI standard
 - **Implementation Examples**: Show how to integrate OTOI in real applications
 
@@ -39,7 +39,7 @@ Pick what feels right for your skills and interests:
 
 **Templates & Schemas** (Light technical work)
 - Improve user-friendly templates
-- Enhance JSON schemas
+- Help migrate legacy examples toward canonical `.toi`
 - Create validation tools
 
 **Code & Implementation** (Technical work)
@@ -89,7 +89,12 @@ We are committed to providing a welcoming and inclusive environment:
 
 ### Technical Standards
 
-- **JSON Schema**: Use JSON Schema draft 2020-12 for validation
+- **Canonical `.toi`**: Use `@neurolift/toi` for new machine-readable Terms of
+  Interaction documents and resolution semantics.
+- **`.otoi` Orchestration**: Use `packages/otoi` (`@neurolift/otoi`) for
+  charter parsing, honoring, conflict detection, and agent propagation.
+- **Legacy JSON Schemas**: Root `schemas/*.schema.json` files are deprecated and
+  exist for pre-existing documents only.
 - **Backwards Compatibility**: Don't break existing implementations
 - **Documentation**: Document all public APIs and schemas
 - **Testing**: Include tests for new functionality
@@ -135,7 +140,8 @@ accessibility, schema validity, and security scanning.
 Before opening a PR, verify these minimum expectations:
 1. Updated docs keep accessibility language clear and explicit.
 2. Any changed schema/template JSON files parse correctly.
-3. Security-sensitive changes include testing notes and rationale in the PR
+3. Changes under `packages/otoi/**` include TypeScript package verification notes.
+4. Security-sensitive changes include testing notes and rationale in the PR
    description.
 
 ### Local Pre-PR Checks (CI Parity)
@@ -152,8 +158,13 @@ Use for changes under:
 ```bash
 grep -r "neurodivergent\|ADHD\|autism\|accessibility" docs/ nlt-otoi/docs/
 grep -r "clear\|simple\|easy\|understand" docs/ nlt-otoi/docs/
-python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-toi/adhd-optimized-toi.json
+python3 nlt-otoi/tools/validators/toi-validator.py \
+  --schema schemas/personal-toi.schema.json \
+  nlt-otoi/templates/personal-toi/adhd-optimized-toi.json
 ```
+
+The validator command above is for legacy documents only. New canonical `.toi`
+documents should be validated with `@neurolift/toi`.
 
 #### Schema validation parity
 
@@ -181,6 +192,22 @@ if errors:
 print('All schema/template JSON files parse successfully.')
 PY
 ```
+
+#### TypeScript `.otoi` package checks
+
+Use for changes under `packages/otoi/**`, including README/SPEC updates that
+describe public APIs.
+
+```bash
+cd packages/otoi
+npm install
+npm run typecheck
+npm test
+```
+
+`@neurolift/otoi` depends on `@neurolift/toi`. If the package has not been
+published to the configured registry in your environment, install/link the
+canonical `.toi` package first and note that setup in your PR testing section.
 
 #### Security scan parity
 
@@ -277,6 +304,8 @@ We believe in recognizing all types of contributions:
 - [Framework Overview](/docs/framework-overview.md)
 - [Implementation Guide](/docs/implementation-guide.md)
 - [Best Practices](/docs/best-practices.md)
+- [Canonical TOI Migration Guide](/docs/canonical-toi-migration.md)
+- [@neurolift/otoi Package Guide](/packages/otoi/README.md)
 
 ### Accessibility Resources
 - [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/WCAG21/quickref/)

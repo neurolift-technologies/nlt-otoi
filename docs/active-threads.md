@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| PR #27 documentation follow-up | GPT-5.5 Cursor Automation | Active | `cursor/engineering-documentation-updates-91d3` | Source-verified docs alignment for canonical `.toi` adoption and new `@neurolift/otoi` package |
 
 ## Completed
 

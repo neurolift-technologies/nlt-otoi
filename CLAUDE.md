@@ -28,8 +28,14 @@ You are working in the **NeuroLift OTOI (Orchestrated Terms of Interaction) Fram
 ```
 nlt-otoi/
 ├── schemas/                          # JSON Schema definitions (JSON Schema draft 2020-12)
-│   ├── personal-toi.schema.json     # Individual user interaction preferences
-│   └── collaborative-charter.schema.json  # Group/team interaction protocols
+│   ├── personal-toi.schema.json     # Deprecated legacy personal TOI shape
+│   └── collaborative-charter.schema.json  # Deprecated legacy team charter shape
+│
+├── packages/
+│   └── otoi/                         # TypeScript @neurolift/otoi package
+│       ├── README.md                 # Install, quick start, and API guide
+│       ├── SPEC.md                   # Normative .otoi charter specification
+│       └── src/                      # Zod schema, honoring, conflict, propagation logic
 │
 ├── templates/                        # User-friendly templates (Markdown)
 │   ├── personal-toi-template.md     # Template for creating personal TOI
@@ -50,6 +56,7 @@ nlt-otoi/
 ├── docs/                            # Comprehensive documentation
 │   ├── framework-overview.md        # Deep dive into TOI-OTOI philosophy and architecture
 │   ├── implementation-guide.md      # Technical guide for developers implementing OTOI
+│   ├── canonical-toi-migration.md   # Legacy schema to canonical .toi migration guide
 │   ├── best-practices.md            # Best practices for users and developers
 │   └── neurolift-integration.md     # Integration with NeuroLift platform
 │
@@ -83,7 +90,11 @@ nlt-otoi/
 
 This repository contains a nested `nlt-otoi/` directory with duplicated and extended structure. When working on the codebase:
 
-- **Root level** (`/schemas/`, `/templates/`, `/docs/`, `/examples/`): Primary working files and current implementations
+- **Canonical TypeScript package** (`/packages/otoi/`): Current in-repo `.otoi`
+  reference implementation built on the external canonical `@neurolift/toi`
+  package
+- **Root legacy level** (`/schemas/`, `/templates/`, `/docs/`, `/examples/`):
+  Primary docs and retained legacy worksheets/examples
 - **Nested level** (`/nlt-otoi/`): Additional tooling, versioned schemas, and extended examples
 - **Coordinate between both**: Some files exist in both locations - check timestamps and context to determine canonical version
 
@@ -116,7 +127,10 @@ A **Personal TOI** is a user-authored document that defines how AI systems shoul
 }
 ```
 
-**Reference**: `/schemas/personal-toi.schema.json` for complete schema definition
+**Current reference**: the canonical `.toi` standard is provided by
+`@neurolift/toi`. The legacy root schema at `/schemas/personal-toi.schema.json`
+is deprecated and retained for pre-existing documents only. See
+`/docs/canonical-toi-migration.md`.
 
 ### OTOI (Orchestrated Terms of Interaction)
 
@@ -128,6 +142,22 @@ A **Personal TOI** is a user-authored document that defines how AI systems shoul
 - **Observability**: Maintain auditable trail of all agent actions
 
 **Reference**: `/examples/neuroLift/orchestrator_patterns.py` for implementation patterns
+
+### Canonical `.toi` and `.otoi` (Post-PR #27)
+
+New technical integrations should use:
+
+- `@neurolift/toi` for the `.toi` document shape, parsing, verification, tier
+  resolution, and signatures.
+- `@neurolift/otoi` in `/packages/otoi/` for `.otoi` charter parsing, policy
+  honoring, same-tier conflict detection, enforcement strategy, and per-agent
+  propagation.
+- `/docs/canonical-toi-migration.md` when translating legacy `version` /
+  `metadata` / `communication` / `cognitive` / `privacy` documents.
+
+Do not add new canonical fields to the deprecated root schemas. Schema-level
+changes to canonical `.toi` belong in the canonical `.toi` package/governance
+path; this repo's `.otoi` package should only define orchestration concerns.
 
 ### Framework Layers
 
@@ -339,7 +369,14 @@ def adapt_interaction(user_toi: TOI, content: str) -> str:
 
 ### Task 1: Creating or Modifying TOI Schemas
 
-**Location**: `/schemas/personal-toi.schema.json` or `/schemas/collaborative-charter.schema.json`
+**Legacy location**: `/schemas/personal-toi.schema.json` or
+`/schemas/collaborative-charter.schema.json`
+
+These root schemas are deprecated and should only be changed to preserve or
+clarify pre-existing behavior. For new machine-readable Terms of Interaction,
+use the canonical `.toi` standard (`@neurolift/toi`). For multi-agent
+orchestration, update `/packages/otoi/SPEC.md` and the Zod schema in
+`/packages/otoi/src/schema.ts`.
 
 **Guidelines**:
 1. Use JSON Schema draft 2020-12 specification
@@ -347,6 +384,8 @@ def adapt_interaction(user_toi: TOI, content: str) -> str:
 3. Provide example values for enum types
 4. Maintain backwards compatibility when updating
 5. Update version number in schema if making breaking changes
+6. Link migration guidance in `/docs/canonical-toi-migration.md` when touching
+   legacy schema docs
 
 **Example Schema Addition**:
 
@@ -930,8 +969,10 @@ No - OTOI benefits everyone who wants control over AI interactions. However, it 
 - [Contributing Guidelines](/CONTRIBUTING.md) - How to contribute
 
 ### Schemas
-- [Personal TOI Schema](/schemas/personal-toi.schema.json) - Individual user preferences
-- [Collaborative Charter Schema](/schemas/collaborative-charter.schema.json) - Group protocols
+- [Canonical TOI Migration Guide](/docs/canonical-toi-migration.md) - Move from legacy schemas to `.toi`
+- [Personal TOI Schema](/schemas/personal-toi.schema.json) - Deprecated legacy personal shape
+- [Collaborative Charter Schema](/schemas/collaborative-charter.schema.json) - Deprecated legacy group shape
+- [@neurolift/otoi Package Guide](/packages/otoi/README.md) - Current `.otoi` package guide
 
 ### Examples
 - [ADHD Student Example](/examples/neurodivergent-examples/adhd-student-example.json)

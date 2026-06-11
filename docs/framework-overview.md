@@ -32,6 +32,19 @@ Multi-agent coordination layer that enforces TOI across all agents, tools, and h
 - Conflict resolution: resolve policy clashes and surface decisions transparently
 - Observability: log actions, provide explanations, and maintain an auditable trail
 
+### Current Implementation Surfaces
+
+The repository now has three distinct implementation/documentation surfaces:
+
+| Surface | Status | Use it for |
+| --- | --- | --- |
+| Canonical `.toi` (`@neurolift/toi`) | Current source of truth | Machine-readable Terms of Interaction documents, tier precedence, parsing, verification, and signatures |
+| TypeScript `.otoi` (`packages/otoi`) | Current in-repo reference package | Multi-agent charters, same-tier conflict detection, enforcement strategy, and per-agent policy propagation |
+| Root `schemas/` + Python `src/fusion/` | Retained legacy path | Existing documents and integrations that still use the older `version` / `metadata` / `communication` / `cognitive` / `privacy` shape |
+
+For migration details, see
+[`docs/canonical-toi-migration.md`](canonical-toi-migration.md).
+
 ### Layer 1: Intelligence Recognition
 
 - User behavior pattern identification

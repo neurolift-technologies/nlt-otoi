@@ -4,79 +4,122 @@ This guide provides technical details for implementing OTOI support in AI system
 
 ## Quick Start for Developers
 
-### 1. Understand the Schema
+### 1. Choose the current interface
 
-OTOI uses JSON Schema to define the structure of TOI documents:
+For new integrations, use the canonical `.toi` and `.otoi` split:
 
-- **Personal TOI**: Individual user preferences ([schema](/schemas/personal-toi.schema.json))
-- **Collaborative Charter**: Group interaction protocols ([schema](/schemas/collaborative-charter.schema.json))
+- **`.toi` (`@neurolift/toi`)**: validates, signs, verifies, and resolves
+  individual or tiered Terms of Interaction documents.
+- **`.otoi` (`@neurolift/otoi`)**: binds a stack of `.toi` sources to a mesh of
+  agents, detects same-tier conflicts, applies enforcement policy, and
+  propagates the effective policy to each agent.
+- **Legacy root schemas**: `schemas/personal-toi.schema.json` and
+  `schemas/collaborative-charter.schema.json` are deprecated and retained only
+  for pre-existing documents. See
+  [Migrating to the canonical `.toi` standard](canonical-toi-migration.md).
 
 ### 2. Basic Integration Steps
 
-1. **Parse TOI Documents**: Use the JSON schemas to validate and parse user TOI documents
-2. **Adapt Behavior**: Modify your AI's behavior based on TOI preferences
-3. **Respect Privacy**: Follow the privacy settings in the TOI document
-4. **Provide Feedback**: Let users know how their TOI is being used
+1. **Parse `.toi` documents** with `@neurolift/toi`.
+2. **Parse an `.otoi` charter** with `parseCharter()` when a multi-agent system
+   needs a declared agent mesh, source list, and enforcement policy.
+3. **Honor the charter** with `honor()` to produce a single effective `.toi`
+   policy from inline documents, URI-backed sources, and platform defaults.
+4. **Propagate the policy** with `propagate(policy, agentId)` before dispatching
+   work to each agent.
+5. **Adapt behavior and provide feedback** based on the resolved policy, while
+   preserving the user's privacy and accessibility preferences.
 
-### 3. Minimal Implementation
+### 3. Minimal TypeScript `.otoi` Implementation
 
-Here's a basic example of integrating Personal TOI:
+This is the current reference path for new TypeScript integrations:
 
-```javascript
-import Ajv from 'ajv';
-import personalToiSchema from './schemas/personal-toi.schema.json';
+```typescript
+import { honor, parseCharter, propagate, type ToiDocument } from "@neurolift/otoi";
 
-class OTOIAdapter {
-  constructor() {
-    this.ajv = new Ajv();
-    this.validatePersonalToi = this.ajv.compile(personalToiSchema);
-  }
+const personalToi: ToiDocument = {
+  $toi: "1.0.0",
+  $tier: "personal",
+  identity: { author: "user-pseudonym" },
+  communication: { tone: "direct", verbosity: "concise" },
+  privacy: { retention: "session-only", cross_platform_sharing: "explicit-only" },
+} as ToiDocument;
 
-  loadTOI(toiDocument) {
-    if (!this.validatePersonalToi(toiDocument)) {
-      throw new Error('Invalid TOI document');
-    }
-    this.toi = toiDocument;
-    this.adaptBehavior();
-  }
+const charter = parseCharter({
+  $otoi: "1.0.0",
+  agents: [{ id: "research-agent" }, { id: "summary-agent" }],
+  enforcement: {
+    mode: "enforced",
+    on_conflict: "highest-tier-wins",
+    on_unsupported: "degrade",
+  },
+  toi_sources: [
+    { tier: "personal", inline: personalToi },
+  ],
+});
 
-  adaptBehavior() {
-    // Adapt communication style
-    this.communicationStyle = this.toi.communication.style;
-    this.directnessLevel = this.toi.communication.directness;
-    
-    // Respect processing time
-    this.processingTime = this.toi.cognitive.processing_time;
-    
-    // Honor privacy settings
-    this.dataRetention = this.toi.privacy.data_retention;
-  }
+const policy = await honor(charter, {
+  platformDefaults: { communication: { language: "en" } },
+});
 
-  generateResponse(query) {
-    // Apply TOI preferences to response generation
-    let response = this.baseGenerateResponse(query);
-    
-    // Adapt style
-    if (this.communicationStyle === 'formal') {
-      response = this.makeFormal(response);
-    }
-    
-    // Adapt structure based on cognitive preferences
-    if (this.toi.cognitive.information_structure === 'bullet-points') {
-      response = this.convertToBulletPoints(response);
-    }
-    
-    return response;
-  }
-}
+const researchAgentPolicy = propagate(policy, "research-agent");
 ```
 
-## Schema Implementation
+The resulting `researchAgentPolicy` is the effective `.toi` document that the
+agent must honor. Under `enforcement.mode: "strict"`, `propagate()` rejects agent
+IDs that are not declared in the charter.
+
+### 4. URI-backed sources
+
+Use `loadSource` when the charter references `.toi` documents by URI:
+
+```typescript
+const policy = await honor(
+  {
+    $otoi: "1.0.0",
+    toi_sources: [{ tier: "personal", uri: "users/josh.toi" }],
+  },
+  {
+    loadSource: async (uri) => fetchToiTextFromYourStorage(uri),
+  },
+);
+```
+
+`honor()` validates each loaded `.toi` with the canonical `.toi` parser and
+rejects a source whose declared `tier` does not match the loaded document's
+`$tier`.
+
+## TypeScript Reference Implementation (`packages/otoi`)
+
+The in-repository TypeScript package is the current `.otoi` reference
+implementation.
+
+| File | Purpose |
+| --- | --- |
+| `packages/otoi/README.md` | Install instructions, quick start, public API table |
+| `packages/otoi/SPEC.md` | Normative `.otoi` charter format and enforcement model |
+| `packages/otoi/src/schema.ts` | Zod source of truth for `.otoi` charter parsing |
+| `packages/otoi/src/index.ts` | Public exports and `@neurolift/toi` re-exports |
+| `packages/otoi/test/honor.test.ts` | Verified behavior for honoring, conflicts, and propagation |
+
+Public API summary:
+
+| Export | Use |
+| --- | --- |
+| `parseCharter(input)` | Parse and validate `.otoi` charter JSON |
+| `honor(charter, options)` | Resolve `.toi` sources into one effective policy |
+| `detectConflicts(documents)` | Report same-tier leaf disagreements |
+| `propagate(policy, agentId)` | Return the effective policy an agent must honor |
+| `parseToi`, `resolveToi`, `verifyToi` | Re-exported canonical `.toi` primitives |
+
+## Legacy Schema Implementation
 
 ## Python Reference Implementation (Source-Verified)
 
-The active reference implementation lives in `src/fusion/` and is exported via
-`src/fusion/__init__.py`.
+The retained Python reference implementation lives in `src/fusion/` and is
+exported via `src/fusion/__init__.py`. It still works with the legacy root schema
+shape. For new canonical `.toi` work, prefer `@neurolift/toi` and the TypeScript
+`.otoi` package until a Python canonical shim is added.
 
 | Module | Primary public interfaces | Verified behavior constraints |
 | --- | --- | --- |
@@ -229,7 +272,8 @@ Behavioral constraints:
 
 ### Validation
 
-Always validate TOI documents against the schema:
+For legacy documents, validate TOI documents against the matching deprecated
+schema:
 
 ```python
 import json
@@ -249,7 +293,7 @@ def validate_toi(toi_document, schema_path):
 
 ### Required vs. Optional Fields
 
-The schemas define required fields that must be present:
+The deprecated root schemas define required fields that must be present:
 
 **Personal TOI Required Fields:**
 - `version`
@@ -508,6 +552,11 @@ class EnergyManager {
 ## Collaborative Charter Implementation
 
 ### Multi-User Scenarios
+
+New multi-user integrations should model shared preferences as `.toi` documents
+at the `community` or `project` tier and bind them with an `.otoi` charter. The
+example below shows the older legacy Collaborative Charter shape and is retained
+for systems that have not migrated yet.
 
 ```javascript
 class CollaborativeManager {
@@ -774,12 +823,15 @@ class ProgressiveTOIAdapter {
 
 ## Next Steps
 
-1. **Review the Schemas**: Study the [JSON schemas](/schemas/) in detail
-2. **Try the Templates**: Use our [templates](/templates/) to understand user needs
-3. **See Examples**: Look at [real implementations](/examples/)
-4. **Start Small**: Implement basic communication adaptation first
-5. **Test with Users**: Especially neurodivergent and accessibility communities
-6. **Contribute Back**: Share your implementation experiences and improvements
+1. **Review the canonical interfaces**:
+   [`@neurolift/otoi`](/packages/otoi/README.md) and the
+   [migration guide](canonical-toi-migration.md).
+2. **Map legacy fields intentionally** if you are upgrading from root templates or
+   examples.
+3. **Start small**: parse one `.toi`, honor one `.otoi` charter, and propagate to
+   one agent before adding multi-agent workflows.
+4. **Test with users**: especially neurodivergent and accessibility communities.
+5. **Contribute back**: share implementation experiences and improvements.
 
 ## Getting Help
 
