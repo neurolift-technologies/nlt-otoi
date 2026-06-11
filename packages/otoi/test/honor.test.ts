@@ -50,6 +50,30 @@ describe("honor", () => {
     const withSource = { $otoi: "1.0.0", toi_sources: [{ tier: "personal", uri: "me.toi" }] };
     await expect(honor(withSource, {})).rejects.toThrow(/no loadSource/);
   });
+
+  it("rejects a source whose declared tier disagrees with the document's $tier", async () => {
+    const mismatched = {
+      $otoi: "1.0.0",
+      toi_sources: [
+        { tier: "personal", inline: { $toi: "1.0.0", $tier: "project", identity: { author: "x" } } },
+      ],
+    };
+    await expect(honor(mismatched, {})).rejects.toThrow(/declares tier "personal" but/);
+  });
+
+  it("rejects a source that provides both uri and inline", () => {
+    const both = {
+      $otoi: "1.0.0",
+      toi_sources: [
+        {
+          tier: "personal",
+          uri: "me.toi",
+          inline: { $toi: "1.0.0", $tier: "personal", identity: { author: "x" } },
+        },
+      ],
+    };
+    expect(() => parseCharter(both)).toThrow(/exactly one of/);
+  });
 });
 
 describe("detectConflicts", () => {

@@ -64,8 +64,8 @@ export const otoiSourceSchema = z
     uri: z.string().optional(),
     inline: z.unknown().optional(),
   })
-  .refine((s) => s.uri !== undefined || s.inline !== undefined, {
-    message: "a toi_source must provide either `uri` or `inline`",
+  .refine((s) => (s.uri !== undefined) !== (s.inline !== undefined), {
+    message: "a toi_source must provide exactly one of `uri` or `inline`",
   });
 
 /** How preferences are propagated and what happens on conflict / unsupported. */

@@ -69,9 +69,11 @@ contributes at:
 | `uri` | one of | A locator the host resolves to `.toi` text. |
 | `inline` | one of | A `.toi` document embedded directly. |
 
-A source MUST provide either `uri` or `inline`. An inline payload is validated
-by the `.toi` parser at honor time, not by this schema — there is exactly one
-validator for the `.toi` shape.
+A source MUST provide **exactly one** of `uri` or `inline` (never both). An
+inline payload is validated by the `.toi` parser at honor time, not by this
+schema — there is exactly one validator for the `.toi` shape. The loaded
+document's own `$tier` MUST equal the source's declared `tier`; a mismatch is a
+misconfiguration that would silently change precedence and is rejected.
 
 ## 5. Enforcement
 

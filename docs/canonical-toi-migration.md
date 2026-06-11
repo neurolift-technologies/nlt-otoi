@@ -70,7 +70,7 @@ pieces:
 - **TypeScript:** `import { parseToi } from "@neurolift/toi"` (throws on invalid).
 - **JSON Schema:** validate against `toi-1.0.0.schema.json` shipped in
   `@neurolift/toi` (draft 2020-12), suitable for the Python validators under
-  `nlt-otoi/tools/validators/`.
+  [`nlt-otoi/tools/validators/`](../nlt-otoi/tools/validators/).
 
 ## Status of the Python reference implementation
 

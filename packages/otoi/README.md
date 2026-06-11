@@ -19,7 +19,7 @@ concerns the `.toi` spec deliberately leaves out.
 
 ```bash
 npm install @neurolift/otoi
-# @neurolift/toi is a peer concern and installed as a dependency
+# @neurolift/toi is a regular dependency and is installed automatically with it
 ```
 
 ## Quick start
