@@ -151,6 +151,74 @@ PY
 | Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
 | Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
 
+## Governance Version and Terminology Alignment Runbook
+
+PR #26 aligned live governance files to `ORG-DEV-OTOI-1.0.2` and corrected the
+TOI/OTOI expansion used by agent-facing documents:
+
+- TOI = **Terms of Interaction**
+- OTOI = **Orchestrated Terms of Interaction**
+
+### Source of truth
+
+The canonical authority is `NLT-DEV-OTOI.md`, especially its document ID,
+title, session-start protocol, template snippets, and Section 11 change log.
+Do not edit that canonical contract unless the formal amendment process has
+already been approved by Joshua W. Dorsey, Sr.
+
+Downstream files should mirror the canonical version and terminology without
+introducing new governance behavior:
+
+| Surface | Files to check | What must stay aligned |
+| --- | --- | --- |
+| Agent gateway | `AGENTS.md`, `CLAUDE.md` | Mandatory reading order, OTOI version, escalation language |
+| Discovery and validation | `nltotoi.json`, `.nltotoi/**`, `.nltotoi/scripts/validate-governance.sh` | `document_id`, required-file paths, validator content markers |
+| Templates | `templates/*.json`, `templates/*.md`, `ISSUE_TEMPLATE/*.md`, `PULL_REQUEST_TEMPLATE/*.md` | Embedded `otoi_version` values and user-facing governance labels |
+| SOPs and agent profiles | `SOPs/*.md`, `agents/*.md` | Governance version references and onboarding/runbook instructions |
+| Public mirrors | `agent-solidarity-kit.json`, `index.html`, `file-structure.md`, `docs/agent-log/README.md` | Kit version metadata, landing-page preview, and agent-log guidance |
+
+### Local validation checks
+
+Run the governance validator first:
+
+```bash
+bash .nltotoi/scripts/validate-governance.sh
+```
+
+Then check JSON files that carry governance metadata:
+
+```bash
+python3 -m json.tool nltotoi.json > /dev/null
+python3 -m json.tool agent-solidarity-kit.json > /dev/null
+python3 -m json.tool templates/agent-registration.json > /dev/null
+python3 -m json.tool templates/handoff-record.json > /dev/null
+```
+
+Finally, search for drift that the current validator does not catch:
+
+```bash
+rg "Developer Operations & Team Orientation Index" . \
+  --glob '!NLT-DEV-OTOI.md' \
+  --glob '!docs/development-process.md'
+rg "ORG-DEV-OTOI-1\.0\.[01]" AGENTS.md CLAUDE.md \
+  .nltotoi templates ISSUE_TEMPLATE PULL_REQUEST_TEMPLATE SOPs agents \
+  agent-solidarity-kit.json index.html nltotoi.json file-structure.md \
+  docs/agent-log/README.md
+```
+
+Both searches should return no matches for active downstream files after a
+complete `ORG-DEV-OTOI-1.0.2` alignment. Historical references in
+`NLT-DEV-OTOI.md` Section 11 and this runbook are expected.
+
+### Common pitfalls
+
+| Pitfall | Symptom | Resolution |
+| --- | --- | --- |
+| Version-only updates | Files show `ORG-DEV-OTOI-1.0.2` but still contain the old expansion | Run the deprecated-expansion search above and update only downstream mirrors supported by `NLT-DEV-OTOI.md` |
+| Validator treated as exhaustive | `validate-governance.sh` passes even though prose drift remains | Use both the validator and targeted `rg` checks; the validator checks required files and marker strings only |
+| Canonical contract edited by automation | A documentation cleanup changes policy text in `NLT-DEV-OTOI.md` | Stop and escalate unless the amendment is explicitly human-approved |
+| Public mirror skipped | `agent-solidarity-kit.json` or `index.html` advertises stale OTOI metadata | Re-run the GitHub Pages + Solidarity Kit parity checks in the previous runbook |
+
 ## Trigger Matrix
 
 ### Accessibility Check
