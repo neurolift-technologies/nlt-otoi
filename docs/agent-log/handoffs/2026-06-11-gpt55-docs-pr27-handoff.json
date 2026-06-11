@@ -1,0 +1,50 @@
+{
+  "handoff_record": {
+    "session_id": "2026-06-11-gpt55-docs-pr27",
+    "agent_name": "GPT-5.5 Cursor Automation",
+    "date": "2026-06-11T22:15:00Z",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-91d3",
+    "work_completed": [
+      "Inspected merged PR #27 metadata and source/docs for canonical .toi adoption and @neurolift/otoi package interfaces",
+      "Updated root onboarding, contributor guidance, implementation guide, CI runbook, framework overview, best practices, changelog, templates, examples, and CLAUDE.md for canonical .toi/.otoi boundaries",
+      "Opened docs-only PR #29"
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Kept legacy templates and examples available as worksheets/examples but added deprecation guidance and migration links",
+      "Documented packages/otoi local verification as manual because existing root GitHub Actions do not cover packages/otoi/**"
+    ],
+    "decisions_pending": [
+      "A separate CI change can add automated packages/otoi typecheck/test coverage",
+      "A separate examples change can add canonical .toi and .otoi example files"
+    ],
+    "escalations": [],
+    "next_agent_notes": "PR #29 is documentation-only. Runtime package files were not changed. The package depends on @neurolift/toi, so package verification may require that dependency to be published or linked in local environments.",
+    "files_modified": [
+      "README.md",
+      "CONTRIBUTING.md",
+      "CHANGELOG.md",
+      "CLAUDE.md",
+      "docs/implementation-guide.md",
+      "docs/development-process.md",
+      "docs/framework-overview.md",
+      "docs/best-practices.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-06-11-gpt55-docs-pr27.json",
+      "docs/agent-log/handoffs/2026-06-11-gpt55-docs-pr27-handoff.json",
+      "templates/personal-toi-template.md",
+      "templates/collaborative-charter-template.md",
+      "examples/README.md"
+    ],
+    "tests_run": [
+      "git diff --check origin/main...HEAD",
+      "rg accessibility keyword parity checks for docs/ and nlt-otoi/docs/",
+      "Python validation for registration/handoff JSON parsing, documented path existence, and changed Markdown relative links"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/29"
+  }
+}
