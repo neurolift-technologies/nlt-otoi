@@ -25,8 +25,10 @@ Examples of Collaborative Charters for group AI interaction:
 - Remote work adaptations
 - Cross-cultural considerations
 
-### [AI Assistant Configs](/examples/ai-assistant-configs/)
-Examples tailored for specific AI assistant use cases:
+### AI Assistant Configs (Planned)
+Examples tailored for specific AI assistant use cases are not present in this
+repository snapshot yet. When added, they should use canonical `.toi` documents
+and `.otoi` charters:
 - Personal productivity assistants
 - Learning and education support
 - Creative collaboration
