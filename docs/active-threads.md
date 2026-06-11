@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| PR #26 documentation follow-up | GPT-5.5 Cursor Documentation Automation | active | cursor/engineering-documentation-updates-2502 | Document source-backed developer guidance after ORG-DEV-OTOI-1.0.2 definition alignment |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| PR #26 documentation follow-up | GPT-5.5 Cursor Documentation Automation | pending | #28 | Documented ORG-DEV-OTOI-1.0.2 terminology alignment checks and corrected a stale downstream contract namespace label |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |
