@@ -1025,5 +1025,5 @@ Thank you for being part of this mission.
    https://github.com/NeuroLift-Technologies/.github/blob/main/governance/AGENTS.md
 3. Active threads: docs/active-threads.md
 
-**OTOI Version:** ORG-DEV-OTOI-1.0.1
+**OTOI Version:** ORG-DEV-OTOI-1.0.2
 **Final authority:** Joshua W. Dorsey, Sr. Escalate. Do not guess.
