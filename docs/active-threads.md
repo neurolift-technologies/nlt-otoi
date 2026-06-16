@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| PR #31 npm scope documentation follow-up | GPT-5.5 / Cursor Automation | In progress | `cursor/engineering-documentation-updates-4d69` | Verify documentation after `@neurolift` to `@neurolift-technologies` npm scope rename |
 
 ## Completed
 

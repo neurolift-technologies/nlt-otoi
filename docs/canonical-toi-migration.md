@@ -72,6 +72,13 @@ pieces:
   `@neurolift-technologies/toi` (draft 2020-12), suitable for the Python validators under
   [`nlt-otoi/tools/validators/`](../nlt-otoi/tools/validators/).
 
+Do not confuse that canonical `.toi` schema with
+[`nlt-otoi/schemas/v1.0/personal-toi-v1.json`](../nlt-otoi/schemas/v1.0/personal-toi-v1.json).
+The nested schema exists so the repository's accessibility workflow can validate
+older `nlt-otoi/templates/personal-toi/*.json` files with
+`nlt-otoi/tools/validators/toi-validator.py`. It is a compatibility schema for
+that template shape, not the source of truth for new `.toi` documents.
+
 ## Status of the Python reference implementation
 
 The Python code under `src/fusion/` and `examples/neuroLift/` is retained for
