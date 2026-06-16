@@ -21,7 +21,7 @@ class TOIValidator:
     def __init__(self, schema_path: Optional[Path] = None):
         """Initialize the validator with the schema."""
         if schema_path is None:
-            schema_path = Path(__file__).parent.parent / "schemas" / "v1.0" / "personal-toi-v1.json"
+            schema_path = Path(__file__).parent.parent.parent / "schemas" / "v1.0" / "personal-toi-v1.json"
         
         self.schema_path = schema_path
         self.schema = self._load_schema()
