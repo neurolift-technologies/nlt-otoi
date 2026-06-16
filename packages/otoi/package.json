@@ -32,6 +32,7 @@
     "node": ">=18"
   },
   "scripts": {
+    "prepack": "npm run build",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
