@@ -1,5 +1,5 @@
 /**
- * Error taxonomy for the `.otoi` honoring layer, mirroring `@neurolift/toi`'s
+ * Error taxonomy for the `.otoi` honoring layer, mirroring `@neurolift-technologies/toi`'s
  * pattern: every error is an `OtoiError` carrying a discriminating `code`.
  */
 

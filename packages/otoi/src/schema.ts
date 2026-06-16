@@ -5,7 +5,7 @@
  * An `.otoi` charter is declarative, like a `.toi` document: it never contains
  * code or prompts. It names the `.toi` sources in force, the agents bound to
  * honor them, and the enforcement policy. The actual interaction preferences
- * live in the referenced `.toi` documents and are validated by `@neurolift/toi`
+ * live in the referenced `.toi` documents and are validated by `@neurolift-technologies/toi`
  * — this schema deliberately treats inline `.toi` payloads as opaque
  * (`unknown`) and defers to `parseToi` at honor time, so there is exactly one
  * validator for the `.toi` shape.
@@ -14,7 +14,7 @@
  * the `.toi` standard guarantees: unknown keys are preserved, never rejected.
  */
 import { z } from "zod";
-import { TOI_TIERS } from "@neurolift/toi";
+import { TOI_TIERS } from "@neurolift-technologies/toi";
 import {
   OTOI_CONFLICT_STRATEGIES,
   OTOI_ENFORCEMENT_MODES,
@@ -56,7 +56,7 @@ export const otoiAgentSchema = z.looseObject({
 /**
  * A reference to one `.toi` document that participates in resolution. A source
  * MUST provide either a `uri` to load or an `inline` document; `inline` is left
- * opaque here and validated by `@neurolift/toi` at honor time.
+ * opaque here and validated by `@neurolift-technologies/toi` at honor time.
  */
 export const otoiSourceSchema = z
   .looseObject({
