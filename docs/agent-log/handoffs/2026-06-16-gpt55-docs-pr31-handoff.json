@@ -1,0 +1,45 @@
+{
+  "handoff_record": {
+    "session_id": "2026-06-16-gpt55-docs-pr31",
+    "agent_name": "GPT-5.5 / Cursor Automation",
+    "date": "2026-06-16",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-4d69",
+    "work_completed": [
+      "Inspected merged PR #31 metadata and changed files for the npm scope rename and validator/schema restoration.",
+      "Updated developer runbooks to reflect the current default validator schema path at nlt-otoi/schemas/v1.0/personal-toi-v1.json.",
+      "Clarified that the nested personal-toi-v1 schema validates legacy nested templates and is not the canonical @neurolift-technologies/toi schema.",
+      "Confirmed package documentation and source references use @neurolift-technologies/otoi and @neurolift-technologies/toi rather than the old @neurolift scope."
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Updated existing docs instead of creating a redundant new page because the gap was stale runbook/tooling guidance.",
+      "Kept changes documentation-only plus required agent registration/handoff records."
+    ],
+    "decisions_pending": [],
+    "escalations": [],
+    "next_agent_notes": "If future package-scope or validator changes land, check docs/development-process.md, docs/implementation-guide.md, and docs/canonical-toi-migration.md for drift before adding new docs.",
+    "files_modified": [
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-06-16-gpt55-docs-pr31.json",
+      "docs/agent-log/handoffs/2026-06-16-gpt55-docs-pr31-handoff.json",
+      "docs/canonical-toi-migration.md",
+      "docs/development-process.md",
+      "docs/implementation-guide.md"
+    ],
+    "tests_run": [
+      "python3 -m pip install 'jsonschema>=4.0.0'",
+      "python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-toi/adhd-optimized-toi.json",
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-16-gpt55-docs-pr31.json > /dev/null",
+      "python3 -m json.tool nlt-otoi/schemas/v1.0/personal-toi-v1.json > /dev/null",
+      "git diff --check origin/main..HEAD",
+      "python3 JSON parse check for schemas/**/*.json, nlt-otoi/schemas/**/*.json, and nlt-otoi/templates/**/*.json",
+      "python3 nlt-otoi/tools/validators/toi-validator.py --schema schemas/personal-toi.schema.json examples/neurodivergent-examples/adhd-student-example.json",
+      "rg stale-reference checks for old @neurolift package names and old validator schema path"
+    ],
+    "tests_passing": true,
+    "pr_url": "pending OpenGitPr automation after final push"
+  }
+}

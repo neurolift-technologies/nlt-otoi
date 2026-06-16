@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| PR #31 npm scope documentation follow-up | GPT-5.5 / Cursor Automation | In progress | `cursor/engineering-documentation-updates-4d69` | Verify documentation after `@neurolift` to `@neurolift-technologies` npm scope rename |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
@@ -25,6 +25,7 @@ Current work threads and their status for the nlt-otoi repository.
 | Initial OTOI framework | copilot | ✅ | #1 | Comprehensive setup of nlt-otoi/ subdirectory |
 | Repository structure | cursor | ✅ | #3 | GitHub issue templates and workflows |
 | README & topography | cursor | ✅ | #2 | Detailed framework description, GEMINI_TOPOGRAPHY.py |
+| PR #31 npm scope documentation follow-up | GPT-5.5 / Cursor Automation | pending | pending | Updated runbooks after `@neurolift` to `@neurolift-technologies` rename and validator schema restoration |
 
 ## Parking Lot
 
