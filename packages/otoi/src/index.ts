@@ -1,16 +1,16 @@
 /**
- * `@neurolift/otoi` — reference implementation of the `.otoi` (Orchestrated
+ * `@neurolift-technologies/otoi` — reference implementation of the `.otoi` (Orchestrated
  * Terms of Interaction) honoring layer.
  *
  * `.otoi` is the multi-agent orchestration standard built **on top of** the
  * canonical `.toi` file type. A `.toi` document states a person's preferences;
  * an `.otoi` charter declares how a mesh of agents honors a stack of those
- * documents at runtime. This package consumes `@neurolift/toi` directly — it
+ * documents at runtime. This package consumes `@neurolift-technologies/toi` directly — it
  * does not redefine the `.toi` shape, tiers, or resolution semantics.
  *
  * @example
  * ```ts
- * import { honor, propagate } from "@neurolift/otoi";
+ * import { honor, propagate } from "@neurolift-technologies/otoi";
  *
  * const policy = await honor(charter, { documents: [personalToi, projectToi] });
  * const prefs = propagate(policy, "research-agent"); // effective .toi for that agent
@@ -76,4 +76,4 @@ export {
   TOI_FORMAT_VERSION,
   type ToiDocument,
   type ToiTier,
-} from "@neurolift/toi";
+} from "@neurolift-technologies/toi";

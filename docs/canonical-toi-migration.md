@@ -1,9 +1,9 @@
 # Migrating to the canonical `.toi` standard
 
 This repository now adopts the canonical **`.toi`** file format
-([`@neurolift/toi`](https://www.npmjs.com/package/@neurolift/toi)) as the source
+([`@neurolift-technologies/toi`](https://www.npmjs.com/package/@neurolift-technologies/toi)) as the source
 of truth for individual interaction preferences, orchestrated by the new
-**`.otoi`** layer ([`@neurolift/otoi`](../packages/otoi/README.md)) in this repo.
+**`.otoi`** layer ([`@neurolift-technologies/otoi`](../packages/otoi/README.md)) in this repo.
 
 The legacy JSON Schemas under `schemas/` (`personal-toi.schema.json`,
 `collaborative-charter.schema.json`) are **deprecated**. They remain only to
@@ -61,20 +61,20 @@ pieces:
 
 1. Express each team/group preference set as a `.toi` document at the
    `community` or `project` tier.
-2. Bind them with an **`.otoi` charter** (`@neurolift/otoi`), which resolves the
+2. Bind them with an **`.otoi` charter** (`@neurolift-technologies/otoi`), which resolves the
    tier stack (`personal` > `community` > `project`) and handles same-tier
    conflicts and enforcement. See [`packages/otoi/SPEC.md`](../packages/otoi/SPEC.md).
 
 ## Validating canonical documents
 
-- **TypeScript:** `import { parseToi } from "@neurolift/toi"` (throws on invalid).
+- **TypeScript:** `import { parseToi } from "@neurolift-technologies/toi"` (throws on invalid).
 - **JSON Schema:** validate against `toi-1.0.0.schema.json` shipped in
-  `@neurolift/toi` (draft 2020-12), suitable for the Python validators under
+  `@neurolift-technologies/toi` (draft 2020-12), suitable for the Python validators under
   [`nlt-otoi/tools/validators/`](../nlt-otoi/tools/validators/).
 
 ## Status of the Python reference implementation
 
 The Python code under `src/fusion/` and `examples/neuroLift/` is retained for
 now. Its TypeScript counterpart for the orchestration layer is
-`@neurolift/otoi`; a Python port (or a thin `.toi`-schema-validating shim) can
+`@neurolift-technologies/otoi`; a Python port (or a thin `.toi`-schema-validating shim) can
 follow as a separate change.

@@ -3,17 +3,17 @@
  * honoring layer.
  *
  * `.otoi` is the orchestration standard that sits on top of the canonical
- * `.toi` file type ({@link https://www.npmjs.com/package/@neurolift/toi}). A
+ * `.toi` file type ({@link https://www.npmjs.com/package/@neurolift-technologies/toi}). A
  * `.toi` document states a person's interaction preferences; an `.otoi` charter
  * describes how a multi-agent system *honors* those preferences at runtime —
  * which agents are bound, how a stack of `.toi` documents resolves, and what
  * happens on conflict or on an unsupported preference.
  *
  * The `.toi`-level constants (tiers, format version, file extension) are NOT
- * re-declared here — they are imported from `@neurolift/toi`, the single source
+ * re-declared here — they are imported from `@neurolift-technologies/toi`, the single source
  * of truth, exactly as that package's `constants.ts` anticipates.
  */
-import { TOI_FORMAT_VERSION } from "@neurolift/toi";
+import { TOI_FORMAT_VERSION } from "@neurolift-technologies/toi";
 
 /** Format version of the `.otoi` specification this library implements. */
 export const OTOI_FORMAT_VERSION = "1.0.0";

@@ -1,8 +1,8 @@
-# `@neurolift/otoi`
+# `@neurolift-technologies/otoi`
 
 Reference implementation of the **`.otoi` (Orchestrated Terms of Interaction)**
 honoring layer — the multi-agent orchestration standard built on top of the
-canonical [`@neurolift/toi`](https://www.npmjs.com/package/@neurolift/toi) file
+canonical [`@neurolift-technologies/toi`](https://www.npmjs.com/package/@neurolift-technologies/toi) file
 type.
 
 > A `.toi` document states **a person's** interaction preferences.
@@ -10,7 +10,7 @@ type.
 > documents at runtime: which agents are bound, how the `.toi` stack resolves,
 > and what happens on conflict or on an unsupported preference.
 
-This package **consumes** `@neurolift/toi` rather than re-implementing it. The
+This package **consumes** `@neurolift-technologies/toi` rather than re-implementing it. The
 `.toi` shape, tiers, resolution semantics, canonicalization, and signatures all
 remain the property of the `.toi` standard; `.otoi` adds only the orchestration
 concerns the `.toi` spec deliberately leaves out.
@@ -18,14 +18,14 @@ concerns the `.toi` spec deliberately leaves out.
 ## Install
 
 ```bash
-npm install @neurolift/otoi
-# @neurolift/toi is a regular dependency and is installed automatically with it
+npm install @neurolift-technologies/otoi
+# @neurolift-technologies/toi is a regular dependency and is installed automatically with it
 ```
 
 ## Quick start
 
 ```ts
-import { honor, propagate, type ToiDocument } from "@neurolift/otoi";
+import { honor, propagate, type ToiDocument } from "@neurolift-technologies/otoi";
 
 const charter = {
   $otoi: "1.0.0",
@@ -60,7 +60,7 @@ const prefs = propagate(policy, "research-agent");
 | `propagate(policy, agentId)` | The effective `.toi` an agent must honor; refuses unknown agents under `strict`. |
 | `detectConflicts(documents)` | Report same-tier leaf disagreements (cross-tier differences are *not* conflicts). |
 | `otoiCharterSchema` | The Zod source of truth for the charter shape. |
-| re-exports | `parseToi`, `resolveToi`, `verifyToi`, `TOI_TIERS`, `ToiDocument`, … from `@neurolift/toi`. |
+| re-exports | `parseToi`, `resolveToi`, `verifyToi`, `TOI_TIERS`, `ToiDocument`, … from `@neurolift-technologies/toi`. |
 
 ## Enforcement model
 
@@ -74,12 +74,12 @@ const prefs = propagate(policy, "research-agent");
 ## Relationship to the `.toi` standard
 
 See [`SPEC.md`](./SPEC.md) for the normative `.otoi` specification and the
-[`@neurolift/toi` SPEC](https://www.npmjs.com/package/@neurolift/toi) for the
+[`@neurolift-technologies/toi` SPEC](https://www.npmjs.com/package/@neurolift-technologies/toi) for the
 underlying file format. Where the two disagree, the `.toi` spec governs the
 `.toi` layer and this spec governs orchestration.
 
 ## License
 
-MIT (see repository root). Note: the canonical `@neurolift/toi` standard is
+MIT (see repository root). Note: the canonical `@neurolift-technologies/toi` standard is
 Apache-2.0; aligning the standard family on a single license is an open
 governance question.

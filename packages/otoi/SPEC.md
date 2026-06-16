@@ -4,7 +4,7 @@
 **Status:** Draft
 **Media type:** `application/otoi+json` (provisional)
 **File extension:** `.otoi`
-**Builds on:** the [`.toi` v1.0.0](https://www.npmjs.com/package/@neurolift/toi) standard
+**Builds on:** the [`.toi` v1.0.0](https://www.npmjs.com/package/@neurolift-technologies/toi) standard
 
 > Orchestrated Terms of Interaction (`.otoi`) is an open, declarative file
 > format that describes **how a multi-agent system honors** a set of `.toi`
@@ -18,7 +18,7 @@ The `.toi` specification (§2) explicitly defers orchestration to a separate
 `.otoi` standard. This is that standard. It does **not** redefine the `.toi`
 document model, tiers, precedence, canonicalization, or signatures; those are
 normative in `.toi` and consumed here unchanged. The reference implementation is
-[`@neurolift/otoi`](./README.md), which depends on `@neurolift/toi`.
+[`@neurolift-technologies/otoi`](./README.md), which depends on `@neurolift-technologies/toi`.
 
 The Zod schema in [`src/schema.ts`](./src/schema.ts) is the machine-readable
 source of truth for the charter shape.
@@ -109,7 +109,7 @@ into it, consistent with `.toi` §9.
 - **The `.toi` privacy floor still applies.** Honoring a stack does not relax any
   `privacy` preference in the resolved view; it is a floor, not a ceiling.
 - **Signatures.** A charter MAY reference signed `.toi` documents; verification
-  is delegated to `@neurolift/toi` (`verifyToi`). Charter-level signing is
+  is delegated to `@neurolift-technologies/toi` (`verifyToi`). Charter-level signing is
   reserved for a future version.
 
 ## 8. Versioning
@@ -119,5 +119,5 @@ charter for `y > x` by preserving unknown keys (Section 3).
 
 ## 9. References
 
-- `@neurolift/toi` SPEC — the `.toi` file format and resolution semantics
+- `@neurolift-technologies/toi` SPEC — the `.toi` file format and resolution semantics
 - RFC 8259 (JSON), RFC 6839 (`+json`), RFC 4122 (UUID), Semantic Versioning 2.0.0

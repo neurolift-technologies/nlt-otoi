@@ -1,7 +1,7 @@
 {
-  "name": "@neurolift/otoi",
+  "name": "@neurolift-technologies/otoi",
   "version": "1.0.0",
-  "description": "Reference implementation of the .otoi (Orchestrated Terms of Interaction) honoring layer — the multi-agent orchestration standard built on the canonical @neurolift/toi file type.",
+  "description": "Reference implementation of the .otoi (Orchestrated Terms of Interaction) honoring layer — the multi-agent orchestration standard built on the canonical @neurolift-technologies/toi file type.",
   "keywords": [
     "otoi",
     "toi",
@@ -38,7 +38,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@neurolift/toi": "^1.0.0",
+    "@neurolift-technologies/toi": "^1.0.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {
