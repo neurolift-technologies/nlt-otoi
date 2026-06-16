@@ -1,8 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/personal-toi.schema.json",
-  "title": "Personal Terms of Interaction (TOI)",
-  "description": "Schema for defining individual user preferences for AI interaction",
+  "title": "Personal Terms of Interaction (TOI) — DEPRECATED",
+  "description": "DEPRECATED. Superseded by the canonical `.toi` standard (@neurolift-technologies/toi). New documents MUST use the canonical `.toi` shape ($toi/$tier + identity/cognitive_profile/privacy/agency/communication). This legacy schema (version/metadata/communication/cognitive/privacy) is retained only for validating pre-existing documents and will be removed in a future major version. See packages/otoi/SPEC.md and docs/canonical-toi-migration.md.",
+  "deprecated": true,
+  "$comment": "Deprecated in favor of the canonical .toi standard. Canonical schema: https://www.npmjs.com/package/@neurolift-technologies/toi (schema/toi-1.0.0.schema.json). Migration: docs/canonical-toi-migration.md.",
   "type": "object",
   "required": ["version", "metadata", "communication", "cognitive", "privacy"],
   "properties": {

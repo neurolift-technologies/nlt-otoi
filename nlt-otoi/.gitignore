@@ -167,6 +167,9 @@ secrets.json
 user-toi.json
 my-personal-toi.json
 personal-toi-*.json
+# Exception: the versioned personal-TOI *schema* (a definition, not a user document)
+# must be tracked so CI (accessibility-check) can validate templates against it.
+!schemas/v1.0/personal-toi-v1.json
 
 # Backup files
 *.bak

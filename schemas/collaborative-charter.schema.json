@@ -1,8 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/NeuroLift-Technologies/nlt-otoi/schemas/collaborative-charter.schema.json",
-  "title": "Collaborative Charter",
-  "description": "Schema for defining team or group interaction protocols with AI systems",
+  "title": "Collaborative Charter — DEPRECATED",
+  "description": "DEPRECATED. Superseded by the canonical `.toi` standard (@neurolift-technologies/toi) at the `community`/`project` tiers, orchestrated by the `.otoi` charter layer (@neurolift-technologies/otoi). New group/team protocols MUST be expressed as `.toi` documents resolved by an `.otoi` charter rather than this legacy shape. Retained only for validating pre-existing documents; will be removed in a future major version. See packages/otoi/SPEC.md and docs/canonical-toi-migration.md.",
+  "deprecated": true,
+  "$comment": "Deprecated in favor of the canonical .toi standard + .otoi orchestration layer. See docs/canonical-toi-migration.md.",
   "type": "object",
   "required": ["version", "metadata", "governance", "integration", "protocols"],
   "properties": {
