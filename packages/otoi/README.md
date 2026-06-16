@@ -56,6 +56,11 @@ The dry run should list `dist/index.js` and `dist/index.d.ts`. If it does not,
 run `npm run build` and inspect TypeScript or dependency-resolution errors
 before publishing.
 
+If `npm run typecheck` reports that `@neurolift-technologies/toi` cannot be
+resolved, inspect the installed dependency tarball. It must provide the `dist/`
+files named by its own `main`, `types`, and `exports` fields before `.otoi` can
+build cleanly.
+
 ## Quick start
 
 ```ts

@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| PR #33 docs follow-up | GPT-5.5 Cursor Automation | active | cursor/engineering-documentation-updates-4c9d | Document source-verified package build/publish workflow changes after PR #33 |
+| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| PR #33 docs follow-up | GPT-5.5 Cursor Automation | pending | pending | Documented source-verified `packages/otoi` build/publish workflow changes after PR #33 |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |

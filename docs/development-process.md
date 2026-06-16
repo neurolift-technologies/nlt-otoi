@@ -119,7 +119,7 @@ TypeScript or dependency-resolution error first.
 | Assuming `dist/` is committed | Local source tree looks valid but packed package omits runtime files | Remember `dist/` is ignored; validate with `npm pack --dry-run` |
 | Skipping `npm pack --dry-run` | Consumers see `Cannot find module` or entry-point resolution failures | Inspect the dry-run file list before publish |
 | Treating root CI as package CI | PR checks pass without exercising `packages/otoi` TypeScript build/tests | Run package commands manually until a Node package workflow exists |
-| Publishing `.otoi` before required `.toi` dependency fixes | Build can fail while resolving `@neurolift-technologies/toi` exports or types | Publish/fix the dependency first, then rebuild and pack `.otoi` |
+| Publishing `.otoi` before required `.toi` dependency fixes | `npm run typecheck` reports `Cannot find module '@neurolift-technologies/toi' or its corresponding type declarations` when the installed `.toi` tarball lacks `dist/` | Publish/fix the dependency first, then rebuild and pack `.otoi` |
 
 ## GitHub Pages + Solidarity Kit Documentation Runbook
 

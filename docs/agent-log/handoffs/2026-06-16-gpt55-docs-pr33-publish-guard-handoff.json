@@ -1,0 +1,48 @@
+{
+  "handoff_record": {
+    "session_id": "2026-06-16-gpt55-docs-pr33-publish-guard",
+    "agent_name": "GPT-5.5 Cursor Automation",
+    "date": "2026-06-16",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-4c9d",
+    "work_completed": [
+      "Inspected merged PR #33 and verified the actual package lifecycle hook is `prepack`, not `prepublishOnly`.",
+      "Updated `packages/otoi/README.md` with the build and npm package lifecycle contract for `dist/` entry points.",
+      "Updated `docs/development-process.md` with a `packages/otoi` build/publish runbook, active workflow coverage map, manual package release checklist, and common pitfalls.",
+      "Recorded the current package verification blocker: `@neurolift-technologies/toi@1.0.0` is the only published version and its tarball lacks `dist/`, so `.otoi` typecheck/build cannot resolve its types."
+    ],
+    "work_in_progress": [],
+    "blockers": [
+      "`npm run typecheck` and `npm pack --dry-run` in `packages/otoi` currently fail until a fixed `@neurolift-technologies/toi` package with `dist/` artifacts is published or otherwise made available."
+    ],
+    "decisions_made": [
+      "Documented source-verified `prepack` behavior rather than repeating the PR title/body's stale `prepublishOnly` wording.",
+      "Updated existing package and development-process docs instead of creating a redundant release page."
+    ],
+    "decisions_pending": [
+      "Maintainers still need to publish or provide a fixed `@neurolift-technologies/toi` dependency before `.otoi` can complete package release checks."
+    ],
+    "escalations": [],
+    "next_agent_notes": "If continuing release work, start by checking `npm view @neurolift-technologies/toi versions --json`; once a fixed dependency exists, rerun `npm install --no-package-lock`, `npm run typecheck`, `npm test`, and `npm pack --dry-run` from `packages/otoi/`.",
+    "files_modified": [
+      "docs/active-threads.md",
+      "docs/development-process.md",
+      "docs/agent-log/registrations/2026-06-16-gpt55-docs-pr33-publish-guard.json",
+      "docs/agent-log/handoffs/2026-06-16-gpt55-docs-pr33-publish-guard-handoff.json",
+      "packages/otoi/README.md"
+    ],
+    "tests_run": [
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-16-gpt55-docs-pr33-publish-guard.json > /dev/null",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "git diff --check origin/main..HEAD",
+      "rg \"prepublishOnly\" docs packages/otoi || true",
+      "npm install --no-package-lock",
+      "npm run typecheck",
+      "npm pack --dry-run",
+      "npm view @neurolift-technologies/toi versions --json"
+    ],
+    "tests_passing": false,
+    "pr_url": "pending"
+  }
+}
