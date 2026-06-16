@@ -40,6 +40,6 @@
       "rg stale-reference checks for old @neurolift package names and old validator schema path"
     ],
     "tests_passing": true,
-    "pr_url": "pending OpenGitPr automation after final push"
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/32"
   }
 }
