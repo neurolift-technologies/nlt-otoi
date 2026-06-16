@@ -22,7 +22,7 @@ Minimum local tools for CI parity:
 
 ## Workflow Architecture
 
-The repository uses four GitHub Actions workflows:
+The repository uses five GitHub Actions workflows:
 
 | Workflow | File | Purpose |
 | --- | --- | --- |
@@ -30,6 +30,7 @@ The repository uses four GitHub Actions workflows:
 | Schema Validation | `.github/workflows/schema-validation.yml` | Validates schema and template JSON structure |
 | Security Scan | `.github/workflows/security-scan.yml` | Runs Bandit and lightweight security heuristics |
 | Create Branch Cleanup Issues | `.github/workflows/create-branch-cleanup-issues.yml` | Creates maintenance issues for stale merged branches |
+| Governance Validation | `.github/workflows/validate-governance.yml` | Runs `.nltotoi/scripts/validate-governance.sh` on every push and pull request |
 
 ### CI Coverage Map (What Codepaths Each Workflow Exercises)
 
@@ -42,6 +43,11 @@ can quickly identify which checks are relevant for a change.
 | Schema Validation | `schemas/**`, `nlt-otoi/schemas/**`, `nlt-otoi/templates/**`, `nlt-otoi/tools/validators/**` | Workflow currently enforces JSON parse validity, not full cross-document semantic validation |
 | Security Scan | `src/**`, `nlt-otoi/tools/**`, `schemas/**`, `nlt-otoi/schemas/**` | Triggered on every push/PR to `main`/`develop` (no path filter), plus weekly schedule |
 | Create Branch Cleanup Issues | `.github/workflows/create-branch-cleanup-issues.yml` | Manual maintenance workflow; does not run on push or PR |
+| Governance Validation | `.nltotoi/**`, `NLT-DEV-OTOI.md`, `AGENTS.md`, agent templates, governance metadata | Checks required governance files and marker strings; it does not run package builds |
+
+Current package gap: changes under `packages/otoi/**` do not have an active
+Node build, typecheck, test, or npm-pack workflow. Run the package checks
+manually before publishing or changing package entry points.
 
 ### Source of Truth for CI Definitions
 
@@ -54,6 +60,66 @@ not loaded by GitHub Actions and should not be used for CI troubleshooting.
 
 When changing automation behavior, always edit the root workflow files first.
 Treat nested workflow copies as archival references, not active automation.
+
+## `packages/otoi` Build and Publish Runbook
+
+PR #33 added a package lifecycle guard for
+[`@neurolift-technologies/otoi`](../packages/otoi/README.md). The public package
+entry points in `packages/otoi/package.json` all resolve to `./dist/*`:
+
+- `main`: `./dist/index.js`
+- `types`: `./dist/index.d.ts`
+- `exports["."].import`: `./dist/index.js`
+- `exports["."].types`: `./dist/index.d.ts`
+
+`packages/otoi/tsconfig.json` emits those files to `dist/`, and
+`packages/otoi/.gitignore` keeps `dist/` out of source control. The npm package
+therefore relies on a build during packing, not on committed build artifacts.
+
+### Lifecycle guard
+
+The source-verified hook is:
+
+```json
+"prepack": "npm run build"
+```
+
+`prepack` runs before `npm pack` and before the packing step of `npm publish`.
+This prevents a repeat of the broken-tarball failure mode where the package
+ships only `README.md`, `SPEC.md`, and `package.json`, while its exported entry
+points still reference missing `dist/` files.
+
+### Manual release checklist
+
+Run these from `packages/otoi/` before publishing or changing package entry
+points:
+
+```bash
+npm install
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+Confirm the dry-run file list includes at least:
+
+- `dist/index.js`
+- `dist/index.d.ts`
+- `README.md`
+- `SPEC.md`
+- `package.json`
+
+If `dist/` is missing, do not publish. Run `npm run build` and resolve any
+TypeScript or dependency-resolution error first.
+
+### Common pitfalls
+
+| Pitfall | Symptom | Resolution |
+| --- | --- | --- |
+| Assuming `dist/` is committed | Local source tree looks valid but packed package omits runtime files | Remember `dist/` is ignored; validate with `npm pack --dry-run` |
+| Skipping `npm pack --dry-run` | Consumers see `Cannot find module` or entry-point resolution failures | Inspect the dry-run file list before publish |
+| Treating root CI as package CI | PR checks pass without exercising `packages/otoi` TypeScript build/tests | Run package commands manually until a Node package workflow exists |
+| Publishing `.otoi` before required `.toi` dependency fixes | Build can fail while resolving `@neurolift-technologies/toi` exports or types | Publish/fix the dependency first, then rebuild and pack `.otoi` |
 
 ## GitHub Pages + Solidarity Kit Documentation Runbook
 

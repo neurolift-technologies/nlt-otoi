@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| PR #33 docs follow-up | GPT-5.5 Cursor Automation | active | cursor/engineering-documentation-updates-4c9d | Document source-verified package build/publish workflow changes after PR #33 |
 
 ## Completed
 

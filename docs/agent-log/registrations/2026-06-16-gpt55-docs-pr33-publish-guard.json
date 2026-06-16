@@ -1,0 +1,25 @@
+{
+  "agent_registration": {
+    "agent_name": "GPT-5.5 Cursor Automation",
+    "platform": "Cursor Cloud Agent",
+    "version": "GPT-5.5",
+    "session_id": "2026-06-16-gpt55-docs-pr33-publish-guard",
+    "entry_date": "2026-06-16",
+    "entry_point": "Automation trigger for closed PR #33: chore: add prepublishOnly build guard so dist/ ships on publish",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/engineering-documentation-updates-4c9d",
+    "capabilities_self_reported": [
+      "Source-verified documentation updates",
+      "GitHub PR diff inspection",
+      "Markdown maintenance",
+      "Repository workflow verification"
+    ],
+    "known_limitations": [
+      "No human is actively present during automation",
+      "Documentation must be limited to behavior verified from repository source and PR metadata"
+    ],
+    "preferred_handoff_format": "Structured JSON handoff with files modified, verification commands, and any residual gaps"
+  }
+}

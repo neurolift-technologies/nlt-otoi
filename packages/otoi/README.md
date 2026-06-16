@@ -22,6 +22,40 @@ npm install @neurolift-technologies/otoi
 # @neurolift-technologies/toi is a regular dependency and is installed automatically with it
 ```
 
+## Build and package lifecycle
+
+`package.json` points consumers at generated files under `dist/`:
+
+- `main`: `./dist/index.js`
+- `types`: `./dist/index.d.ts`
+- `exports["."].import`: `./dist/index.js`
+- `exports["."].types`: `./dist/index.d.ts`
+
+`dist/` is intentionally ignored in git, so releases must build it before npm
+creates the tarball. The package uses npm's `prepack` lifecycle hook:
+
+```bash
+npm run build
+```
+
+That hook runs before `npm pack` and before the packing step of `npm publish`,
+which helps prevent publishing a tarball that contains only `README.md`,
+`SPEC.md`, and `package.json` while its runtime entry points still reference
+`./dist/*`.
+
+Maintainer release checks:
+
+```bash
+npm install
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+The dry run should list `dist/index.js` and `dist/index.d.ts`. If it does not,
+run `npm run build` and inspect TypeScript or dependency-resolution errors
+before publishing.
+
 ## Quick start
 
 ```ts
