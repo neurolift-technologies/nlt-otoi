@@ -43,6 +43,6 @@
       "npm view @neurolift-technologies/toi versions --json"
     ],
     "tests_passing": false,
-    "pr_url": "pending"
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/34"
   }
 }
