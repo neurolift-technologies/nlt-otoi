@@ -1,0 +1,43 @@
+{
+  "handoff_record": {
+    "session_id": "158b2152-7214-45b1-9efe-a458133e75b6",
+    "agent_name": "Cursor Automation GPT-5.5",
+    "date": "2026-06-19",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-4a6b",
+    "work_completed": [
+      "Inspected merged PR #36 and verified it changed only the root LICENSE text to MIT",
+      "Updated README.md to identify the root LICENSE file as the authoritative repository license text",
+      "Added a CONTRIBUTING.md checklist for future license/legal text changes",
+      "Updated packages/otoi/README.md to clarify the MIT package license and separate @neurolift-technologies/toi Apache-2.0 package metadata",
+      "Opened PR #37: https://github.com/NeuroLift-Technologies/nlt-otoi/pull/37"
+    ],
+    "work_in_progress": [
+      "PR #37 is open and pending review"
+    ],
+    "blockers": [],
+    "decisions_made": [
+      "Kept the update in existing README/CONTRIBUTING/package docs instead of creating a redundant licensing page",
+      "Documented license metadata boundaries without offering legal interpretation"
+    ],
+    "decisions_pending": [],
+    "escalations": [],
+    "next_agent_notes": "If PR #37 needs revision, keep the root LICENSE file as the source of truth and verify any dependency license statements from the dependency's own published metadata.",
+    "files_modified": [
+      "README.md",
+      "CONTRIBUTING.md",
+      "packages/otoi/README.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-06-19-cursor-license-docs.json",
+      "docs/agent-log/handoffs/2026-06-19-cursor-license-docs-handoff.json"
+    ],
+    "tests_run": [
+      "npm view @neurolift-technologies/toi license version --json",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-19-cursor-license-docs.json >/dev/null",
+      "custom Python check that documented license link targets exist",
+      "git diff --check HEAD"
+    ],
+    "tests_passing": true
+  }
+}
