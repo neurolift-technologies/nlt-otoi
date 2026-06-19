@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| _No active threads currently_ | — | — | — | Add new workstreams here before starting implementation |
+| License documentation alignment | cursor | active | `cursor/engineering-documentation-updates-4a6b` | Document the PR #36 LICENSE update and related package/contributor license maintenance paths |
 
 ## Completed
 
