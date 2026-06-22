@@ -122,6 +122,25 @@ We are committed to providing a welcoming and inclusive environment:
 4. **Documentation**: Update any relevant documentation
 5. **Accessibility**: Note any accessibility considerations
 
+### Licensing and Legal Text Changes
+
+The root [`LICENSE`](LICENSE) file is the source of truth for this repository's
+license text. When a PR changes license wording, copyright notices, or package
+license metadata, keep the related public surfaces aligned:
+
+- Root overview: [`README.md`](README.md) license section.
+- Package metadata: `packages/otoi/package.json` `license` field.
+- Package docs: `packages/otoi/README.md` license section.
+- Nested project docs, if the nested license copy changes:
+  `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, and
+  `nlt-otoi/LICENSE`.
+- Integration metadata, if the repository license identifier changes:
+  `agent-solidarity-kit.json` `metadata.nlt_otoi_repo_license`.
+
+Keep license updates documentation-only unless the PR intentionally changes
+package metadata. Do not reinterpret or relicense external dependencies; describe
+their licenses from their own published metadata.
+
 ### CI and Automation Expectations
 
 This repository uses GitHub Actions to enforce baseline quality checks for
