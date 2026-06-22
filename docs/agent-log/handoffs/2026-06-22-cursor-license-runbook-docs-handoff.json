@@ -42,6 +42,6 @@
       "python3 inline check for CONTRIBUTING.md runbook link and source-of-truth map entries"
     ],
     "tests_passing": true,
-    "pr_url": ""
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/38"
   }
 }
