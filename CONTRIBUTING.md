@@ -139,7 +139,8 @@ license metadata, keep the related public surfaces aligned:
 
 Keep license updates documentation-only unless the PR intentionally changes
 package metadata. Do not reinterpret or relicense external dependencies; describe
-their licenses from their own published metadata.
+their licenses from their own published metadata. For a repeatable audit path,
+see the [License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook).
 
 ### CI and Automation Expectations
 
