@@ -228,6 +228,24 @@ print('No HIGH Bandit findings.')
 PY
 ```
 
+#### Package release/license parity
+
+Use for changes under `packages/otoi/**` or docs that describe the package
+license, version, exports, or npm tarball contents:
+
+```bash
+cd packages/otoi
+npm install --no-package-lock
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+`npm pack --dry-run` runs the package `prepack` build and may leave ignored
+`dist/` and `node_modules/` artifacts locally. Remove generated artifacts before
+committing documentation-only changes. For the full release checklist, see the
+[License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook).
+
 ## 🎯 Priority Areas
 
 We especially welcome contributions in these areas:

@@ -10,6 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
+| PR #41 documentation automation follow-up | cursor | active | `cursor/engineering-documentation-updates-a154` | Reviews the closed PR #41 license/package runbook updates and fills any remaining source-verified documentation gaps |
 | License maintenance runbook follow-up | cursor | pending review | `cursor/engineering-documentation-updates-89eb` | Adds source-verified operational runbook details for auditing license-bearing docs, package metadata, nested license copy, and integration metadata |
 | PR #40 license/package docs follow-up | cursor | pending review | `cursor/engineering-documentation-updates-798b` | PR #41 — align developer runbooks with merged Apache-2.0 relicense, the new `packages/otoi/LICENSE`, and `@neurolift-technologies/otoi` 1.1.0 package metadata/release checks |
 

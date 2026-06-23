@@ -192,10 +192,10 @@ python3 nlt-otoi/tools/validators/toi-validator.py --schema schemas/personal-toi
 Operational constraints verified from source and local execution:
 - `jsonschema` must be installed in the runtime environment.
 - The validator's default schema path points to
-  `nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`.
-- That default schema file is not present in the current repository tree, so
-  validator runs without `--schema` fail immediately with "Schema file not
-  found".
+  `nlt-otoi/schemas/v1.0/personal-toi-v1.json`.
+- That default schema validates the nested legacy personal-TOI template shape
+  (`metadata`, `user_profile`, `interaction_preferences`, and related fields).
+  Provide `--schema` when validating root legacy examples or another TOI shape.
 
 ### `toi-generator.py`
 
@@ -219,7 +219,7 @@ Behavioral constraints:
 | Symptom | Likely cause | First action |
 | --- | --- | --- |
 | `ModuleNotFoundError: No module named 'jsonschema'` | Validator dependency missing locally | `python3 -m pip install jsonschema` |
-| `Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | Validator default schema target missing in this tree | Re-run with `--schema` and an existing schema file |
+| `Schema file not found at .../nlt-otoi/schemas/v1.0/personal-toi-v1.json` | Validator default schema file was moved, deleted, or not checked out | Restore the tracked schema or re-run with `--schema` and an existing matching schema |
 | `ValueError: No instance registered for agent '<id>'` | Agent metadata was registered without an `agent_instance` | Pass `agent_instance=...` in `register_agent()` |
 | `ValueError: Agent '<id>' is not active` | Agent exists but `is_active` is false | Reactivate or register a different active agent |
 | Collaboration logs missing expected decisions | `log_interaction()` received an unknown `collaboration_id` and no-op'd | Reuse the exact ID returned by `create_collaboration()` and assert it exists before logging |
