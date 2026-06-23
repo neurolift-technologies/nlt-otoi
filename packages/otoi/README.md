@@ -80,9 +80,8 @@ underlying file format. Where the two disagree, the `.toi` spec governs the
 
 ## License
 
-This package is MIT licensed; see `packages/otoi/package.json` and the
-repository root [`LICENSE`](../../LICENSE). The canonical
-`@neurolift-technologies/toi` package that this layer builds on is published
-separately and currently declares Apache-2.0 in its own package metadata, so
-dependency license notes should cite that package directly rather than infer its
-terms from this repository.
+This package is licensed under Apache-2.0. It ships its own license copy at
+[`packages/otoi/LICENSE`](./LICENSE); the repository root
+[`LICENSE`](../../LICENSE) is the authoritative text. The canonical
+`@neurolift-technologies/toi` package that this layer builds on is also
+Apache-2.0, declared in its own package metadata.
