@@ -1,0 +1,47 @@
+{
+  "handoff_record": {
+    "session_id": "2026-06-22-cursor-license-runbook-docs",
+    "agent_name": "Cursor Cloud Agent",
+    "date": "2026-06-22",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-89eb",
+    "work_completed": [
+      "Reviewed merged PR #37 metadata and changed files after the pull_request closed automation trigger",
+      "Added a License Maintenance Runbook to docs/development-process.md covering repository license text, package metadata, package docs, nested license copy, and integration metadata",
+      "Linked CONTRIBUTING.md licensing guidance to the new runbook",
+      "Moved the merged PR #37 active thread to completed and marked this follow-up branch pending review",
+      "Recorded session registration for this automation run"
+    ],
+    "work_in_progress": [],
+    "blockers": [],
+    "decisions_made": [
+      "Updated the existing development process guide instead of creating a redundant standalone license page",
+      "Documented nlt-otoi/LICENSE as a separately maintained nested project copy because the repository contains both root and nested license files",
+      "Documented that external dependency license notes must cite the dependency's own package metadata rather than infer terms from this repository"
+    ],
+    "decisions_pending": [
+      "Human review of the documentation-only PR"
+    ],
+    "escalations": [],
+    "next_agent_notes": "If further license changes occur, use docs/development-process.md#license-maintenance-runbook as the source-verified audit checklist before updating README, package docs, nested docs, or integration metadata.",
+    "files_modified": [
+      "CONTRIBUTING.md",
+      "docs/active-threads.md",
+      "docs/development-process.md",
+      "docs/agent-log/registrations/2026-06-22-cursor-license-runbook-docs.json",
+      "docs/agent-log/handoffs/2026-06-22-cursor-license-runbook-docs-handoff.json"
+    ],
+    "tests_run": [
+      "python3 -m json.tool agent-solidarity-kit.json > /dev/null",
+      "python3 -m json.tool packages/otoi/package.json > /dev/null",
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-22-cursor-license-runbook-docs.json > /dev/null",
+      "rg -n \"MIT|Apache-2.0|license|License|LICENSE\" README.md CONTRIBUTING.md packages/otoi/README.md packages/otoi/package.json agent-solidarity-kit.json nlt-otoi/README.md nlt-otoi/PROJECT_OVERVIEW.md",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "git diff --check HEAD~1..HEAD",
+      "python3 inline check for CONTRIBUTING.md runbook link and source-of-truth map entries"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/38"
+  }
+}

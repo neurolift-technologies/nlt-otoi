@@ -10,12 +10,13 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| License documentation alignment | cursor | pending review | `cursor/engineering-documentation-updates-4a6b` | PR #37 documents the PR #36 LICENSE update and related package/contributor license maintenance paths |
+| License maintenance runbook follow-up | cursor | pending review | `cursor/engineering-documentation-updates-89eb` | Adds source-verified operational runbook details for auditing license-bearing docs, package metadata, nested license copy, and integration metadata |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| License documentation alignment | cursor | ✅ | #37 | Documented the PR #36 LICENSE update and related package/contributor license maintenance paths |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |
 | GitHub Pages & Solidarity Kit | copilot | ✅ | #17 | Added `index.html`, `agent-solidarity-kit.json`, and initial agent-log scaffolding |
 | CLAUDE.md | claude | ✅ | #7 | Comprehensive AI assistant guide |

@@ -1,0 +1,25 @@
+{
+  "agent_registration": {
+    "agent_name": "Cursor Cloud Agent",
+    "platform": "Cursor Automation",
+    "version": "GPT-5.5",
+    "session_id": "2026-06-22-cursor-license-runbook-docs",
+    "entry_date": "2026-06-22",
+    "entry_point": "Pull request closed automation for PR #37",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/engineering-documentation-updates-89eb",
+    "capabilities_self_reported": [
+      "documentation maintenance",
+      "source-verified repository inspection",
+      "GitHub pull request metadata review",
+      "runbook authoring"
+    ],
+    "known_limitations": [
+      "Cannot obtain human clarification during unattended automation",
+      "Does not provide legal advice; documents verified repository metadata only"
+    ],
+    "preferred_handoff_format": "Structured JSON handoff with files changed, checks run, and remaining risks"
+  }
+}
