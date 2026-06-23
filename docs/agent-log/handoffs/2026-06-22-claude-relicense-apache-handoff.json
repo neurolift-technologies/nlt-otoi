@@ -50,6 +50,6 @@
       "3-lens adversarial verification workflow (license completeness; false-positive/history guard; npm publish-readiness): no blockers; a copyright-year-drift warning and attribution nits were resolved by regenerating the three LICENSE copies byte-identically"
     ],
     "tests_passing": true,
-    "pr_url": ""
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/40"
   }
 }
