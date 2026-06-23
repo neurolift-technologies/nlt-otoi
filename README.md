@@ -135,8 +135,12 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 The repository root `LICENSE` file is the authoritative license text for this
 repo and for the in-repository `@neurolift-technologies/otoi` package metadata.
-If a future change updates the license identifier or notice text, update this
-section and the package-level license notes in the same PR.
+The npm package also carries `packages/otoi/LICENSE` so the published tarball can
+ship its own license copy. If a future change updates the license identifier,
+notice text, or package release metadata, update this section, the package-level
+license notes, and the
+[license maintenance runbook](docs/development-process.md#license-maintenance-runbook)
+in the same PR.
 
 ## 🌍 Community
 
