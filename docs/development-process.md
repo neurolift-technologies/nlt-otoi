@@ -151,6 +151,10 @@ PY
 | Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
 | Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
 
+See also: if a Solidarity Kit change touches license metadata, use the
+[License Maintenance Runbook](#license-maintenance-runbook) before updating
+`agent-solidarity-kit.json` or related public docs.
+
 ## License Maintenance Runbook
 
 Use this runbook when a change touches repository license text, copyright
@@ -163,11 +167,12 @@ notices, package license metadata, or public docs that describe licensing.
 | `LICENSE` | Authoritative MIT license text for this repository | Update only when the repository license text or notice changes |
 | `README.md` | Public repository summary | Keep the license section aligned with `LICENSE` and package notes |
 | `CONTRIBUTING.md` | Contributor checklist | Keep the licensing checklist and this runbook linked |
+| `CHANGELOG.md` | Release history | Record notable license documentation or license metadata changes under `[Unreleased]` |
 | `packages/otoi/package.json` | `@neurolift-technologies/otoi` package metadata | `license` currently declares `MIT`; change only with an intentional package metadata update |
 | `packages/otoi/README.md` | Package-facing license explanation | Cite the root `LICENSE` for this package and cite dependency licenses from their own metadata |
-| `agent-solidarity-kit.json` | Integration metadata | `metadata.nlt_otoi_repo_license` should match the repository license identifier |
+| `agent-solidarity-kit.json` | Integration metadata | `metadata.nlt_otoi_repo_license` should match the repository license identifier; `metadata.framework_license` describes the Solidarity Framework layer and does not track root `LICENSE` |
 | `nlt-otoi/LICENSE` | Nested project license copy | Maintained separately; update nested docs only when this nested copy intentionally changes |
-| `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md` | Nested project docs | Keep these aligned with `nlt-otoi/LICENSE`, not package metadata |
+| `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, `nlt-otoi/CHANGELOG.md` | Nested project docs | Keep these aligned with `nlt-otoi/LICENSE`, not package metadata |
 
 The external `@neurolift-technologies/toi` dependency is a separate published
 package. Do not infer its terms from this repository's MIT license; cite the
@@ -181,9 +186,10 @@ Run these checks from the repository root after license-related edits:
 python3 -m json.tool agent-solidarity-kit.json > /dev/null
 python3 -m json.tool packages/otoi/package.json > /dev/null
 rg -n "MIT|Apache-2.0|license|License|LICENSE" \
-  README.md CONTRIBUTING.md packages/otoi/README.md \
-  packages/otoi/package.json agent-solidarity-kit.json \
-  nlt-otoi/README.md nlt-otoi/PROJECT_OVERVIEW.md
+  LICENSE README.md CONTRIBUTING.md CHANGELOG.md \
+  packages/otoi/README.md packages/otoi/package.json \
+  agent-solidarity-kit.json nlt-otoi/LICENSE nlt-otoi/README.md \
+  nlt-otoi/PROJECT_OVERVIEW.md nlt-otoi/CHANGELOG.md
 ```
 
 For notice-year changes, inspect both license files directly:
@@ -201,6 +207,11 @@ sed -n '1,5p' nlt-otoi/LICENSE
 | Package metadata changed without docs | npm consumers see a different license than the package README describes | Reconcile `packages/otoi/package.json` and `packages/otoi/README.md` before release checks |
 | Nested license copy treated as generated from root | `nlt-otoi/LICENSE` notice text drifts without nested docs explaining it | Treat `nlt-otoi/LICENSE` as a separately maintained copy and update nested docs only when it changes |
 | Dependency license inferred from repository license | Docs misstate the external `.toi` package terms | Cite `@neurolift-technologies/toi` from its own package metadata |
+| Solidarity Framework license treated as repository license | `metadata.framework_license` is changed during a root MIT license update | Leave `metadata.framework_license` tied to the Solidarity Framework layer; update only `metadata.nlt_otoi_repo_license` for root repository license identifier changes |
+
+See also: the [GitHub Pages + Solidarity Kit Documentation Runbook](#github-pages--solidarity-kit-documentation-runbook)
+for landing-page parity checks when license metadata changes affect
+`agent-solidarity-kit.json`.
 
 ## Trigger Matrix
 
@@ -476,4 +487,6 @@ Recommended pre-push checklist:
 2. Ensure changed JSON in schemas/templates parses correctly.
 3. Review security impact for any tool or policy changes.
 4. Confirm PR description follows the template sections.
+5. If the PR touches license text, copyright notices, or license metadata, run
+   the [License Maintenance Runbook](#license-maintenance-runbook) audit checks.
 

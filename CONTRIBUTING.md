@@ -129,6 +129,8 @@ license text. When a PR changes license wording, copyright notices, or package
 license metadata, keep the related public surfaces aligned:
 
 - Root overview: [`README.md`](README.md) license section.
+- Release notes: [`CHANGELOG.md`](CHANGELOG.md) for notable license
+  documentation or license metadata changes.
 - Package metadata: `packages/otoi/package.json` `license` field.
 - Package docs: `packages/otoi/README.md` license section.
 - Nested project docs, if the nested license copy changes:
@@ -136,6 +138,8 @@ license metadata, keep the related public surfaces aligned:
   `nlt-otoi/LICENSE`.
 - Integration metadata, if the repository license identifier changes:
   `agent-solidarity-kit.json` `metadata.nlt_otoi_repo_license`.
+  Do not change `metadata.framework_license` for root repository license
+  updates; that field describes the Solidarity Framework layer.
 
 Keep license updates documentation-only unless the PR intentionally changes
 package metadata. Do not reinterpret or relicense external dependencies; describe

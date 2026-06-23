@@ -75,9 +75,13 @@ contract (`agent-solidarity-kit.json`). Keep them synchronized:
 1. Treat `agent-solidarity-kit.json` as the source of truth.
 2. Mirror user-facing fields in `index.html` (version, model details, and
    architecture labels) when they change.
-3. Use `docs/development-process.md` for the operational runbook and validation
-   commands.
-4. Track work lifecycle in `docs/active-threads.md` and session records in
+3. Use the
+   [GitHub Pages + Solidarity Kit Documentation Runbook](docs/development-process.md#github-pages--solidarity-kit-documentation-runbook)
+   for landing-page parity checks.
+4. Use the
+   [License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook)
+   when changes touch license text, copyright notices, or license metadata.
+5. Track work lifecycle in `docs/active-threads.md` and session records in
    `docs/agent-log/`.
 
 ## 🎯 Core Components
@@ -136,7 +140,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 The repository root `LICENSE` file is the authoritative license text for this
 repo and for the in-repository `@neurolift-technologies/otoi` package metadata.
 If a future change updates the license identifier or notice text, update this
-section and the package-level license notes in the same PR.
+section, `packages/otoi/package.json`, and the
+[`packages/otoi` license notes](packages/otoi/README.md#license) in the same PR.
+Maintainers can use the
+[License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook)
+for the repeatable audit checklist.
 
 ## 🌍 Community
 

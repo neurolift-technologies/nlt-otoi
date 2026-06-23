@@ -116,6 +116,13 @@ nlt-otoi/
 4. **Documentation**: Update relevant documentation
 5. **Examples**: Provide usage examples where applicable
 
+### **Licensing**
+If a contribution touches license text, copyright notices, or license metadata,
+follow the root [Licensing and Legal Text Changes](../CONTRIBUTING.md#licensing-and-legal-text-changes)
+checklist and the [License Maintenance Runbook](../docs/development-process.md#license-maintenance-runbook).
+The nested `LICENSE` in this directory is maintained separately from the root
+`LICENSE`, so update nested docs only when the nested copy intentionally changes.
+
 ### **Review Criteria**
 - **Functionality**: Does it work as intended?
 - **Accessibility**: Is it neurodivergent-friendly?
