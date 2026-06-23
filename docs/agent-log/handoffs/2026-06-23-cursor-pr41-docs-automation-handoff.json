@@ -49,6 +49,6 @@
       "git diff --check HEAD"
     ],
     "tests_passing": true,
-    "pr_url": "pending OpenGitPr for cursor/engineering-documentation-updates-a154"
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/42"
   }
 }

@@ -10,7 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| PR #41 documentation automation follow-up | cursor | pending review | `cursor/engineering-documentation-updates-a154` | Adds post-publish package verification, release-readiness checks, artifact cleanup notes, and current validator schema path corrections |
+| PR #41 documentation automation follow-up | cursor | pending review | `cursor/engineering-documentation-updates-a154` | PR #42 — adds post-publish package verification, release-readiness checks, artifact cleanup notes, and current validator schema path corrections |
 | License maintenance runbook follow-up | cursor | pending review | `cursor/engineering-documentation-updates-89eb` | Adds source-verified operational runbook details for auditing license-bearing docs, package metadata, nested license copy, and integration metadata |
 
 ## Completed
