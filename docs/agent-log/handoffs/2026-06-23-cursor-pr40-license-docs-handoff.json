@@ -15,7 +15,7 @@
       "Updated docs/active-threads.md to move PR #40 relicense work to Completed and track this follow-up as pending review"
     ],
     "work_in_progress": [
-      "Documentation PR for this follow-up is ready to open from cursor/engineering-documentation-updates-798b"
+      "Documentation PR #41 is open from cursor/engineering-documentation-updates-798b"
     ],
     "blockers": [],
     "decisions_made": [
@@ -46,6 +46,7 @@
       "rg license surface audit across README.md, CONTRIBUTING.md, CHANGELOG.md, packages/otoi docs/metadata, agent-solidarity-kit.json, and nested nlt-otoi docs",
       "npm pack --dry-run --ignore-scripts --json from packages/otoi, confirming LICENSE, README.md, SPEC.md, and package.json are included when scripts are not run"
     ],
-    "tests_passing": true
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/41"
   }
 }
