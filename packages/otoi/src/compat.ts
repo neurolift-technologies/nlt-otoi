@@ -27,7 +27,7 @@ const SEMVER = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
  * @returns the validated version string.
  * @throws {OtoiCompatibilityError} if `version` is missing or not a semantic version.
  */
-export function assertToiCompatible(version: string | undefined = TOI_FORMAT_VERSION): string {
+export function assertToiCompatible(version: string | undefined = toi.TOI_FORMAT_VERSION): string {
   if (typeof version !== "string" || version.trim() === "") {
     throw new OtoiCompatibilityError(
       `The installed @neurolift-technologies/toi package declares no TOI_FORMAT_VERSION. ` +
