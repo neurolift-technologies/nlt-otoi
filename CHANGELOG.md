@@ -18,6 +18,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-06-23
+
+### Added
+- `OTOI_TOI_VERSION_POLICY` constant (`"any"`) declaring that `.otoi` is
+  version-agnostic toward the `.toi` format.
+- `assertToiCompatible()` / `isToiCompatible()` compatibility guard: any
+  well-formed semver `.toi` format version is accepted; the guard fails closed
+  only when the installed `@neurolift-technologies/toi` declares no valid format version
+  (a broken or pre-`1.0.1` install). `honor()` runs the guard at entry.
+- `OtoiCompatibilityError` (error code `"COMPAT"`), exported alongside the new
+  constant and guard functions.
+
+### Changed
+- `OTOI_TARGET_TOI_VERSION` is now informational (reflects the installed `.toi`
+  format version) rather than a pin.
+- Widened the `@neurolift-technologies/toi` dependency range from `^1.0.0` to `>=1.0.0`
+  so any `.toi` release — including a future major — installs without an `.otoi`
+  change.
+- `SPEC.md` now documents the version-agnostic `.toi` compatibility policy and no
+  longer pins "builds on `.toi` v1.0.0".
+
+### Fixed
+- Publishing a new `@neurolift-technologies/toi` package no longer makes `.otoi`
+  non-compliant: the former floating `OTOI_TARGET_TOI_VERSION = TOI_FORMAT_VERSION`
+  coupling, which silently changed `.otoi`'s declared target whenever a new `.toi`
+  was installed, is removed.
+
+---
+
 ## [1.1.0] - 2026-06-22
 
 ### Changed
