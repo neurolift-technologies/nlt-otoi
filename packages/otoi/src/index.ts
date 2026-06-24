@@ -20,6 +20,7 @@
 // Constants and the enforcement/conflict vocabularies.
 export {
   OTOI_FORMAT_VERSION,
+  OTOI_TOI_VERSION_POLICY,
   OTOI_TARGET_TOI_VERSION,
   OTOI_FILE_EXTENSION,
   OTOI_MEDIA_TYPE,
@@ -53,12 +54,16 @@ export {
   type ResolvedEnforcement,
 } from "./honor.js";
 
+// `.toi` compatibility guard.
+export { assertToiCompatible, isToiCompatible } from "./compat.js";
+
 // Error taxonomy.
 export {
   OtoiError,
   OtoiParseError,
   OtoiValidationError,
   OtoiHonorError,
+  OtoiCompatibilityError,
   type OtoiErrorCode,
   type OtoiIssue,
   type PolicyConflict,
