@@ -4,7 +4,7 @@
 **Status:** Draft
 **Media type:** `application/otoi+json` (provisional)
 **File extension:** `.otoi`
-**Builds on:** the [`.toi` v1.0.0](https://www.npmjs.com/package/@neurolift-technologies/toi) standard
+**Builds on:** the [`.toi`](https://www.npmjs.com/package/@neurolift-technologies/toi) standard (version-agnostic — see §8)
 
 > Orchestrated Terms of Interaction (`.otoi`) is an open, declarative file
 > format that describes **how a multi-agent system honors** a set of `.toi`
@@ -116,6 +116,16 @@ into it, consistent with `.toi` §9.
 
 `$otoi` follows Semantic Versioning. A `1.x` processor MUST tolerate a `1.y`
 charter for `y > x` by preserving unknown keys (Section 3).
+
+**`.toi` compatibility is version-agnostic.** An `.otoi` processor MUST honor a
+`.toi` document of any well-formed format version (any semver `$toi`), and MUST
+NOT pin or reject a `.toi` document on the basis of its format version — `.toi`
+guarantees forward compatibility by preserving unknown keys, so a new `.toi`
+release never requires a new `.otoi` release. A processor MUST fail closed only
+when the `.toi` implementation it is bound to declares **no** valid format
+version at all (a broken or pre-`1.0.1` install). The reference implementation
+expresses this with `OTOI_TOI_VERSION_POLICY = "any"` and the `assertToiCompatible`
+guard.
 
 ## 9. References
 

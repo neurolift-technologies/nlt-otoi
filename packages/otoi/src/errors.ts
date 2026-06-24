@@ -3,7 +3,7 @@
  * pattern: every error is an `OtoiError` carrying a discriminating `code`.
  */
 
-export type OtoiErrorCode = "PARSE" | "VALIDATION" | "HONOR";
+export type OtoiErrorCode = "PARSE" | "VALIDATION" | "HONOR" | "COMPAT";
 
 /** A single charter-schema violation, flattened to a dotted path and a message. */
 export interface OtoiIssue {
@@ -58,5 +58,17 @@ export class OtoiHonorError extends OtoiError {
   constructor(message: string, conflicts: readonly PolicyConflict[] = [], options?: { cause?: unknown }) {
     super("HONOR", message, options);
     this.conflicts = conflicts;
+  }
+}
+
+/**
+ * The installed `@neurolift-technologies/toi` cannot be honored because it declares no
+ * valid `.toi` format version. `.otoi` is version-agnostic — it accepts a `.toi`
+ * document of any well-formed format version — so this is raised only for a
+ * broken or pre-`1.0.1` `.toi` install whose runtime contract can't be trusted.
+ */
+export class OtoiCompatibilityError extends OtoiError {
+  constructor(message: string, options?: { cause?: unknown }) {
+    super("COMPAT", message, options);
   }
 }

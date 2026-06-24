@@ -18,8 +18,26 @@ import { TOI_FORMAT_VERSION } from "@neurolift-technologies/toi";
 /** Format version of the `.otoi` specification this library implements. */
 export const OTOI_FORMAT_VERSION = "1.0.0";
 
-/** The `.toi` format version this `.otoi` version is designed to honor. */
-export const OTOI_TARGET_TOI_VERSION = TOI_FORMAT_VERSION;
+/**
+ * `.otoi`'s compatibility policy toward the `.toi` format.
+ *
+ * `.otoi` is deliberately **version-agnostic**: it honors a `.toi` document of
+ * *any* well-formed format version, so publishing a new `.toi` release never
+ * forces a new `.otoi` release. The only `.toi` install `.otoi` refuses is one
+ * that declares no valid format version at all — see `assertToiCompatible`.
+ */
+export const OTOI_TOI_VERSION_POLICY = "any" as const;
+
+/**
+ * The `.toi` format version the installed `@neurolift-technologies/toi` reports — re-exported
+ * from that package, the single source of truth.
+ *
+ * This is **informational, not a pin**: `.otoi` accepts any valid `.toi` version
+ * ({@link OTOI_TOI_VERSION_POLICY}), so this value just tells you which `.toi`
+ * format the current install resolves to. It is `undefined` if a broken or
+ * pre-`1.0.1` `.toi` package (one that exports no format version) is installed.
+ */
+export const OTOI_TARGET_TOI_VERSION: string | undefined = TOI_FORMAT_VERSION;
 
 /** Canonical file extension for an Orchestrated Terms of Interaction charter. */
 export const OTOI_FILE_EXTENSION = ".otoi";
