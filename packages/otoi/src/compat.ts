@@ -9,7 +9,7 @@
  * whose runtime contract can't be trusted. There we fail closed rather than
  * honor documents against an unknown `.toi` format.
  */
-import { TOI_FORMAT_VERSION } from "@neurolift-technologies/toi";
+import * as toi from "@neurolift-technologies/toi";
 import { OTOI_FORMAT_VERSION } from "./constants.js";
 import { OtoiCompatibilityError } from "./errors.js";
 
