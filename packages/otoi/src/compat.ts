@@ -48,6 +48,6 @@ export function assertToiCompatible(version: string | undefined = toi.TOI_FORMAT
  * Non-throwing form of {@link assertToiCompatible}: returns whether the given
  * `.toi` format version (default: the installed one) is usable by `.otoi`.
  */
-export function isToiCompatible(version: string | undefined = TOI_FORMAT_VERSION): boolean {
+export function isToiCompatible(version: string | undefined = toi.TOI_FORMAT_VERSION): boolean {
   return typeof version === "string" && SEMVER.test(version);
 }
