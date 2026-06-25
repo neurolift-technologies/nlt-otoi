@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nlt-otoi"
+version = "1.2.0"
+description = "Python reference implementation of the .otoi (Orchestrated Terms of Interaction) honoring layer — the multi-agent orchestration standard built on the canonical .toi file type."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "NeuroLift Technologies, LLC" }]
+keywords = [
+    "otoi",
+    "toi",
+    "terms-of-interaction",
+    "ai-governance",
+    "multi-agent",
+    "orchestration",
+    "user-agency",
+    "solidarity-framework",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "nlt-toi>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/NeuroLift-Technologies/nlt-otoi"
+Repository = "https://github.com/NeuroLift-Technologies/nlt-otoi"
+Issues = "https://github.com/NeuroLift-Technologies/nlt-otoi/issues"
+
+# --- Build backend (Hatchling) -------------------------------------------------
+# src/ layout: the importable package is src/nlt_otoi, published as ``nlt_otoi``.
+# The charter schema is the validator code itself (mirroring the reference's Zod
+# schema), so there is no bundled data file to force-include.
+[tool.hatch.build.targets.wheel]
+packages = ["src/nlt_otoi"]
+
+# Lean sdist: only what the package and its conformance suite need.
+[tool.hatch.build.targets.sdist]
+only-include = ["src", "tests", "README.md", "CHANGELOG.md", "LICENSE"]
+
+# --- Test config ---------------------------------------------------------------
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
