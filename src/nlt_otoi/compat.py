@@ -5,7 +5,7 @@
 release never requires a new ``.otoi`` release, so there is no per-version
 allow-list to keep in sync. The one case ``.otoi`` cannot recover from is a
 ``.toi`` package that declares no valid format version at all — a broken or
-pre-``1.0.1`` install whose runtime contract can't be trusted. There we fail
+pre-``1.0.0`` install whose runtime contract can't be trusted. There we fail
 closed rather than honor documents against an unknown ``.toi`` format.
 
 Ported faithfully from ``@neurolift-technologies/otoi`` ``src/compat.ts``.
@@ -13,7 +13,6 @@ Ported faithfully from ``@neurolift-technologies/otoi`` ``src/compat.ts``.
 from __future__ import annotations
 
 import re
-from typing import Optional
 
 import nlt_toi
 
@@ -57,7 +56,7 @@ def assert_toi_compatible(version=_UNSET) -> str:
         raise OtoiCompatibilityError(
             "The installed nlt-toi package declares no TOI_FORMAT_VERSION. "
             f".otoi v{OTOI_FORMAT_VERSION} honors any valid .toi format version, but the toi "
-            "package must export one — install nlt-toi >= 1.0.1."
+            "package must export one — install nlt-toi >= 1.0.0."
         )
     if not _SEMVER.match(version):
         raise OtoiCompatibilityError(

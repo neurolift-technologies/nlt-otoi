@@ -145,7 +145,7 @@ def honor(input: Any, options: Optional[HonorOptions] = None) -> EffectivePolicy
 
     Raises:
         OtoiCompatibilityError: when the installed ``nlt_toi`` declares no valid
-            format version (a broken or pre-``1.0.1`` install).
+            format version (a broken or pre-``1.0.0`` install).
         OtoiHonorError: when there is nothing to resolve, when a ``uri`` source
             is present without a ``load_source``, or when a same-tier conflict is
             found under ``on_conflict="reject"``.

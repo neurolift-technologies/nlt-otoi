@@ -69,8 +69,8 @@ from .errors import (
 # Re-export the canonical ``.toi`` primitives an ``.otoi`` consumer most often
 # needs, so a single import surface covers both layers. The ``.toi`` standard
 # remains the source of truth for everything below.
+import nlt_toi
 from nlt_toi import (
-    TOI_FORMAT_VERSION,
     TOI_TIERS,
     ToiDocument,
     parse_toi,
@@ -78,6 +78,15 @@ from nlt_toi import (
     safe_parse_toi,
     verify_toi,
 )
+
+#: The ``.toi`` format version the installed ``nlt_toi`` reports. Read with
+#: ``getattr`` rather than a ``from nlt_toi import TOI_FORMAT_VERSION`` so that
+#: importing ``nlt_otoi`` never crashes against a broken or pre-``1.0.0`` ``.toi``
+#: package that exports no format version — the compatibility guard
+#: (:func:`~nlt_otoi.compat.assert_toi_compatible`) raises a clear
+#: :class:`~nlt_otoi.errors.OtoiCompatibilityError` at runtime instead. ``None``
+#: when the installed ``.toi`` declares no version.
+TOI_FORMAT_VERSION = getattr(nlt_toi, "TOI_FORMAT_VERSION", None)
 
 #: A ``.toi`` interaction tier (``personal`` | ``community`` | ``project``).
 #: The TS reference re-exports a ``ToiTier`` type alias; Python tiers are plain

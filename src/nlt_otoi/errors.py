@@ -78,7 +78,7 @@ class OtoiCompatibilityError(OtoiError):
 
     ``.otoi`` is version-agnostic — it accepts a ``.toi`` document of any
     well-formed format version — so this is raised only for a broken or
-    pre-``1.0.1`` ``.toi`` install whose runtime contract can't be trusted.
+    pre-``1.0.0`` ``.toi`` install whose runtime contract can't be trusted.
     """
 
     def __init__(self, message: str) -> None:

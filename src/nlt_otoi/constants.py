@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import Optional, Tuple
 
-from nlt_toi import TOI_FORMAT_VERSION
+import nlt_toi
 
 #: Format version of the ``.otoi`` specification this library implements.
 OTOI_FORMAT_VERSION = "1.0.0"
@@ -32,15 +32,18 @@ OTOI_FORMAT_VERSION = "1.0.0"
 #: :func:`nlt_otoi.compat.assert_toi_compatible`.
 OTOI_TOI_VERSION_POLICY = "any"
 
-#: The ``.toi`` format version the installed ``nlt_toi`` reports — re-exported
-#: from that package, the single source of truth.
+#: The ``.toi`` format version the installed ``nlt_toi`` reports — read from that
+#: package, the single source of truth.
 #:
 #: This is **informational, not a pin**: ``.otoi`` accepts any valid ``.toi``
 #: version (:data:`OTOI_TOI_VERSION_POLICY`), so this value just tells you which
-#: ``.toi`` format the current install resolves to. It is ``None`` if a broken or
-#: pre-``1.0.1`` ``.toi`` package (one that exports no format version) is
-#: installed.
-OTOI_TARGET_TOI_VERSION: Optional[str] = TOI_FORMAT_VERSION
+#: ``.toi`` format the current install resolves to. It is read with ``getattr``
+#: rather than a ``from nlt_toi import TOI_FORMAT_VERSION``, so importing
+#: ``nlt_otoi`` never crashes against a broken or pre-``1.0.0`` ``.toi`` package
+#: that exports no format version — such an install simply leaves this ``None``,
+#: and the compatibility guard (:func:`nlt_otoi.compat.assert_toi_compatible`)
+#: raises a clear :class:`~nlt_otoi.errors.OtoiCompatibilityError` at runtime.
+OTOI_TARGET_TOI_VERSION: Optional[str] = getattr(nlt_toi, "TOI_FORMAT_VERSION", None)
 
 #: Canonical file extension for an Orchestrated Terms of Interaction charter.
 OTOI_FILE_EXTENSION = ".otoi"

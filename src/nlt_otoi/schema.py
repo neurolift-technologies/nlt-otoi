@@ -177,7 +177,11 @@ def schema_issues(charter: Any) -> List[OtoiIssue]:
             elif len(author) < 1:
                 _push(issues, "identity.author", "Too small: expected string to have >=1 characters")
 
-    if "agents" in charter and charter["agents"] is not None:
+    # ``agents`` / ``toi_sources`` carry a Zod ``.default([])``: the default
+    # fills in only when the key is *missing* (Zod's ``undefined``). An explicit
+    # ``null`` is NOT defaulted — the inner ``z.array`` runs and rejects it — so
+    # we must validate the value whenever the key is present, ``null`` included.
+    if "agents" in charter:
         agents = charter["agents"]
         if not _is_array(agents):
             _push(issues, "agents", "Invalid input: expected array")
@@ -188,7 +192,7 @@ def schema_issues(charter: Any) -> List[OtoiIssue]:
     if "enforcement" in charter and charter["enforcement"] is not None:
         _validate_enforcement(charter["enforcement"], "enforcement", issues)
 
-    if "toi_sources" in charter and charter["toi_sources"] is not None:
+    if "toi_sources" in charter:
         sources = charter["toi_sources"]
         if not _is_array(sources):
             _push(issues, "toi_sources", "Invalid input: expected array")
@@ -202,14 +206,17 @@ def schema_issues(charter: Any) -> List[OtoiIssue]:
 def parse_with_defaults(charter: Dict[str, Any]) -> Dict[str, Any]:
     """Return a shallow copy of *charter* with the schema's defaults applied.
 
-    Mirrors Zod's ``.default([])`` on ``agents`` and ``toi_sources``: when those
-    keys are absent (or ``None``) the parsed charter carries an empty list, so
-    downstream code can iterate unconditionally. Unknown keys are preserved
-    (``looseObject``).
+    Mirrors Zod's ``.default([])`` on ``agents`` and ``toi_sources``: the default
+    fills in only when the key is **missing** (Zod's ``undefined``), so the
+    parsed charter carries an empty list and downstream code can iterate
+    unconditionally. An explicit ``null`` is *not* defaulted — it is a validation
+    error (rejected by :func:`schema_issues` before this runs), matching Zod,
+    which runs the inner ``z.array`` on a ``null`` rather than substituting the
+    default. Unknown keys are preserved (``looseObject``).
     """
     result = dict(charter)
-    if result.get("agents") is None:
+    if "agents" not in result:
         result["agents"] = []
-    if result.get("toi_sources") is None:
+    if "toi_sources" not in result:
         result["toi_sources"] = []
     return result
