@@ -127,7 +127,7 @@ The key insight: the **principles** are public (Solidarity Framework is open-sou
 
 **Agent:** [Name]  
 **Session:** [Branch/session ID]  
-**Governed by:** DEV-OTOI-1.0.0
+**Governed by:** DEV-OTOI-1.0.2
 
 ### Before Merging
 - [ ] Governance validation script passed (`.nltotoi/scripts/validate-governance.sh`)
