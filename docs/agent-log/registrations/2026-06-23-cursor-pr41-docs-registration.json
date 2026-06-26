@@ -1,0 +1,24 @@
+{
+  "agent_registration": {
+    "agent_name": "Cursor Automation (GPT-5.5)",
+    "platform": "Cursor Cloud Agent",
+    "version": "gpt-5.5",
+    "session_id": "cursor-pr41-docs-automation-2026-06-23",
+    "entry_date": "2026-06-23",
+    "entry_point": "Automation trigger for closed PR #41: docs(license): align runbooks with Apache package release",
+    "acknowledged_otoi": true,
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "working_repo": "NeuroLift-Technologies/nlt-otoi",
+    "working_branch": "cursor/engineering-documentation-updates-a154",
+    "capabilities_self_reported": [
+      "source-verified documentation maintenance",
+      "developer runbook alignment",
+      "git workflow automation"
+    ],
+    "known_limitations": [
+      "no legal interpretation offered; documentation reflects repository source files and metadata only",
+      "no npm publishing or production deployment without explicit human approval"
+    ],
+    "preferred_handoff_format": "structured JSON handoff plus concise PR summary"
+  }
+}

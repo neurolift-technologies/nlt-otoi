@@ -167,6 +167,8 @@ As of the `1.1.0` relicense, the repository and the in-repository
   `"license": "Apache-2.0"`.
 - The package `files` allow-list includes `LICENSE` so npm tarballs ship the
   package-local license copy.
+- After the approved package publish, the npm registry should report the same
+  package version and license metadata as `packages/otoi/package.json`.
 - `agent-solidarity-kit.json` `metadata.nlt_otoi_repo_license` mirrors the
   repository license identifier. `metadata.framework_license` describes the
   Solidarity Kit framework layer and should only change when that framework
@@ -205,6 +207,8 @@ items together:
    any nested-project license history that changed.
 5. Publishing remains a separate operation: do not run `npm publish` or any
    production release command without explicit human approval.
+6. After an approved publish, verify the registry state with read-only `npm view`
+   commands instead of assuming the publish succeeded from repository metadata.
 
 ### Local audit checks
 
@@ -250,6 +254,41 @@ print("Package license metadata and files allow-list are aligned.")
 PY
 ```
 
+Run package release-readiness checks from the package directory when package
+metadata, exports, license files, or release notes change:
+
+```bash
+cd packages/otoi
+npm install --no-package-lock
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+Notes:
+- There is no committed `packages/otoi/package-lock.json` in this repository.
+  Use `npm install --no-package-lock` for verification unless a separate change
+  intentionally introduces a lockfile.
+- `npm pack --dry-run` invokes the package `prepack` script, which runs
+  `npm run build`. Expect ignored local artifacts such as `packages/otoi/dist/`
+  and `packages/otoi/node_modules/`; remove them before committing docs-only
+  follow-ups.
+- The dry-run tarball should include `LICENSE`, `README.md`, `SPEC.md`, and the
+  built `dist/**` entry points declared by `packages/otoi/package.json`.
+
+For post-publish verification only, query npm metadata read-only:
+
+```bash
+npm view @neurolift-technologies/otoi version license --json
+npm view @neurolift-technologies/toi version license --json
+```
+
+Expected state for the Apache-2.0 `1.1.0` package release:
+- `@neurolift-technologies/otoi` reports version `1.1.0` and license
+  `Apache-2.0`.
+- `@neurolift-technologies/toi` reports its own Apache-2.0 license from its own
+  package metadata. Do not infer the dependency license from this repository.
+
 ### Common pitfalls
 
 | Pitfall | Symptom | Resolution |
@@ -260,6 +299,8 @@ PY
 | Nested license copy treated as generated from root | `nlt-otoi/LICENSE` notice text drifts without nested docs explaining it | Inspect the nested copy directly and update nested docs/changelog when it changes |
 | Dependency license inferred from repository license | Docs misstate the external `.toi` package terms | Cite `@neurolift-technologies/toi` from its own package metadata |
 | Release command run from a docs or metadata PR | Package is published before review, merge, or explicit approval | Stop before `npm publish`; document release-readiness checks and leave publishing to an approved release step |
+| Root-only checks treated as package release checks | CI passes but the package build, test suite, or tarball contents were never exercised | Run the package command pack from `packages/otoi/` before marking release docs ready |
+| Generated package artifacts committed from dry-run checks | PR includes `dist/`, `node_modules/`, or tarball outputs unrelated to documentation | Remove ignored artifacts after verification and keep docs-only PRs clean |
 
 ## Trigger Matrix
 
@@ -320,10 +361,11 @@ python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-t
 
 Important constraint:
 - The validator's default schema lookup currently targets
-  `nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`.
-- That path is not present in the current repository tree, so this command can
-  fail with "Schema file not found" even when the workflow wiring itself is
-  unchanged.
+  `nlt-otoi/schemas/v1.0/personal-toi-v1.json`, which is present in the current
+  repository tree.
+- The default schema validates the nested legacy personal-TOI template shape
+  (`metadata`, `user_profile`, etc.), not the canonical `.toi` package schema.
+  Use `--schema` when validating a different TOI shape.
 
 ### Schema Validation (local parity)
 
@@ -374,7 +416,7 @@ Use this table to quickly map common CI outcomes to likely causes:
 | Workflow did not appear for a PR | PR base branch is not `main`/`develop`, or changed files did not match `paths` filters | Confirm PR base branch, then run `git diff --name-only <base_sha>...<head_sha>` |
 | `❌ Missing accessibility content in documentation` | Accessibility keywords are absent from scanned docs directories | Add explicit accessibility terms in `docs/` or `nlt-otoi/docs/` |
 | `❌ Documentation may not use clear language` | Clear-language keywords are missing from scanned docs | Add wording that includes `clear`, `simple`, `easy`, or `understand` |
-| `❌ Error: Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | `toi-validator.py` default schema path points to a file not present in this repository snapshot | Provide `--schema` with an existing matching schema, or align validator default path/file layout |
+| `❌ Error: Schema file not found at .../nlt-otoi/schemas/v1.0/personal-toi-v1.json` | The validator default schema was moved, deleted, or not checked out | Restore the tracked schema file, or provide `--schema` with an existing matching schema |
 | `❌ Invalid JSON in ...` (schema workflow) | A schema/template file failed JSON parsing | Run `python -m json.tool <file>` and fix syntax |
 | `❌ N high-severity security issues found` | Bandit reported one or more HIGH findings | Re-run Bandit locally and remediate flagged code paths |
 | `⚠️  Potential hardcoded passwords found — please review` | Grep-based secret heuristic matched literal password assignment pattern | Remove hardcoded credentials or migrate them to environment/secret stores |
@@ -424,11 +466,9 @@ Troubleshooting:
   ```bash
   python3 nlt-otoi/tools/validators/toi-validator.py <template.json>
   ```
-- If template validation fails with "Schema file not found", the validator is
-  using its default schema path
-  (`nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`), which is not present in
-  the current tree. This is a path/layout mismatch, not necessarily malformed
-  JSON in the template file.
+- If template validation fails with "Schema file not found", confirm the default
+  schema exists at `nlt-otoi/schemas/v1.0/personal-toi-v1.json`. This is a
+  path/layout mismatch, not necessarily malformed JSON in the template file.
 
 ### Schema Validation Runbook
 
