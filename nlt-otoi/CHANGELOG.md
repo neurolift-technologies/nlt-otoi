@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Privacy First**: User control over data retention and usage
 - **Multi-Agent Coordination**: Seamless handoffs between AI assistants
 - **Accessibility**: WCAG 2.1 AA compliant documentation and tools
-- **Open Standard**: MIT licensed, community-driven development
+- **Open Standard**: Apache-2.0 licensed, community-driven development
 
 ### Documentation
 - **Quick Start Guide**: 15-minute setup for new users
@@ -148,7 +148,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for information on contributing to this p
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
 

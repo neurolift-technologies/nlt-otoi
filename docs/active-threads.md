@@ -10,6 +10,7 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
+| Relicense to Apache-2.0 | claude | in review | `claude/relicense-apache-2.0` | PR #40 — relicense OTOI from MIT to Apache-2.0 across root, nested `nlt-otoi/`, and the new `packages/otoi/LICENSE`; bump `@neurolift-technologies/otoi` to 1.1.0. npm publish deferred to post-merge |
 | License maintenance docs follow-up | cursor | pending review | `cursor/engineering-documentation-updates-f979` | Closes stale PR #38 thread state and extends license maintenance docs with changelog, metadata, nested docs, and PR checklist guidance |
 
 ## Completed

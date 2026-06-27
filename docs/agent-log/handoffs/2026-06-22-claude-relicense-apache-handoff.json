@@ -1,0 +1,55 @@
+{
+  "handoff_record": {
+    "session_id": "claude-code-local-2026-06-22-relicense-apache",
+    "agent_name": "Claude Code (Opus 4.8)",
+    "date": "2026-06-22",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "claude/relicense-apache-2.0",
+    "work_completed": [
+      "Replaced all three LICENSE files (root ./LICENSE, nested nlt-otoi/LICENSE, new packages/otoi/LICENSE) with byte-identical copies of the org's vetted, published Apache-2.0 text from the @neurolift-technologies/toi package (Copyright 2026 NeuroLift Technologies, LLC); all three share md5 bc1cd025f13034be7b449908c0838298",
+      "Added packages/otoi/LICENSE so the npm package ships its own license copy, matching the sibling toi package convention",
+      "Bumped @neurolift-technologies/otoi to 1.1.0, set \"license\": \"Apache-2.0\", and added LICENSE to the package files allow-list",
+      "Aligned all repo-owned license references: root + nested README/CHANGELOG/PROJECT_OVERVIEW, root CLAUDE.md tree, packages/otoi/README.md, and agent-solidarity-kit.json nlt_otoi_repo_license",
+      "Added a [1.1.0] CHANGELOG entry plus compare links documenting the relicense",
+      "Deliberately left external/factual MIT references unchanged: the Microsoft Phi-3.5 model license (agent-solidarity-kit.json model block and index.html) and the Cloudflare docs licensing note (links.md)"
+    ],
+    "work_in_progress": [
+      "PR open and pending review/merge by Joshua W. Dorsey, Sr."
+    ],
+    "blockers": [],
+    "decisions_made": [
+      "Version bump set to 1.1.0 (minor) to make the relicense visible in version history (operator-approved)",
+      "npm publish deferred until after merge so the published 1.1.0 tarball matches merged main (operator-approved)",
+      "Historical CHANGELOG 'LICENSE (MIT)' line under the prior release left intact; the relicense is documented as a new 1.1.0 entry per Keep a Changelog"
+    ],
+    "decisions_pending": [],
+    "escalations": [],
+    "next_agent_notes": "After merge to main: publish from packages/otoi with `npm publish --access public` (npm is authenticated as neurolift-tech). Verify with `npm view @neurolift-technologies/otoi version license`. The root LICENSE is the authoritative text; keep the three LICENSE copies (root, nested nlt-otoi/, packages/otoi/) in sync on any future license change.",
+    "files_modified": [
+      "LICENSE",
+      "nlt-otoi/LICENSE",
+      "packages/otoi/LICENSE",
+      "packages/otoi/package.json",
+      "packages/otoi/README.md",
+      "README.md",
+      "CHANGELOG.md",
+      "CLAUDE.md",
+      "agent-solidarity-kit.json",
+      "nlt-otoi/README.md",
+      "nlt-otoi/CHANGELOG.md",
+      "nlt-otoi/PROJECT_OVERVIEW.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-06-22-claude-relicense-apache.json",
+      "docs/agent-log/handoffs/2026-06-22-claude-relicense-apache-handoff.json"
+    ],
+    "tests_run": [
+      "md5 + structural check confirming all three LICENSE files are byte-identical complete Apache-2.0 text (header, sections 1-9, END OF TERMS AND CONDITIONS, trailing newline) with no MIT remnant",
+      "python3 -m json.tool on package.json, agent-solidarity-kit.json, and the new agent-log JSON files (all valid)",
+      "git grep sweep confirming the only remaining MIT references are external/factual (Phi-3.5 model, Cloudflare docs) and the historical changelog line",
+      "3-lens adversarial verification workflow (license completeness; false-positive/history guard; npm publish-readiness): no blockers; a copyright-year-drift warning and attribution nits were resolved by regenerating the three LICENSE copies byte-identically"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/40"
+  }
+}

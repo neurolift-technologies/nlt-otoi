@@ -22,6 +22,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-06-22
+
+### Changed
+- Relicensed the OTOI Framework from the MIT License to the Apache License 2.0,
+  aligning with the sibling `@neurolift-technologies/toi` package. The root
+  `LICENSE`, the nested `nlt-otoi/LICENSE`, and the new `packages/otoi/LICENSE`
+  now all carry the Apache-2.0 text.
+- Published `@neurolift-technologies/otoi@1.1.0` with `"license": "Apache-2.0"`
+  and the license file added to the package `files` allow-list so it ships in
+  the npm tarball.
+
+---
+
 ## [1.0.0] — 2026-05-30
 
 First tagged release. Establishes the governance baseline, publishes the public
@@ -130,7 +143,8 @@ mirror of `ORG-DEV-OTOI-1.0.1`, normalizes the canonical repository owner to
 - `CONTRIBUTING.md`
 - `LICENSE` (MIT)
 
-[Unreleased]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.8.0...v1.0.0
 [0.8.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/NeuroLift-Technologies/nlt-otoi/compare/v0.6.0...v0.7.0

@@ -75,7 +75,7 @@ nlt-otoi/
 ├── GEMINI_TOPOGRAPHY.py            # Repository navigation and structure guide
 ├── README.md                        # Project overview and quick start
 ├── CONTRIBUTING.md                  # Contribution guidelines
-├── LICENSE                          # MIT License
+├── LICENSE                          # Apache License 2.0
 └── .gitignore                       # Git ignore patterns
 ```
 

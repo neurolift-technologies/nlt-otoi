@@ -1,6 +1,6 @@
 # OTOI Framework: Orchestrated Terms of Interaction
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Neurodivergent Friendly](https://img.shields.io/badge/Neurodivergent-Friendly-brightgreen.svg)](https://github.com/NeuroLift-Technologies/nlt-otoi)
 [![Accessibility](https://img.shields.io/badge/Accessibility-AAA-brightgreen.svg)](https://github.com/NeuroLift-Technologies/nlt-otoi)
 
@@ -158,7 +158,7 @@ python tools/validators/schema-validators.py
 
 ## 🛡️ License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 This nested license copy is maintained independently from the repository root
 `LICENSE`; use the root
 [License Maintenance Runbook](../docs/development-process.md#license-maintenance-runbook)
