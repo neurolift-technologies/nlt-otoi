@@ -1,6 +1,8 @@
 # NeuroLift OTOI Framework
 
-**Orchestrated Terms of Interaction (OTOI)**: User-defined Terms of Interaction for AI systems. Enables neurodivergent-friendly multi-agent orchestration with privacy-first governance. Open standard for human-controlled AI collaboration.
+**OTOI — Operational / Orchestrated Terms of Interaction**
+
+Open standard for human-controlled AI collaboration. The layer that makes TOI actionable. In single-agent contexts, OTOI operationalizes the user’s TOI. In multi-agent contexts, OTOI orchestrates how that TOI is honored across agents, tools, memory, handoffs, and escalation.
 
 ## 🌟 What is OTOI?
 
