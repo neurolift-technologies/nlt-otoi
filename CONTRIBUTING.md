@@ -129,9 +129,11 @@ license text. When a PR changes license wording, copyright notices, or package
 license metadata, keep the related public surfaces aligned:
 
 - Root overview: [`README.md`](README.md) license section.
-- Release notes: [`CHANGELOG.md`](CHANGELOG.md) for notable license
-  documentation or license metadata changes.
+- Release history: [`CHANGELOG.md`](CHANGELOG.md), and
+  `nlt-otoi/CHANGELOG.md` when the nested project license copy changes.
 - Package metadata: `packages/otoi/package.json` `license` field.
+- Package release packaging: `packages/otoi/package.json` `files` should include
+  `LICENSE` when `packages/otoi/LICENSE` is expected to ship in the npm tarball.
 - Package docs: `packages/otoi/README.md` license section.
 - Nested project docs, if the nested license copy changes:
   `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, and
@@ -143,8 +145,10 @@ license metadata, keep the related public surfaces aligned:
 
 Keep license updates documentation-only unless the PR intentionally changes
 package metadata. Do not reinterpret or relicense external dependencies; describe
-their licenses from their own published metadata. For a repeatable audit path,
-see the [License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook).
+their licenses from their own published metadata. Do not run `npm publish` or
+other release commands from a license/docs PR without explicit human approval.
+For a repeatable audit path, see the
+[License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook).
 
 ### CI and Automation Expectations
 
@@ -225,6 +229,24 @@ if high:
 print('No HIGH Bandit findings.')
 PY
 ```
+
+#### Package release/license parity
+
+Use for changes under `packages/otoi/**` or docs that describe the package
+license, version, exports, or npm tarball contents:
+
+```bash
+cd packages/otoi
+npm install --no-package-lock
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+`npm pack --dry-run` runs the package `prepack` build and may leave ignored
+`dist/` and `node_modules/` artifacts locally. Remove generated artifacts before
+committing documentation-only changes. For the full release checklist, see the
+[License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook).
 
 ## 🎯 Priority Areas
 

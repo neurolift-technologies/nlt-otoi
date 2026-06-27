@@ -160,23 +160,59 @@ See also: if a Solidarity Kit change touches license metadata, use the
 Use this runbook when a change touches repository license text, copyright
 notices, package license metadata, or public docs that describe licensing.
 
+### Current license state
+
+As of the `1.1.0` relicense, the repository and the in-repository
+`@neurolift-technologies/otoi` package declare `Apache-2.0`.
+
+- `LICENSE`, `nlt-otoi/LICENSE`, and `packages/otoi/LICENSE` contain the
+  Apache License 2.0 text with the NeuroLift Technologies, LLC copyright notice.
+- `packages/otoi/package.json` declares `"version": "1.1.0"` and
+  `"license": "Apache-2.0"`.
+- The package `files` allow-list includes `LICENSE` so npm tarballs ship the
+  package-local license copy.
+- After the approved package publish, the npm registry should report the same
+  package version and license metadata as `packages/otoi/package.json`.
+- `agent-solidarity-kit.json` `metadata.nlt_otoi_repo_license` mirrors the
+  repository license identifier. `metadata.framework_license` describes the
+  Solidarity Kit framework layer and should only change when that framework
+  license changes intentionally.
+
 ### Source-of-truth map
 
 | Surface | Role | Maintenance note |
 | --- | --- | --- |
-| `LICENSE` | Authoritative MIT license text for this repository | Update only when the repository license text or notice changes |
+| `LICENSE` | Authoritative Apache-2.0 license text for this repository | Update only when the repository license text or notice changes |
 | `README.md` | Public repository summary | Keep the license section aligned with `LICENSE` and package notes |
 | `CONTRIBUTING.md` | Contributor checklist | Keep the licensing checklist and this runbook linked |
-| `CHANGELOG.md` | Release history | Record notable license documentation or license metadata changes under `[Unreleased]` |
-| `packages/otoi/package.json` | `@neurolift-technologies/otoi` package metadata | `license` currently declares `MIT`; change only with an intentional package metadata update |
-| `packages/otoi/README.md` | Package-facing license explanation | Cite the root `LICENSE` for this package and cite dependency licenses from their own metadata |
+| `CHANGELOG.md` | Root release history | Record user-visible license or package metadata changes under the release that introduced them |
+| `packages/otoi/package.json` | `@neurolift-technologies/otoi` package metadata | Keep `version`, `license`, and the `files` allow-list aligned with release intent |
+| `packages/otoi/LICENSE` | Package-local license copy | Must be included in `packages/otoi/package.json` `files` so published tarballs contain the license |
+| `packages/otoi/README.md` | Package-facing license explanation | Cite the package-local `LICENSE`, the root `LICENSE`, and dependency licenses from their own metadata |
 | `agent-solidarity-kit.json` | Integration metadata | `metadata.nlt_otoi_repo_license` should match the repository license identifier; `metadata.framework_license` describes the Solidarity Framework layer and does not track root `LICENSE` |
-| `nlt-otoi/LICENSE` | Nested project license copy | Maintained separately; update nested docs only when this nested copy intentionally changes |
-| `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, `nlt-otoi/CHANGELOG.md` | Nested project docs | Keep these aligned with `nlt-otoi/LICENSE`, not package metadata |
+| `nlt-otoi/LICENSE` | Nested project license copy | Keep aligned with repo-wide license changes unless there is an explicit approved reason to diverge |
+| `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, `nlt-otoi/CHANGELOG.md` | Nested project docs | Keep these aligned with `nlt-otoi/LICENSE`, not npm package metadata |
 
 The external `@neurolift-technologies/toi` dependency is a separate published
-package. Do not infer its terms from this repository's MIT license; cite the
+package. Do not infer its terms from this repository's license; cite the
 dependency's own published package metadata when license notes mention it.
+
+### Package release coupling
+
+When license work also changes the npm package release surface, verify these
+items together:
+
+1. `packages/otoi/package.json` has the intended `version` and `license`.
+2. `packages/otoi/package.json` `files` includes `LICENSE`, `README.md`, and
+   `SPEC.md` plus the built `dist` output expected by package consumers.
+3. `packages/otoi/README.md` describes the same package license and dependency
+   license relationship.
+4. `CHANGELOG.md` records the root release, and `nlt-otoi/CHANGELOG.md` records
+   any nested-project license history that changed.
+5. Publishing remains a separate operation: do not run `npm publish` or any
+   production release command without explicit human approval.
+6. After an approved publish, verify the registry state with read-only `npm view`
+   commands instead of assuming the publish succeeded from repository metadata.
 
 ### Local audit checks
 
@@ -186,18 +222,76 @@ Run these checks from the repository root after license-related edits:
 python3 -m json.tool agent-solidarity-kit.json > /dev/null
 python3 -m json.tool packages/otoi/package.json > /dev/null
 rg -n "MIT|Apache-2.0|license|License|LICENSE" \
-  LICENSE README.md CONTRIBUTING.md CHANGELOG.md \
-  packages/otoi/README.md packages/otoi/package.json \
-  agent-solidarity-kit.json nlt-otoi/LICENSE nlt-otoi/README.md \
-  nlt-otoi/PROJECT_OVERVIEW.md nlt-otoi/CHANGELOG.md
+  README.md CONTRIBUTING.md CHANGELOG.md packages/otoi/README.md \
+  packages/otoi/package.json agent-solidarity-kit.json \
+  nlt-otoi/README.md nlt-otoi/PROJECT_OVERVIEW.md nlt-otoi/CHANGELOG.md
 ```
 
-For notice-year changes, inspect both license files directly:
+For notice-year changes, inspect all maintained license copies directly:
 
 ```bash
-sed -n '1,5p' LICENSE
-sed -n '1,5p' nlt-otoi/LICENSE
+python3 - <<'PY'
+from pathlib import Path
+
+for path in ["LICENSE", "nlt-otoi/LICENSE", "packages/otoi/LICENSE"]:
+    lines = Path(path).read_text(encoding="utf-8").splitlines()[:5]
+    print(f"\n{path}")
+    print("\n".join(lines))
+PY
 ```
+
+Check that the package metadata ships the license copy:
+
+```bash
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+package = json.loads(Path("packages/otoi/package.json").read_text(encoding="utf-8"))
+required = {"dist", "LICENSE", "README.md", "SPEC.md"}
+missing = sorted(required - set(package.get("files", [])))
+if package.get("license") != "Apache-2.0":
+    raise SystemExit("packages/otoi/package.json license is not Apache-2.0")
+if missing:
+    raise SystemExit(f"packages/otoi/package.json files missing: {', '.join(missing)}")
+print("Package license metadata and files allow-list are aligned.")
+PY
+```
+
+Run package release-readiness checks from the package directory when package
+metadata, exports, license files, or release notes change:
+
+```bash
+cd packages/otoi
+npm install --no-package-lock
+npm run typecheck
+npm test
+npm pack --dry-run
+```
+
+Notes:
+- There is no committed `packages/otoi/package-lock.json` in this repository.
+  Use `npm install --no-package-lock` for verification unless a separate change
+  intentionally introduces a lockfile.
+- `npm pack --dry-run` invokes the package `prepack` script, which runs
+  `npm run build`. Expect ignored local artifacts such as `packages/otoi/dist/`
+  and `packages/otoi/node_modules/`; remove them before committing docs-only
+  follow-ups.
+- The dry-run tarball should include `LICENSE`, `README.md`, `SPEC.md`, and the
+  built `dist/**` entry points declared by `packages/otoi/package.json`.
+
+For post-publish verification only, query npm metadata read-only:
+
+```bash
+npm view @neurolift-technologies/otoi version license --json
+npm view @neurolift-technologies/toi version license --json
+```
+
+Expected state for the Apache-2.0 `1.1.0` package release:
+- `@neurolift-technologies/otoi` reports version `1.1.0` and license
+  `Apache-2.0`.
+- `@neurolift-technologies/toi` reports its own Apache-2.0 license from its own
+  package metadata. Do not infer the dependency license from this repository.
 
 ### Common pitfalls
 
@@ -205,9 +299,13 @@ sed -n '1,5p' nlt-otoi/LICENSE
 | --- | --- | --- |
 | Root `LICENSE` changed without README/package notes | Public docs still describe old license text or package assumptions | Update `README.md`, `CONTRIBUTING.md`, and `packages/otoi/README.md` in the same PR |
 | Package metadata changed without docs | npm consumers see a different license than the package README describes | Reconcile `packages/otoi/package.json` and `packages/otoi/README.md` before release checks |
-| Nested license copy treated as generated from root | `nlt-otoi/LICENSE` notice text drifts without nested docs explaining it | Treat `nlt-otoi/LICENSE` as a separately maintained copy and update nested docs only when it changes |
+| Package `LICENSE` omitted from `files` | npm tarball metadata says Apache-2.0 but the package does not include its license text | Add `LICENSE` to `packages/otoi/package.json` `files` before packaging |
+| Nested license copy treated as generated from root | `nlt-otoi/LICENSE` notice text drifts without nested docs explaining it | Inspect the nested copy directly and update nested docs/changelog when it changes |
 | Dependency license inferred from repository license | Docs misstate the external `.toi` package terms | Cite `@neurolift-technologies/toi` from its own package metadata |
-| Solidarity Framework license treated as repository license | `metadata.framework_license` is changed during a root MIT license update | Leave `metadata.framework_license` tied to the Solidarity Framework layer; update only `metadata.nlt_otoi_repo_license` for root repository license identifier changes |
+| Solidarity Framework license treated as repository license | `metadata.framework_license` is changed during a root license update | Leave `metadata.framework_license` tied to the Solidarity Framework layer; update only `metadata.nlt_otoi_repo_license` for root repository license identifier changes |
+| Release command run from a docs or metadata PR | Package is published before review, merge, or explicit approval | Stop before `npm publish`; document release-readiness checks and leave publishing to an approved release step |
+| Root-only checks treated as package release checks | CI passes but the package build, test suite, or tarball contents were never exercised | Run the package command pack from `packages/otoi/` before marking release docs ready |
+| Generated package artifacts committed from dry-run checks | PR includes `dist/`, `node_modules/`, or tarball outputs unrelated to documentation | Remove ignored artifacts after verification and keep docs-only PRs clean |
 
 See also: the [GitHub Pages + Solidarity Kit Documentation Runbook](#github-pages--solidarity-kit-documentation-runbook)
 for landing-page parity checks when license metadata changes affect
@@ -272,10 +370,11 @@ python3 nlt-otoi/tools/validators/toi-validator.py nlt-otoi/templates/personal-t
 
 Important constraint:
 - The validator's default schema lookup currently targets
-  `nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`.
-- That path is not present in the current repository tree, so this command can
-  fail with "Schema file not found" even when the workflow wiring itself is
-  unchanged.
+  `nlt-otoi/schemas/v1.0/personal-toi-v1.json`, which is present in the current
+  repository tree.
+- The default schema validates the nested legacy personal-TOI template shape
+  (`metadata`, `user_profile`, etc.), not the canonical `.toi` package schema.
+  Use `--schema` when validating a different TOI shape.
 
 ### Schema Validation (local parity)
 
@@ -326,7 +425,7 @@ Use this table to quickly map common CI outcomes to likely causes:
 | Workflow did not appear for a PR | PR base branch is not `main`/`develop`, or changed files did not match `paths` filters | Confirm PR base branch, then run `git diff --name-only <base_sha>...<head_sha>` |
 | `❌ Missing accessibility content in documentation` | Accessibility keywords are absent from scanned docs directories | Add explicit accessibility terms in `docs/` or `nlt-otoi/docs/` |
 | `❌ Documentation may not use clear language` | Clear-language keywords are missing from scanned docs | Add wording that includes `clear`, `simple`, `easy`, or `understand` |
-| `❌ Error: Schema file not found at .../nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json` | `toi-validator.py` default schema path points to a file not present in this repository snapshot | Provide `--schema` with an existing matching schema, or align validator default path/file layout |
+| `❌ Error: Schema file not found at .../nlt-otoi/schemas/v1.0/personal-toi-v1.json` | The validator default schema was moved, deleted, or not checked out | Restore the tracked schema file, or provide `--schema` with an existing matching schema |
 | `❌ Invalid JSON in ...` (schema workflow) | A schema/template file failed JSON parsing | Run `python -m json.tool <file>` and fix syntax |
 | `❌ N high-severity security issues found` | Bandit reported one or more HIGH findings | Re-run Bandit locally and remediate flagged code paths |
 | `⚠️  Potential hardcoded passwords found — please review` | Grep-based secret heuristic matched literal password assignment pattern | Remove hardcoded credentials or migrate them to environment/secret stores |
@@ -376,11 +475,9 @@ Troubleshooting:
   ```bash
   python3 nlt-otoi/tools/validators/toi-validator.py <template.json>
   ```
-- If template validation fails with "Schema file not found", the validator is
-  using its default schema path
-  (`nlt-otoi/tools/schemas/v1.0/personal-toi-v1.json`), which is not present in
-  the current tree. This is a path/layout mismatch, not necessarily malformed
-  JSON in the template file.
+- If template validation fails with "Schema file not found", confirm the default
+  schema exists at `nlt-otoi/schemas/v1.0/personal-toi-v1.json`. This is a
+  path/layout mismatch, not necessarily malformed JSON in the template file.
 
 ### Schema Validation Runbook
 

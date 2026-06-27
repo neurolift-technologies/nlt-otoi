@@ -10,13 +10,14 @@ Current work threads and their status for the nlt-otoi repository.
 
 | Thread | Owner | Status | Branch | Description |
 |--------|-------|--------|--------|-------------|
-| Relicense to Apache-2.0 | claude | in review | `claude/relicense-apache-2.0` | PR #40 — relicense OTOI from MIT to Apache-2.0 across root, nested `nlt-otoi/`, and the new `packages/otoi/LICENSE`; bump `@neurolift-technologies/otoi` to 1.1.0. npm publish deferred to post-merge |
 | License maintenance docs follow-up | cursor | pending review | `cursor/engineering-documentation-updates-f979` | Closes stale PR #38 thread state and extends license maintenance docs with changelog, metadata, nested docs, and PR checklist guidance |
 
 ## Completed
 
 | Thread | Owner | Merged | PR | Description |
 |--------|-------|--------|-----|-------------|
+| PR #40 license/package docs follow-up | cursor | ✅ | #41 | Aligned developer runbooks with merged Apache-2.0 relicense, the new `packages/otoi/LICENSE`, and `@neurolift-technologies/otoi` 1.1.0 package metadata/release checks |
+| Relicense to Apache-2.0 | claude | ✅ | #40 | Relicensed OTOI from MIT to Apache-2.0 across root, nested `nlt-otoi/`, and the new `packages/otoi/LICENSE`; bumped `@neurolift-technologies/otoi` to 1.1.0. npm publish deferred to post-merge |
 | License maintenance runbook follow-up | cursor | ✅ | #38 | Added source-verified operational runbook details for auditing license-bearing docs, package metadata, nested license copy, and integration metadata |
 | License documentation alignment | cursor | ✅ | #37 | Documented the PR #36 LICENSE update and related package/contributor license maintenance paths |
 | Runbook alignment follow-up | cursor | ✅ | #18 | Updated maintenance runbooks and repository docs for GitHub Pages + Solidarity Kit interfaces |

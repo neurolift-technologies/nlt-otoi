@@ -1,0 +1,52 @@
+{
+  "handoff_record": {
+    "session_id": "cursor-pr40-license-docs-2026-06-23",
+    "agent_name": "Cursor Automation (GPT-5.5)",
+    "date": "2026-06-23",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-798b",
+    "work_completed": [
+      "Reviewed merged PR #40 and confirmed the changed subsystem is the license and package release surface: root LICENSE, nested nlt-otoi/LICENSE, new packages/otoi/LICENSE, package metadata, changelogs, README license references, and agent-solidarity-kit metadata",
+      "Updated docs/development-process.md license maintenance runbook from stale MIT-oriented guidance to the current Apache-2.0 state",
+      "Documented package release coupling for @neurolift-technologies/otoi 1.1.0, including version/license metadata, files allow-list, package-local LICENSE inclusion, changelog alignment, and no npm publish without explicit human approval",
+      "Updated CONTRIBUTING.md licensing checklist to include changelog, package-local LICENSE, package files allow-list, and release-command constraints",
+      "Updated README.md license section to mention packages/otoi/LICENSE and cross-link the license maintenance runbook",
+      "Updated docs/active-threads.md to move PR #40 relicense work to Completed and track this follow-up as pending review"
+    ],
+    "work_in_progress": [
+      "Documentation PR #41 is open from cursor/engineering-documentation-updates-798b"
+    ],
+    "blockers": [],
+    "decisions_made": [
+      "Kept changes documentation-only and focused on existing runbook/contributor surfaces instead of creating a new page",
+      "Did not change license text, package code, package metadata, or external dependency claims",
+      "Documented npm publishing as a separate human-approved release step per governance guardrails"
+    ],
+    "decisions_pending": [
+      "Human approval is still required before any npm publish or production release operation"
+    ],
+    "escalations": [],
+    "next_agent_notes": "PR #39 is still open from cursor/engineering-documentation-updates-f979 and touches related license runbook content from before PR #40. Reviewers may need to decide whether to merge this PR40 follow-up first or reconcile the two documentation branches.",
+    "files_modified": [
+      "README.md",
+      "CONTRIBUTING.md",
+      "docs/development-process.md",
+      "docs/active-threads.md",
+      "docs/agent-log/registrations/2026-06-23-cursor-pr40-docs-registration.json",
+      "docs/agent-log/handoffs/2026-06-23-cursor-pr40-license-docs-handoff.json"
+    ],
+    "tests_run": [
+      "python3 -m json.tool agent-solidarity-kit.json",
+      "python3 -m json.tool packages/otoi/package.json",
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-23-cursor-pr40-docs-registration.json",
+      "Inline Python check that packages/otoi/package.json version is 1.1.0, license is Apache-2.0, and files includes dist, LICENSE, README.md, and SPEC.md",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "git diff --check HEAD~1..HEAD",
+      "rg license surface audit across README.md, CONTRIBUTING.md, CHANGELOG.md, packages/otoi docs/metadata, agent-solidarity-kit.json, and nested nlt-otoi docs",
+      "npm pack --dry-run --ignore-scripts --json from packages/otoi, confirming LICENSE, README.md, SPEC.md, and package.json are included when scripts are not run"
+    ],
+    "tests_passing": true,
+    "pr_url": "https://github.com/NeuroLift-Technologies/nlt-otoi/pull/41"
+  }
+}

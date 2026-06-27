@@ -1,6 +1,8 @@
 # NeuroLift OTOI Framework
 
-**Orchestrated Terms of Interaction (OTOI)**: User-defined Terms of Interaction for AI systems. Enables neurodivergent-friendly multi-agent orchestration with privacy-first governance. Open standard for human-controlled AI collaboration.
+**OTOI — Operational / Orchestrated Terms of Interaction**
+
+Open standard for human-controlled AI collaboration. The layer that makes TOI actionable. In single-agent contexts, OTOI operationalizes the user’s TOI. In multi-agent contexts, OTOI orchestrates how that TOI is honored across agents, tools, memory, handoffs, and escalation.
 
 ## 🌟 What is OTOI?
 
@@ -139,10 +141,12 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 The repository root `LICENSE` file is the authoritative license text for this
 repo and for the in-repository `@neurolift-technologies/otoi` package metadata.
-If a future change updates the license identifier or notice text, update this
-section, `packages/otoi/package.json`, and the
-[`packages/otoi` license notes](packages/otoi/README.md#license) in the same PR.
-Maintainers can use the
+The npm package also carries `packages/otoi/LICENSE` so the published tarball can
+ship its own license copy. If a future change updates the license identifier,
+notice text, or package release metadata, update this section,
+`packages/otoi/package.json`, the package-level license notes, and the
+[license maintenance runbook](docs/development-process.md#license-maintenance-runbook)
+in the same PR. Maintainers can use the
 [License Maintenance Runbook](docs/development-process.md#license-maintenance-runbook)
 for the repeatable audit checklist.
 
