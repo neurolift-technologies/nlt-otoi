@@ -151,6 +151,10 @@ PY
 | Section IDs changed in `index.html` | Navigation links no longer jump to expected sections | Keep `href="#..."` values aligned with section `id` attributes |
 | Thread not closed in `docs/active-threads.md` | Team members think completed work is still in progress | Move finished work to the **Completed** table and include PR number |
 
+See also: if a Solidarity Kit change touches license metadata, use the
+[License Maintenance Runbook](#license-maintenance-runbook) before updating
+`agent-solidarity-kit.json` or related public docs.
+
 ## License Maintenance Runbook
 
 Use this runbook when a change touches repository license text, copyright
@@ -185,7 +189,7 @@ As of the `1.1.0` relicense, the repository and the in-repository
 | `packages/otoi/package.json` | `@neurolift-technologies/otoi` package metadata | Keep `version`, `license`, and the `files` allow-list aligned with release intent |
 | `packages/otoi/LICENSE` | Package-local license copy | Must be included in `packages/otoi/package.json` `files` so published tarballs contain the license |
 | `packages/otoi/README.md` | Package-facing license explanation | Cite the package-local `LICENSE`, the root `LICENSE`, and dependency licenses from their own metadata |
-| `agent-solidarity-kit.json` | Integration metadata | `metadata.nlt_otoi_repo_license` should match the repository license identifier |
+| `agent-solidarity-kit.json` | Integration metadata | `metadata.nlt_otoi_repo_license` should match the repository license identifier; `metadata.framework_license` describes the Solidarity Framework layer and does not track root `LICENSE` |
 | `nlt-otoi/LICENSE` | Nested project license copy | Keep aligned with repo-wide license changes unless there is an explicit approved reason to diverge |
 | `nlt-otoi/README.md`, `nlt-otoi/PROJECT_OVERVIEW.md`, `nlt-otoi/CHANGELOG.md` | Nested project docs | Keep these aligned with `nlt-otoi/LICENSE`, not npm package metadata |
 
@@ -298,9 +302,14 @@ Expected state for the Apache-2.0 `1.1.0` package release:
 | Package `LICENSE` omitted from `files` | npm tarball metadata says Apache-2.0 but the package does not include its license text | Add `LICENSE` to `packages/otoi/package.json` `files` before packaging |
 | Nested license copy treated as generated from root | `nlt-otoi/LICENSE` notice text drifts without nested docs explaining it | Inspect the nested copy directly and update nested docs/changelog when it changes |
 | Dependency license inferred from repository license | Docs misstate the external `.toi` package terms | Cite `@neurolift-technologies/toi` from its own package metadata |
+| Solidarity Framework license treated as repository license | `metadata.framework_license` is changed during a root license update | Leave `metadata.framework_license` tied to the Solidarity Framework layer; update only `metadata.nlt_otoi_repo_license` for root repository license identifier changes |
 | Release command run from a docs or metadata PR | Package is published before review, merge, or explicit approval | Stop before `npm publish`; document release-readiness checks and leave publishing to an approved release step |
 | Root-only checks treated as package release checks | CI passes but the package build, test suite, or tarball contents were never exercised | Run the package command pack from `packages/otoi/` before marking release docs ready |
 | Generated package artifacts committed from dry-run checks | PR includes `dist/`, `node_modules/`, or tarball outputs unrelated to documentation | Remove ignored artifacts after verification and keep docs-only PRs clean |
+
+See also: the [GitHub Pages + Solidarity Kit Documentation Runbook](#github-pages--solidarity-kit-documentation-runbook)
+for landing-page parity checks when license metadata changes affect
+`agent-solidarity-kit.json`.
 
 ## Trigger Matrix
 
@@ -575,4 +584,6 @@ Recommended pre-push checklist:
 2. Ensure changed JSON in schemas/templates parses correctly.
 3. Review security impact for any tool or policy changes.
 4. Confirm PR description follows the template sections.
+5. If the PR touches license text, copyright notices, or license metadata, run
+   the [License Maintenance Runbook](#license-maintenance-runbook) audit checks.
 

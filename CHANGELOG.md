@@ -8,10 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- N/A
+- License Maintenance Runbook in `docs/development-process.md`, covering root
+  license text, package metadata, nested license copies, changelog entries, and
+  integration metadata audit paths. (#38)
 
 ### Changed
-- N/A
+- `README.md`, `CONTRIBUTING.md`, and `packages/otoi/README.md` now clarify the
+  root MIT license source of truth and package/dependency license boundaries.
+  (#37, #38)
 
 ### Fixed
 - N/A

@@ -120,3 +120,7 @@ Records may reference data item IDs tracked by the Privacy Guardian but must not
 - **Missing provenance**: Always include the branch and changed file list.
 - **No validation notes**: Record how behavior/documentation was verified.
 - **Stale thread state**: Update `docs/active-threads.md` when work moves from active to complete.
+- **License/legal docs without audit trail**: For license text, copyright notice,
+  or license metadata work, use
+  `docs/development-process.md#license-maintenance-runbook` and close the
+  matching `docs/active-threads.md` row after merge.

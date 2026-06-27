@@ -1,0 +1,56 @@
+{
+  "handoff_record": {
+    "session_id": "2026-06-23-cursor-license-maintenance-docs-follow-up",
+    "agent_name": "Cursor Cloud Agent",
+    "date": "2026-06-23",
+    "otoi_version": "ORG-DEV-OTOI-1.0.2",
+    "repo": "NeuroLift-Technologies/nlt-otoi",
+    "branch": "cursor/engineering-documentation-updates-f979",
+    "work_completed": [
+      "Reviewed merged PR #38 metadata and changed files after the pull_request closed automation trigger",
+      "Moved PR #38 from active to completed in docs/active-threads.md and registered this follow-up branch as pending review",
+      "Extended docs/development-process.md license runbook coverage for CHANGELOG.md, nested changelog/license surfaces, and agent-solidarity-kit.json dual license metadata",
+      "Linked README.md, CONTRIBUTING.md, nested nlt-otoi contributor docs, and the PR template to the license maintenance runbook",
+      "Added nested license boundary notes to nlt-otoi/README.md and nlt-otoi/PROJECT_OVERVIEW.md",
+      "Recorded PR #37/#38 license documentation work in CHANGELOG.md"
+    ],
+    "work_in_progress": [
+      "PR for branch cursor/engineering-documentation-updates-f979 is pending review"
+    ],
+    "blockers": [],
+    "decisions_made": [
+      "Updated existing docs and runbooks instead of creating a standalone licensing page",
+      "Documented metadata.framework_license as separate from metadata.nlt_otoi_repo_license based on agent-solidarity-kit.json",
+      "Kept the guidance operational and source-verified; no legal interpretation was added"
+    ],
+    "decisions_pending": [
+      "Human review of the documentation-only PR"
+    ],
+    "escalations": [],
+    "next_agent_notes": "For future license-bearing edits, run docs/development-process.md#license-maintenance-runbook and keep docs/active-threads.md synchronized after PR merge.",
+    "files_modified": [
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      "CHANGELOG.md",
+      "CONTRIBUTING.md",
+      "README.md",
+      "docs/active-threads.md",
+      "docs/agent-log/README.md",
+      "docs/agent-log/registrations/2026-06-23-cursor-license-maintenance-docs-follow-up.json",
+      "docs/agent-log/handoffs/2026-06-23-cursor-license-maintenance-docs-follow-up-handoff.json",
+      "docs/development-process.md",
+      "nlt-otoi/CONTRIBUTING.md",
+      "nlt-otoi/PROJECT_OVERVIEW.md",
+      "nlt-otoi/README.md"
+    ],
+    "tests_run": [
+      "python3 -m json.tool docs/agent-log/registrations/2026-06-23-cursor-license-maintenance-docs-follow-up.json > /dev/null",
+      "python3 -m json.tool agent-solidarity-kit.json > /dev/null",
+      "python3 -m json.tool packages/otoi/package.json > /dev/null",
+      "bash .nltotoi/scripts/validate-governance.sh",
+      "git diff --check origin/main..HEAD",
+      "Inline Python check for expected runbook links, metadata field names, active thread updates, and nested docs links",
+      "rg -n \"MIT|Apache-2.0|license|License|LICENSE\" LICENSE README.md CONTRIBUTING.md CHANGELOG.md packages/otoi/README.md packages/otoi/package.json agent-solidarity-kit.json nlt-otoi/LICENSE nlt-otoi/README.md nlt-otoi/PROJECT_OVERVIEW.md nlt-otoi/CHANGELOG.md"
+    ],
+    "tests_passing": true
+  }
+}

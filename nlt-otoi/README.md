@@ -159,6 +159,10 @@ python tools/validators/schema-validators.py
 ## 🛡️ License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This nested license copy is maintained independently from the repository root
+`LICENSE`; use the root
+[License Maintenance Runbook](../docs/development-process.md#license-maintenance-runbook)
+when a change needs to reconcile root and nested license surfaces.
 
 ## 🙏 Acknowledgments
 

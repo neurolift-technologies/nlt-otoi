@@ -45,6 +45,8 @@
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 - [ ] Any dependent changes have been merged and published
+- [ ] If this PR changes license text, copyright notices, or license metadata,
+      I followed `docs/development-process.md#license-maintenance-runbook`
 
 ## Screenshots/Videos
 <!-- If applicable, add screenshots or videos to help explain your changes -->
